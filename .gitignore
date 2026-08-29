@@ -1,0 +1,47 @@
+# Environments and build
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Datasets and embedding caches. Nothing here belongs in git -- SID_Set is
+# 131 GB and a cache is a pure function of (images, config), so it is always
+# cheaper to recompute than to clone.
+data/
+runs/
+caches/
+**/features.npy
+**/records.jsonl
+
+# Trained artifacts and model weights. Small, but not reproducible from the
+# repo alone, so they are attached to a release rather than committed.
+*.joblib
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Cluster and local scratch
+slurm-*.out
+*.log
+.env
+.env.local
+
+# Local Claude Code state: contains environment-specific notes and
+# is deliberately not published. See CONTRIBUTING.md.
+.claude/
+.DS_Store
+
+# Environment-identifying notes: hostnames, node inventories, logins, paths.
+# Enforced by tests/test_public_repo_hygiene.py.
+*.local.md
+CLUSTER.local.md
