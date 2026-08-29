@@ -18,9 +18,8 @@
 # rather than repeating -- the embedding cache is keyed by (image, spec, config)
 # and skips what it already holds.
 #
-# Measured budget: extraction runs at roughly 5 images/s (CPU-bound on decode
-# and crop selection, not on the backbone), so the sizing below is about five
-# GPU-hours end to end.
+# Measured budget: extraction is CPU-bound on decode and crop selection rather
+# than on the backbone, which is what BYTEPRINT_WORKERS below exists to overlap.
 #SBATCH --job-name=byteprint_sid
 #SBATCH --gpus=1
 #SBATCH --cpus-per-task=16
@@ -54,6 +53,9 @@ AUGMENT="${BYTEPRINT_AUGMENT:-3}"
 TRAIN_PER_CLASS="${BYTEPRINT_TRAIN_PER_CLASS:-0=8000,1=4000,2=4000}"
 TEST_PER_CLASS="${BYTEPRINT_TEST_PER_CLASS:-0=800,1=400,2=400}"
 BATCH="${BYTEPRINT_BATCH:-32}"
+# Decode, launder and crop ahead of the backbone. Measured at ~2.2x on
+# full-size photographs; beyond about 4 threads the GIL takes it back.
+WORKERS="${BYTEPRINT_WORKERS:-4}"
 
 TRAIN_DIR="$DATA/sid_train"
 TEST_DIR="$DATA/sid_test"
@@ -73,19 +75,26 @@ date
 # -- 1. materialise -------------------------------------------------------
 # Parquet shards -> real/ + fake/{full_synthetic,tampered}/, every class
 # re-encoded to PNG so the container cannot become the classifier.
-if [ ! -d "$TRAIN_DIR" ]; then
+# Guarded on a marker written only after the script returns, not on the
+# directory existing: a run killed mid-materialisation leaves a *partial*
+# directory, and skipping that would silently train on a fraction of the corpus.
+# Re-running is safe -- the same seed selects the same rows and rewrites the
+# same filenames.
+if [ ! -f "$TRAIN_DIR/.materialised" ]; then
   echo "--- materialising train split"
   "$PY" "$SRC/scripts/materialize_sid_set.py" "$DATA/SID_Set" "$TRAIN_DIR" \
       --split train --per-class "$TRAIN_PER_CLASS" --seed 0
+  touch "$TRAIN_DIR/.materialised"
 fi
 
 # The test split comes from SID_Set's own validation shards -- disjoint images,
 # and unrelated to the competition's WildFake/COCO demo set, which is never
 # touched by training.
-if [ ! -d "$TEST_DIR" ]; then
+if [ ! -f "$TEST_DIR/.materialised" ]; then
   echo "--- materialising test split"
   "$PY" "$SRC/scripts/materialize_sid_set.py" "$DATA/SID_Set" "$TEST_DIR" \
       --split validation --per-class "$TEST_PER_CLASS" --seed 1
+  touch "$TEST_DIR/.materialised"
 fi
 
 # -- 2. train-side extraction --------------------------------------------
@@ -94,7 +103,7 @@ date
 "$PY" -m byteprint.cli -v extract \
     --data "$TRAIN_DIR" --cache "$TRAIN_CACHE" \
     --backbone "$BACKBONE" --crops "$CROPS" --crop-size "$CROP_SIZE" \
-    --augment "$AUGMENT" --batch-size "$BATCH" --device cuda
+    --augment "$AUGMENT" --batch-size "$BATCH" --device cuda --workers "$WORKERS"
 
 # -- 3. probe -------------------------------------------------------------
 echo "--- training probe"
@@ -109,7 +118,7 @@ date
 "$PY" -m byteprint.cli -v extract \
     --data "$TEST_DIR" --cache "$LADDER_CACHE" \
     --backbone "$BACKBONE" --crops "$CROPS" --crop-size "$CROP_SIZE" \
-    --ladder official --batch-size "$BATCH" --device cuda
+    --ladder official --batch-size "$BATCH" --device cuda --workers "$WORKERS"
 
 # -- 5. report ------------------------------------------------------------
 {

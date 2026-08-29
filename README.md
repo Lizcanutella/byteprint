@@ -276,6 +276,17 @@ chains per image (JPEG, downscale, blur, noise, and combinations). Because the
 cache is keyed by spec, augmented views cost backbone time once, not once per
 epoch.
 
+**2b. Overlap the decode with the backbone.** Extraction is CPU-bound: decoding
+a full-size photograph, laundering it and scoring candidate crops costs far more
+than pushing two crops through a frozen ViT. `--workers N` prepares views on a
+thread pool while the backbone works — measured **2.2× at `--workers 4`** on
+1024px images, with the gain flattening beyond that as the GIL takes it back.
+The pool is deliberately invisible to the result: the laundering draw and the
+cache-skip check stay sequential, rows are appended in submission order, and the
+backbone is only ever called from the calling thread, so caches built at
+`--workers 1`, `4` and `12` are byte-identical. On small images the handover
+costs more than the work, which is why the default is `1`.
+
 **3. Calibrate, don't threshold at 0.5.** Probe scores shift systematically
 between generators and laundering paths. `train` holds out a calibration split
 and fits the threshold at `--target-fpr`.

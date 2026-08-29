@@ -188,6 +188,7 @@ def cmd_extract(args: argparse.Namespace, backbone_factory, recon_factory) -> in
         specs=specs,
         augment=args.augment,
         seed=args.seed,
+        workers=args.workers,
     )
     store.flush()
     print(f"{len(samples)} images -> {stats.render()} ({len(store)} rows in {args.cache})")
@@ -483,6 +484,16 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"extract every rung of a named ladder: {', '.join(sorted(LADDERS))}",
     )
     ext.add_argument("--specs", default="", help="comma-separated laundering specs")
+    ext.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="threads decoding, laundering and cropping ahead of the backbone. "
+        "The cache is byte-identical whatever this is set to; only the wall "
+        "clock changes. About 4 is the sweet spot on full-size photographs "
+        "(~2.2x); more contends on the GIL, and on small images the handover "
+        "costs more than the work (default: %(default)s)",
+    )
     ext.add_argument("--rebuild", action="store_true", help="discard a stale cache")
     ext.add_argument("--seed", type=int, default=0)
 

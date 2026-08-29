@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 from pathlib import Path
 
 import numpy as np
@@ -178,3 +179,141 @@ def test_a_backbone_whose_width_disagrees_with_the_cache_is_rejected(
 
     with pytest.raises(ValueError, match="width"):
         extract(scan_split(dataset_root), backbone=backbone, store=store)
+
+
+# -- parallel loading ------------------------------------------------------
+#
+# Decoding, laundering and crop scoring are the expensive part and the backbone
+# is comparatively idle, so those move to a thread pool. Everything below exists
+# to pin the properties that must NOT change when they do: identical features,
+# identical row order, identical statistics, and a backbone that is still only
+# ever touched by one thread.
+
+
+class ThreadRecordingBackbone(CountingBackbone):
+    """Also records which thread each embed call arrived on."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.threads: set[int] = set()
+
+    def embed(self, crops) -> np.ndarray:
+        self.threads.add(threading.get_ident())
+        return super().embed(crops)
+
+
+def test_parallel_extraction_stores_exactly_what_serial_extraction_stores(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    # The cache is meant to be a pure function of (image, spec, config). If the
+    # worker count leaks into it, every cache anyone has built is invalidated.
+    serial = make_store(tmp_path / "serial")
+    parallel = make_store(tmp_path / "parallel")
+
+    extract(scan_split(dataset_root), backbone=CountingBackbone(), store=serial, workers=1)
+    extract(scan_split(dataset_root), backbone=CountingBackbone(), store=parallel, workers=4)
+
+    assert parallel.keys() == serial.keys()
+    assert np.array_equal(parallel.matrix(), serial.matrix())
+
+
+def test_parallel_extraction_preserves_row_order(dataset_root: Path, tmp_path: Path) -> None:
+    serial = make_store(tmp_path / "serial")
+    parallel = make_store(tmp_path / "parallel")
+
+    extract(scan_split(dataset_root), backbone=CountingBackbone(), store=serial, workers=1)
+    extract(scan_split(dataset_root), backbone=CountingBackbone(), store=parallel, workers=4)
+
+    assert parallel.paths() == serial.paths()
+
+
+def test_the_augmented_laundering_draw_does_not_depend_on_the_worker_count(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    serial = make_store(tmp_path / "serial")
+    parallel = make_store(tmp_path / "parallel")
+
+    extract(
+        scan_split(dataset_root), backbone=CountingBackbone(), store=serial, augment=3, workers=1
+    )
+    extract(
+        scan_split(dataset_root), backbone=CountingBackbone(), store=parallel, augment=3, workers=4
+    )
+
+    assert parallel.specs() == serial.specs()
+
+
+def test_the_backbone_is_only_ever_called_from_the_calling_thread(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    # A torch module is not safe to run forward on from several threads at once,
+    # and batching wants one queue per device. Only the CPU stage is parallel.
+    backbone = ThreadRecordingBackbone()
+
+    extract(scan_split(dataset_root), backbone=backbone, store=make_store(tmp_path), workers=4)
+
+    assert backbone.threads == {threading.get_ident()}
+
+
+def test_parallel_extraction_reports_the_same_statistics(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    stats = extract(
+        scan_split(dataset_root),
+        backbone=CountingBackbone(),
+        store=make_store(tmp_path),
+        workers=4,
+    )
+
+    assert (stats.added, stats.skipped, stats.failed) == (5, 0, 0)
+
+
+def test_parallel_extraction_still_skips_what_the_cache_already_holds(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    store = make_store(tmp_path)
+    extract(scan_split(dataset_root), backbone=CountingBackbone(), store=store, workers=4)
+
+    again = extract(scan_split(dataset_root), backbone=CountingBackbone(), store=store, workers=4)
+
+    assert (again.added, again.skipped) == (0, 5)
+
+
+def test_a_bad_image_is_counted_rather_than_killing_a_parallel_run(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    (dataset_root / "real" / "corrupt.png").write_bytes(b"not an image")
+
+    stats = extract(
+        scan_split(dataset_root),
+        backbone=CountingBackbone(),
+        store=make_store(tmp_path),
+        workers=4,
+    )
+
+    assert (stats.added, stats.failed) == (5, 1)
+
+
+def test_a_bad_image_still_raises_in_a_parallel_run_when_errors_are_not_skipped(
+    dataset_root: Path, tmp_path: Path
+) -> None:
+    (dataset_root / "real" / "corrupt.png").write_bytes(b"not an image")
+
+    with pytest.raises((OSError, ValueError)):
+        extract(
+            scan_split(dataset_root),
+            backbone=CountingBackbone(),
+            store=make_store(tmp_path),
+            workers=4,
+            skip_errors=False,
+        )
+
+
+def test_a_worker_count_below_one_is_refused(dataset_root: Path, tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="workers"):
+        extract(
+            scan_split(dataset_root),
+            backbone=CountingBackbone(),
+            store=make_store(tmp_path),
+            workers=0,
+        )

@@ -20,6 +20,7 @@ from byteprint.cache import EmbeddingStore, key_for
 from byteprint.crops import select_crops
 from byteprint.data import Sample
 from byteprint.launder import NO_OP, sample_spec
+from byteprint.prefetch import ordered_prefetch
 
 log = logging.getLogger(__name__)
 
@@ -68,6 +69,16 @@ def _specs_for(specs: Sequence[str], augment: int, rng: np.random.Generator) -> 
     return drawn
 
 
+@dataclass(frozen=True, slots=True)
+class _Task:
+    """One (image, laundering spec) view still to be embedded."""
+
+    key: str
+    sample: Sample
+    spec: str
+    index: int
+
+
 def extract(
     samples: Iterable[Sample],
     *,
@@ -78,12 +89,25 @@ def extract(
     seed: int = 0,
     skip_errors: bool = True,
     log_every: int = 200,
+    workers: int = 1,
 ) -> ExtractStats:
     """Embed every sample under every laundering spec, writing into ``store``.
 
     ``augment=n`` replaces the fixed ``specs`` with n randomly drawn laundering
     chains per image -- the training-time path. A fixed ``specs`` list is the
     evaluation path, where each rung of the ladder is scored separately.
+
+    ``workers`` runs the *preparation* of each view -- decode, launder, choose
+    crops -- on a thread pool. That is where the time goes: those steps are
+    numpy and Pillow, which release the GIL, while the backbone sits idle
+    waiting for a handful of crops. The backbone itself stays on this thread,
+    because a torch module is not safe to run forward on concurrently.
+
+    What deliberately does *not* move: the laundering draw and the cache-skip
+    check stay sequential, and results are consumed in submission order. The
+    cache is meant to be a pure function of (image, spec, extraction config), so
+    a different ``workers`` must produce a byte-identical cache -- otherwise
+    every cache already on disk is quietly invalidated.
     """
     config = store.config
     if backbone.dim != config.dim:
@@ -91,56 +115,66 @@ def extract(
             f"backbone {backbone.name!r} produces width {backbone.dim}, "
             f"but this cache stores width {config.dim}"
         )
+    if workers < 1:
+        raise ValueError(f"workers must be at least 1, got {workers}")
 
     from byteprint.launder import apply as launder
 
     rng = np.random.default_rng(seed)
-    added = skipped = failed = 0
+    counts = {"added": 0, "skipped": 0, "failed": 0}
 
-    for index, sample in enumerate(samples):
-        for spec in _specs_for(specs, augment, rng):
-            try:
-                key = key_for(sample.path, spec)
-            except OSError:
-                failed += 1
-                if not skip_errors:
-                    raise
-                continue
+    def pending() -> Iterable[_Task]:
+        """Views not already cached, in dataset order. Drives the spec draw."""
+        for index, sample in enumerate(samples):
+            for spec in _specs_for(specs, augment, rng):
+                try:
+                    key = key_for(sample.path, spec)
+                except OSError:
+                    counts["failed"] += 1
+                    if not skip_errors:
+                        raise
+                    continue
 
-            if store.has(key):
-                skipped += 1
-                continue
+                if store.has(key):
+                    counts["skipped"] += 1
+                    continue
 
-            try:
-                image = load_image(sample.path)
-                if spec != NO_OP:
-                    image = launder(image, spec, seed=seed + index)
-                crops = select_crops(
-                    image,
-                    crop_size=config.crop_size,
-                    top_k=config.crops_per_image,
-                    mode=config.crop_mode,
-                    seed=config.seed + index,
-                )
-                features = backbone.embed(crops)
-            except (OSError, ValueError) as exc:
-                failed += 1
-                if not skip_errors:
-                    raise
-                log.warning("skipping %s (%s): %s", sample.path, spec, exc)
-                continue
+                yield _Task(key=key, sample=sample, spec=spec, index=index)
 
-            store.add(
-                key,
-                features,
-                path=sample.path,
-                label=sample.label,
-                generator=sample.generator,
-                spec=spec,
-            )
-            added += 1
+    def prepare(task: _Task) -> list[np.ndarray]:
+        """The expensive, GIL-releasing part: decode, launder, choose crops."""
+        image = load_image(task.sample.path)
+        if task.spec != NO_OP:
+            image = launder(image, task.spec, seed=seed + task.index)
+        return select_crops(
+            image,
+            crop_size=config.crop_size,
+            top_k=config.crops_per_image,
+            mode=config.crop_mode,
+            seed=config.seed + task.index,
+        )
 
-        if log_every and added and added % log_every == 0:
-            log.info("extracted %d embeddings", added)
+    for task, prepared in ordered_prefetch(pending(), prepare, workers=workers):
+        try:
+            features = backbone.embed(prepared.result())
+        except (OSError, ValueError) as exc:
+            counts["failed"] += 1
+            if not skip_errors:
+                raise
+            log.warning("skipping %s (%s): %s", task.sample.path, task.spec, exc)
+            continue
 
-    return ExtractStats(added=added, skipped=skipped, failed=failed)
+        store.add(
+            task.key,
+            features,
+            path=task.sample.path,
+            label=task.sample.label,
+            generator=task.sample.generator,
+            spec=task.spec,
+        )
+        counts["added"] += 1
+
+        if log_every and counts["added"] % log_every == 0:
+            log.info("extracted %d embeddings", counts["added"])
+
+    return ExtractStats(**counts)
