@@ -6,11 +6,21 @@
 # project root on the cluster:
 #
 #     export BYTEPRINT_ROOT=<your compute directory>
-#     cd "$BYTEPRINT_ROOT" && sbatch scripts/run_sid_set.sbatch
+#     cd "$BYTEPRINT_ROOT"
+#     sbatch --nodelist="$BYTEPRINT_GPU_NODE" src/scripts/run_sid_set.sbatch
+#
+# `--nodelist` matters: the GPU nodes here do not all carry the same driver, and
+# a torch build newer than a node's driver fails at `.to("cuda")` after the data
+# is already staged. Pin the node whose driver matches the installed torch --
+# which one that is belongs in local notes, not in a public file.
 #
 # Stages are guarded by their outputs, so resubmitting after a timeout resumes
 # rather than repeating -- the embedding cache is keyed by (image, spec, config)
 # and skips what it already holds.
+#
+# Measured budget: extraction runs at roughly 5 images/s (CPU-bound on decode
+# and crop selection, not on the backbone), so the sizing below is about five
+# GPU-hours end to end.
 #SBATCH --job-name=byteprint_sid
 #SBATCH --gpus=1
 #SBATCH --cpus-per-task=16
@@ -39,12 +49,14 @@ BACKBONE="${BYTEPRINT_BACKBONE:-dinov2_large_hf}"
 CROPS="${BYTEPRINT_CROPS:-2}"
 CROP_SIZE="${BYTEPRINT_CROP_SIZE:-224}"
 AUGMENT="${BYTEPRINT_AUGMENT:-3}"
-TRAIN_PER_CLASS="${BYTEPRINT_TRAIN_PER_CLASS:-4000}"
-TEST_PER_CLASS="${BYTEPRINT_TEST_PER_CLASS:-500}"
+# Twice as many reals as either fake class, because labels 1 and 2 are both
+# AIGC: 8000 real vs 8000 fake, rather than the 1:2 an equal split would give.
+TRAIN_PER_CLASS="${BYTEPRINT_TRAIN_PER_CLASS:-0=8000,1=4000,2=4000}"
+TEST_PER_CLASS="${BYTEPRINT_TEST_PER_CLASS:-0=800,1=400,2=400}"
 BATCH="${BYTEPRINT_BATCH:-32}"
 
-TRAIN_DIR="$DATA/sid_train_${TRAIN_PER_CLASS}"
-TEST_DIR="$DATA/sid_test_${TEST_PER_CLASS}"
+TRAIN_DIR="$DATA/sid_train"
+TEST_DIR="$DATA/sid_test"
 TRAIN_CACHE="$RUNS/cache/sid_train_$BACKBONE"
 LADDER_CACHE="$RUNS/cache/sid_ladder_$BACKBONE"
 PROBE="$RUNS/probe_sid_$BACKBONE.joblib"

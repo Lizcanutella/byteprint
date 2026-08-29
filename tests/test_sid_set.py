@@ -11,6 +11,7 @@ from PIL import Image
 from byteprint.sid_set import (
     LABEL_DIRS,
     encode_png,
+    quota_for,
     select_rows,
     write_image_tree,
 )
@@ -167,3 +168,33 @@ def test_encoding_to_png_normalises_mode_to_rgb() -> None:
     grey.save(buffer, format="PNG")
     result = Image.open(io.BytesIO(encode_png(buffer.getvalue())))
     assert result.mode == "RGB"
+
+
+# -- per-label quotas ------------------------------------------------------
+
+
+def test_a_bare_integer_quota_applies_to_every_class() -> None:
+    assert quota_for(5) == {0: 5, 1: 5, 2: 5}
+
+
+def test_a_per_label_quota_can_buy_more_reals_than_fakes() -> None:
+    # Labels 1 and 2 are both AIGC, so an equal three-way split is a 2:1
+    # fake-to-real dataset. The real class sets how finely a 1% FPR threshold
+    # can be placed, so it is the one worth spending on.
+    assert quota_for({0: 80, 1: 40, 2: 40}) == {0: 80, 1: 40, 2: 40}
+
+
+def test_selection_honours_a_per_label_quota() -> None:
+    labels = {"a.parquet": [0] * 100 + [1] * 100 + [2] * 100}
+    chosen = select_rows(labels, per_class={0: 20, 1: 10, 2: 10}, seed=0)
+    assert sum(len(rows) for rows in chosen.values()) == 40
+
+
+def test_a_quota_naming_an_unknown_label_is_refused() -> None:
+    with pytest.raises(ValueError, match="outside SID_Set"):
+        quota_for({0: 10, 9: 10})
+
+
+def test_a_non_positive_quota_is_refused() -> None:
+    with pytest.raises(ValueError, match="positive"):
+        quota_for({0: 0, 1: 5, 2: 5})

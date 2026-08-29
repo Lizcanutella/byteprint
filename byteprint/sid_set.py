@@ -69,20 +69,43 @@ class MaterializeStats:
         )
 
 
+def quota_for(per_class: int | Mapping[int, int]) -> dict[int, int]:
+    """Normalise a quota into one count per label.
+
+    A bare integer means the same count for each of the three classes, which
+    collapses to *twice* as many fakes as reals once labels 1 and 2 are both
+    AIGC. A per-label mapping (``{0: 8000, 1: 4000, 2: 4000}``) restores the
+    binary balance -- and the real class is the one that sets how finely a
+    threshold at 1% FPR can be placed, so it is the one worth spending on.
+    """
+    quota = (
+        {label: int(per_class) for label in LABEL_DIRS}
+        if isinstance(per_class, int)
+        else {int(k): int(v) for k, v in per_class.items()}
+    )
+    unknown = set(quota) - set(LABEL_DIRS)
+    if unknown:
+        raise ValueError(f"quota names labels outside SID_Set: {sorted(unknown)}")
+    if any(count <= 0 for count in quota.values()):
+        raise ValueError(f"every quota must be positive, got {quota}")
+    return quota
+
+
 def select_rows(
-    labels_by_shard: Mapping[str, Sequence[int]], per_class: int, seed: int = 0
+    labels_by_shard: Mapping[str, Sequence[int]],
+    per_class: int | Mapping[int, int],
+    seed: int = 0,
 ) -> dict[str, list[int]]:
-    """Choose up to ``per_class`` row indices for each SID_Set label.
+    """Choose row indices for each SID_Set label, up to that label's quota.
 
     Sampling is uniform over the whole corpus rather than shard-by-shard: the
     shards are written in dataset order, so taking the first N rows would bias
     the sample towards whatever the corpus happens to begin with. Returned row
     indices are sorted per shard so the second pass is a sequential read.
     """
-    if per_class <= 0:
-        raise ValueError(f"per_class must be positive, got {per_class}")
+    quota = quota_for(per_class)
 
-    candidates: dict[int, list[tuple[str, int]]] = {label: [] for label in LABEL_DIRS}
+    candidates: dict[int, list[tuple[str, int]]] = {label: [] for label in quota}
     for shard in sorted(labels_by_shard):
         for row, label in enumerate(labels_by_shard[shard]):
             if label in candidates:  # anything outside 0/1/2 is not ours to file
@@ -94,7 +117,7 @@ def select_rows(
         pool = candidates[label]
         if not pool:
             continue
-        take = min(per_class, len(pool))
+        take = min(quota[label], len(pool))
         for index in rng.permutation(len(pool))[:take]:
             shard, row = pool[int(index)]
             chosen.setdefault(shard, []).append(row)
@@ -202,7 +225,7 @@ def materialize(
     shard_paths: Sequence[Path],
     out_root: Path | str,
     *,
-    per_class: int,
+    per_class: int | Mapping[int, int],
     seed: int = 0,
 ) -> MaterializeStats:
     """Two-pass materialisation of a balanced subset into ``out_root``."""
