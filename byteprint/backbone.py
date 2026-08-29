@@ -184,3 +184,9 @@ def load_backbone(
         mean=spec.mean,
         std=spec.std,
     )
+
+
+# Registered last so `register_backbone` above is defined. These read weights
+# from a local HuggingFace cache instead of torch.hub, which is what an offline
+# compute node needs; importing the module is what performs the registration.
+from byteprint import backbone_hf as _backbone_hf  # noqa: E402,F401  (side effect)
