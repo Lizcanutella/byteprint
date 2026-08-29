@@ -358,7 +358,9 @@ def _scorer_for(probe: LinearProbe, args: argparse.Namespace, backbone_factory) 
             "`byteprint train`, or pass --cache to borrow a cache's settings"
         )
     backbone = backbone_factory(config.backbone, args.device, args.batch_size)
-    return ProbeScorer(backbone=backbone, probe=probe, config=config)
+    return ProbeScorer(
+        backbone=backbone, probe=probe, config=config, workers=getattr(args, "workers", 1)
+    )
 
 
 def cmd_score(args: argparse.Namespace, backbone_factory) -> int:
@@ -375,6 +377,7 @@ def cmd_score(args: argparse.Namespace, backbone_factory) -> int:
         relative=args.relative,
         chunk_size=args.chunk_size,
         strict=args.strict,
+        workers=args.workers,
     )
     if not predictions:
         print(f"no images found under {args.images}", file=sys.stderr)
@@ -543,6 +546,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="report paths relative to IMAGE_DIR rather than absolute",
     )
     sc.add_argument("--chunk-size", type=int, default=8, help="images embedded per batch")
+    sc.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="threads decoding and cropping ahead of the backbone. The "
+        "predictions file is identical whatever this is set to; only the wall "
+        "clock changes. About 4 is the sweet spot on full-size photographs "
+        "(default: %(default)s)",
+    )
     sc.add_argument(
         "--strict", action="store_true",
         help="fail on the first unreadable image instead of scoring it 0.5",

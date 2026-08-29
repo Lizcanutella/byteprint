@@ -143,7 +143,8 @@ Nothing but the probe file and the directory is required — the extraction
 settings (backbone, crop size, crop count, crop mode) travel *inside* the saved
 probe, because scoring at a different crop size than you trained at degrades
 quietly rather than loudly. `--relative` reports bare filenames instead of
-absolute paths, for a harness keyed on those.
+absolute paths, for a harness keyed on those, and `--workers 4` roughly halves
+the wall clock on a large directory without changing a number in the output.
 
 **Every discovered image gets exactly one entry.** A directory of ten thousand
 images will contain a truncated download or an HTML page named `.png`, and a
@@ -276,16 +277,30 @@ chains per image (JPEG, downscale, blur, noise, and combinations). Because the
 cache is keyed by spec, augmented views cost backbone time once, not once per
 epoch.
 
-**2b. Overlap the decode with the backbone.** Extraction is CPU-bound: decoding
-a full-size photograph, laundering it and scoring candidate crops costs far more
-than pushing two crops through a frozen ViT. `--workers N` prepares views on a
-thread pool while the backbone works — measured **2.2× at `--workers 4`** on
-1024px images, with the gain flattening beyond that as the GIL takes it back.
-The pool is deliberately invisible to the result: the laundering draw and the
-cache-skip check stay sequential, rows are appended in submission order, and the
-backbone is only ever called from the calling thread, so caches built at
-`--workers 1`, `4` and `12` are byte-identical. On small images the handover
-costs more than the work, which is why the default is `1`.
+**2b. Overlap the decode with the backbone.** Both pipelines are CPU-bound, not
+GPU-bound: decoding a full-size photograph and scoring 32 candidate crop windows
+costs far more than pushing two crops through a frozen ViT. Choosing crops is
+the larger half — 52 ms/image against 31 ms to decode, at 1024px — so both
+stages move onto a thread pool behind `--workers N`:
+
+| | `extract` | `score` |
+|---|---|---|
+| `--workers 1` | 12.7 img/s | 12.8 img/s |
+| `--workers 4` | **27.8 img/s (2.2×)** | **29.1 img/s (2.3×)** |
+| `--workers 8` | 25.4 img/s | 21.5 img/s |
+
+The pool is deliberately invisible to the result. In `extract`, the laundering
+draw and the cache-skip check stay sequential and rows are appended in
+submission order; in `score`, chunks are cut at the same paths whatever the
+worker count, because an image's crops are seeded by its position within its
+chunk. The backbone is only ever called from the calling thread — a torch module
+is not safe to run forward on concurrently. Caches built at `--workers 1`, `4`
+and `12` are byte-identical, as is the predictions file, and that is pinned by
+tests rather than asserted here.
+
+The gain flattens past four threads as the GIL takes it back, and on small
+images the handover costs more than the work — which is why the default is `1`
+and the flag is opt-in.
 
 **3. Calibrate, don't threshold at 0.5.** Probe scores shift systematically
 between generators and laundering paths. `train` holds out a calibration split

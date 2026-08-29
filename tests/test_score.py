@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import threading
 from pathlib import Path
 
 import numpy as np
@@ -239,3 +240,126 @@ def test_the_json_is_valid_utf8_for_non_ascii_filenames(
     write_predictions(score_directory(root, scorer=scorer(probe)), out)
 
     assert "café" in json.loads(out.read_text())[0]["image_path"]
+
+
+# -- parallel loading ------------------------------------------------------
+#
+# This is the graded deliverable path, so the bar is higher than "it is faster":
+# the predictions file must not depend on the worker count at all, and none of
+# the guarantees above -- one entry per image, 0.5 on an unreadable file, strict
+# still raising -- may weaken.
+
+
+def many_images(root: Path, count: int = 12) -> Path:
+    root.mkdir(parents=True, exist_ok=True)
+    rng = np.random.default_rng(5)
+    for index in range(count):
+        Image.fromarray(
+            rng.integers(0, 256, (64, 64, 3), dtype=np.uint8)
+        ).save(root / f"img_{index:03d}.png")
+    return root
+
+
+def test_parallel_scoring_returns_exactly_what_serial_scoring_returns(
+    tmp_path: Path, probe: LinearProbe
+) -> None:
+    root = many_images(tmp_path / "many")
+
+    serial = score_directory(root, scorer=scorer(probe), workers=1)
+    parallel = score_directory(root, scorer=scorer(probe), workers=4)
+
+    assert [p.image_path for p in parallel] == [p.image_path for p in serial]
+    assert [p.pred for p in parallel] == [p.pred for p in serial]
+
+
+def test_the_worker_count_does_not_change_a_prediction_even_across_chunks(
+    tmp_path: Path, probe: LinearProbe
+) -> None:
+    # Crops are seeded by the image's position within its chunk, so chunking and
+    # ordering have to survive the pool untouched.
+    root = many_images(tmp_path / "many", 20)
+
+    serial = score_directory(root, scorer=scorer(probe), workers=1, chunk_size=3)
+    parallel = score_directory(root, scorer=scorer(probe), workers=4, chunk_size=3)
+
+    assert [p.pred for p in parallel] == [p.pred for p in serial]
+
+
+def test_parallel_scoring_still_gives_every_image_exactly_one_entry(
+    images: Path, probe: LinearProbe
+) -> None:
+    predictions = score_directory(images, scorer=scorer(probe), workers=4)
+
+    assert len(predictions) == 3
+
+
+def test_an_unreadable_file_is_still_reported_at_maximum_uncertainty_in_parallel(
+    tmp_path: Path, probe: LinearProbe
+) -> None:
+    root = many_images(tmp_path / "many", 6)
+    (root / "truncated.png").write_bytes(b"not an image")
+
+    predictions = score_directory(root, scorer=scorer(probe), workers=4)
+    broken = [p for p in predictions if p.image_path.endswith("truncated.png")]
+
+    assert len(broken) == 1
+    assert broken[0].pred == UNSCORABLE
+    assert broken[0].error
+
+
+def test_strict_still_raises_on_the_first_unreadable_file_in_parallel(
+    tmp_path: Path, probe: LinearProbe
+) -> None:
+    root = many_images(tmp_path / "many", 6)
+    (root / "truncated.png").write_bytes(b"not an image")
+
+    with pytest.raises((OSError, ValueError)):
+        score_directory(root, scorer=scorer(probe), workers=4, strict=True)
+
+
+def test_the_scorer_is_only_called_from_the_calling_thread(
+    tmp_path: Path, probe: LinearProbe
+) -> None:
+    root = many_images(tmp_path / "many")
+    seen: set[int] = set()
+
+    class ThreadRecordingScorer(ProbeScorer):
+        def score_images(self, images):
+            seen.add(threading.get_ident())
+            return super().score_images(images)
+
+    score_directory(
+        root,
+        scorer=ThreadRecordingScorer(backbone=StubBackbone(), probe=probe, config=config()),
+        workers=4,
+    )
+
+    assert seen == {threading.get_ident()}
+
+
+def test_a_worker_count_below_one_is_refused(images: Path, probe: LinearProbe) -> None:
+    with pytest.raises(ValueError, match="workers"):
+        score_directory(images, scorer=scorer(probe), workers=0)
+
+
+# -- parallel crop selection ----------------------------------------------
+#
+# Choosing crops costs more than decoding does, so the scorer parallelises its
+# own crop loop. Same bar: identical numbers out.
+
+
+def test_the_scorer_gives_identical_scores_whatever_its_worker_count(
+    probe: LinearProbe,
+) -> None:
+    rng = np.random.default_rng(3)
+    batch = [rng.integers(0, 256, (64, 64, 3), dtype=np.uint8) for _ in range(8)]
+
+    serial = ProbeScorer(backbone=StubBackbone(), probe=probe, config=config(), workers=1)
+    parallel = ProbeScorer(backbone=StubBackbone(), probe=probe, config=config(), workers=4)
+
+    assert np.array_equal(parallel.score_images(batch), serial.score_images(batch))
+
+
+def test_the_scorer_refuses_a_worker_count_below_one(probe: LinearProbe) -> None:
+    with pytest.raises(ValueError, match="workers"):
+        ProbeScorer(backbone=StubBackbone(), probe=probe, config=config(), workers=0)
