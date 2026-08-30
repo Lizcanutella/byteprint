@@ -50,7 +50,17 @@ CROPS="${BYTEPRINT_CROPS:-2}"
 CROP_SIZE="${BYTEPRINT_CROP_SIZE:-224}"
 AUGMENT="${BYTEPRINT_AUGMENT:-3}"
 BATCH="${BYTEPRINT_BATCH:-32}"
-WORKERS="${BYTEPRINT_WORKERS:-4}"
+# 0 means "do not pass --workers at all", and that is the default on purpose.
+# A control has to differ from its baseline in exactly one variable, and the
+# baseline predates the prefetch pool -- so the honest run is the one that uses
+# the same extraction path, even though it is about twice as slow. Set
+# BYTEPRINT_WORKERS=4 only when the baseline it is being compared against also
+# used the pool.
+WORKERS="${BYTEPRINT_WORKERS:-0}"
+PARALLEL=()
+if [ "$WORKERS" -gt 0 ]; then
+  PARALLEL=(--workers "$WORKERS")
+fi
 ENCODING="${BYTEPRINT_ENCODING:-jpeg:95}"
 # Encoding is PIL and releases the GIL, so this can use more threads than the
 # extraction pool, which is bounded by the backbone handover.
@@ -92,7 +102,7 @@ date
 "$PY" -m byteprint.cli -v extract \
     --data "$TRAIN_DIR" --cache "$TRAIN_CACHE" \
     --backbone "$BACKBONE" --crops "$CROPS" --crop-size "$CROP_SIZE" \
-    --augment "$AUGMENT" --batch-size "$BATCH" --device cuda --workers "$WORKERS"
+    --augment "$AUGMENT" --batch-size "$BATCH" --device cuda "${PARALLEL[@]}"
 
 echo "--- training probe"
 "$PY" -m byteprint.cli train \
@@ -103,7 +113,7 @@ date
 "$PY" -m byteprint.cli -v extract \
     --data "$TEST_DIR" --cache "$LADDER_CACHE" \
     --backbone "$BACKBONE" --crops "$CROPS" --crop-size "$CROP_SIZE" \
-    --ladder official --batch-size "$BATCH" --device cuda --workers "$WORKERS"
+    --ladder official --batch-size "$BATCH" --device cuda "${PARALLEL[@]}"
 
 {
   echo "### BYTEPRINT — JPEG-95 CONTROL — encoding=$ENCODING"
