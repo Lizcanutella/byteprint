@@ -45,3 +45,6 @@ slurm-*.out
 # Enforced by tests/test_public_repo_hygiene.py.
 *.local.md
 CLUSTER.local.md
+
+# Personal-review decks; binaries do not belong in a public repo
+*.pptx
