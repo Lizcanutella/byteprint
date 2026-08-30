@@ -113,8 +113,12 @@ The flat JPEG rungs are *suggestive* that this is not the dominant signal — if
 it were, compressing both classes ought to hurt more than it does — but they do
 not settle it, because the probe was trained on JPEG'd views of both classes and
 had every opportunity to learn features that survive it. The clean control is to
-re-encode both classes through JPEG-95 before extraction and retrain. Until that
-runs, **treat 0.9025 as an upper bound.**
+re-encode both classes through JPEG-95 before extraction and retrain.
+
+**That control has since run: AUC 0.9022 against this run's 0.9025, with no rung
+moving by more than 0.0016.** The number above stands as a result rather than an
+upper bound. Full comparison in
+**[`results-jpeg95-control.md`](results-jpeg95-control.md)**.
 
 ## Reproducing
 

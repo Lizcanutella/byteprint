@@ -345,13 +345,32 @@ Three weaknesses the same run exposes, stated plainly:
 - **Transfer to an unseen manipulation type is weak**: mean leave-one-out AUC
   0.6457, down from ~0.90 in-distribution.
 
-And one caveat that bounds all of it: SID_Set's reals are 100% JPEG while its
+One caveat used to bound all of it: SID_Set's reals are 100% JPEG while its
 fully-synthetic images are 100% PNG. Every class is re-encoded to PNG so the
-container cannot be the classifier, but JPEG history survives in the pixels, so
-**0.9025 is an upper bound** until the JPEG-95 control run lands.
+container cannot be the classifier, but JPEG history survives in the pixels —
+which would make 0.9025 a measure of the dataset rather than of the detector.
+
+**That control has now run, and it clears the number.** Re-encoding *both*
+classes through JPEG-95 and rerunning the identical pipeline gives **0.9022**,
+against the baseline's 0.9025. No rung moves by more than 0.0016; the
+per-generator split is unchanged to three decimal places. Compression history
+was not what the probe was reading.
+
+| | baseline (PNG) | control (JPEG-95) |
+|---|---|---|
+| pooled over the ladder | 0.9025 | **0.9022** |
+| full synthetic | 0.9537 | 0.9535 |
+| tampered | 0.8513 | 0.8510 |
+| LOGO mean (unseen type) | 0.6457 | 0.6486 |
+
+What the control does not settle: the reals are now double-JPEG and the
+synthetics single, which is itself detectable. But if compression were the
+feature, changing it from "JPEG vs none" to "double vs single" should have
+perturbed *something*, and nothing moved.
 
 Full tables, per-rung numbers and stage timings:
-**[`docs/results-sid-set-first-run.md`](docs/results-sid-set-first-run.md)**.
+**[`docs/results-sid-set-first-run.md`](docs/results-sid-set-first-run.md)** and
+**[`docs/results-jpeg95-control.md`](docs/results-jpeg95-control.md)**.
 
 ### The same ladder on the bundled fixture
 
