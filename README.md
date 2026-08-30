@@ -47,10 +47,13 @@ maximised.
 
 One decision is still open:
 
-- **Tampered images need a label.** SID_Set has three classes, and collapsing it
-  to binary means deciding whether class 2 (a real photograph with an AI-edited
-  region) counts as AIGC. It plausibly does, but the choice changes what the
-  detector learns and must be stated explicitly, not made silently.
+- **How much tampered images cost.** SID_Set's class 2 (a real photograph with
+  an AI-edited region) counts as AIGC here, and rather than assert that, the
+  materialiser files those images under their own generator directory so the
+  choice is measurable. It is now measured: they score AUC 0.8513 against 0.9537
+  for fully synthetic images, and a probe trained on one type transfers to the
+  other at only 0.6457. Both numbers argue for a crop strategy with some notion
+  of *where* to look, which does not exist yet.
 
 Closed since the first draft:
 
@@ -312,11 +315,49 @@ flatter a detector that would be unusable. Every report leads with AUC but
 carries TPR@1%FPR and TPR@0.1%FPR, plus a per-generator breakdown — an average
 over generators hides the one you cannot detect at all.
 
-## Why the laundering ladder matters
+## Results on SID_Set
 
-`eval --by-spec` scores each rung separately. The full §5.2 ladder on the
-bundled fixture — DINOv2-S, 40 images per class, probe trained with
-`--augment 4`, evaluated on the held-out split:
+`eval --by-spec` scores each rung of the §5.2 ladder separately. DINOv2-L probe,
+2×224px texture crops, 16,000 SID_Set training images with `--augment 3`, scored
+on 1,600 held-out images across all fifteen rungs — one 48 GB GPU, 4h 40m.
+
+| | AUC | TPR@1%FPR |
+|---|---|---|
+| pooled over the ladder | 0.9025 | 0.3362 |
+| clean (`none`) | 0.9112 | 0.4100 |
+| best rung (`blur:1.0`) | 0.9191 | 0.3750 |
+| worst rung (`noise:0.10`) | 0.8553 | 0.2550 |
+
+**The whole ladder spans 0.064 AUC.** Robustness is the graded axis, and this is
+the number to point at: the worst of fifteen real-world transformations costs
+six points. Clean is not even the best rung — `--augment 3` *replaces* the spec
+list rather than adding to it, so the probe trained almost entirely on laundered
+views, which is where deployed images live.
+
+Three weaknesses the same run exposes, stated plainly:
+
+- **The operating point is mediocre.** At a threshold strict enough to wrongly
+  flag 1 authentic image in 100, two thirds of AI-generated images still get
+  through. AUC 0.90 flatters it.
+- **Tampered images are much harder** (AUC 0.8513) than fully synthetic ones
+  (0.9537) — only a *region* is generated, and texture-ranked crops have no
+  reason to land on it.
+- **Transfer to an unseen manipulation type is weak**: mean leave-one-out AUC
+  0.6457, down from ~0.90 in-distribution.
+
+And one caveat that bounds all of it: SID_Set's reals are 100% JPEG while its
+fully-synthetic images are 100% PNG. Every class is re-encoded to PNG so the
+container cannot be the classifier, but JPEG history survives in the pixels, so
+**0.9025 is an upper bound** until the JPEG-95 control run lands.
+
+Full tables, per-rung numbers and stage timings:
+**[`docs/results-sid-set-first-run.md`](docs/results-sid-set-first-run.md)**.
+
+### The same ladder on the bundled fixture
+
+For contrast — DINOv2-S, 40 images per class, `--augment 4`. The fixture's fakes
+are a planted periodic grid, so its numbers mean *the wiring works*, nothing
+more, and its failure modes are artifacts of the plant:
 
 | rung | AUC | TPR@1%FPR | |
 |------|-----|-----------|---|
@@ -340,7 +381,8 @@ A single pooled number over that same set reads **0.8349**, which sounds
 respectable and tells you nothing about the two rungs where the detector is
 *worse than a coin*. Both destroy high-frequency detail, which on this fixture
 is the entire signal — the failure mode is legible only because the rungs are
-reported apart.
+reported apart. On real data those same two rungs hold 0.889 and 0.890, which
+is the point: per-rung reporting is what tells you whether a collapse is real.
 
 Note also what the pooled number does to the operating point: TPR@1%FPR over
 everything is 0.3833, but the per-rung values range from 0.85 to 0.05. A single
