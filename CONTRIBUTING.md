@@ -1,7 +1,6 @@
 # Working on BYTEPRINT
 
-Six people, six branches, one engine. This file is the short version of how to
-not stand on each other's feet.
+This file is the short version of how to not stand on each other's feet.
 
 ## Setup
 
