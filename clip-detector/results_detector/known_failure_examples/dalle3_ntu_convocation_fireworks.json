@@ -1,0 +1,8 @@
+{
+  "source": "ChatGPT (DALL-E 3) generated image, provided by user",
+  "true_label": "AI-generated",
+  "model_prediction": 0.008343581771793347,
+  "predicted_label": "real (confidently wrong)",
+  "description": "NTU convocation ceremony scene with fireworks, correctly-rendered repeated text on screens (\"NTU CONVOCATION 2024\") and building signage (\"CONGRATULATIONS CLASS OF 2024\") - a DALL-E 3 strength (accurate multi-instance text rendering) not well represented in training data.",
+  "note": "Confirmed reproducible - re-ran through predict.py independently and got the identical prediction."
+}

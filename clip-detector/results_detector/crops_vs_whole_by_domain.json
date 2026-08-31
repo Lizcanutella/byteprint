@@ -1,0 +1,12 @@
+{
+  "spatial": {
+    "whole_image_auroc": 0.9573577501635055,
+    "native_crop_auroc": 0.9324613036843252,
+    "crop_advantage": -0.024896446479180323
+  },
+  "jpeg": {
+    "whole_image_auroc": 0.9837584477872248,
+    "native_crop_auroc": 0.9451711358186179,
+    "crop_advantage": -0.038587311968606874
+  }
+}

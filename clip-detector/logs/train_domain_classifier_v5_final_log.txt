@@ -1,0 +1,8 @@
+Domain classifier held-out accuracy: 0.7500
+Confusion matrix labels: [np.str_('clean'), np.str_('colorjitter'), np.str_('jpeg'), np.str_('noise'), np.str_('spatial')]
+  [42, 6, 5, 3, 6]
+  [5, 51, 1, 4, 5]
+  [2, 1, 39, 2, 6]
+  [9, 2, 3, 39, 1]
+  [9, 1, 3, 1, 54]
+Saved to /home/jh/noise-residual-experiment/results_detector/experiments/domain_classifier.pkl

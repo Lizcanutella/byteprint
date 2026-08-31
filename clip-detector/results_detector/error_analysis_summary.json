@@ -1,0 +1,98 @@
+{
+  "clean": {
+    "n_false_positives": 19,
+    "n_false_negatives": 16,
+    "fpr": 0.11515151515151516,
+    "fnr": 0.05755395683453238
+  },
+  "jpeg_q90": {
+    "n_false_positives": 18,
+    "n_false_negatives": 16,
+    "fpr": 0.10909090909090909,
+    "fnr": 0.05755395683453238
+  },
+  "jpeg_q70": {
+    "n_false_positives": 10,
+    "n_false_negatives": 5,
+    "fpr": 0.06060606060606061,
+    "fnr": 0.017985611510791366
+  },
+  "jpeg_q50": {
+    "n_false_positives": 5,
+    "n_false_negatives": 3,
+    "fpr": 0.030303030303030304,
+    "fnr": 0.01079136690647482
+  },
+  "jpeg_q30": {
+    "n_false_positives": 4,
+    "n_false_negatives": 10,
+    "fpr": 0.024242424242424242,
+    "fnr": 0.03597122302158273
+  },
+  "blur_s0.5": {
+    "n_false_positives": 23,
+    "n_false_negatives": 11,
+    "fpr": 0.1393939393939394,
+    "fnr": 0.039568345323741004
+  },
+  "blur_s1.0": {
+    "n_false_positives": 21,
+    "n_false_negatives": 9,
+    "fpr": 0.12727272727272726,
+    "fnr": 0.03237410071942446
+  },
+  "blur_s2.0": {
+    "n_false_positives": 11,
+    "n_false_negatives": 18,
+    "fpr": 0.06666666666666667,
+    "fnr": 0.06474820143884892
+  },
+  "resize_0.5": {
+    "n_false_positives": 17,
+    "n_false_negatives": 17,
+    "fpr": 0.10303030303030303,
+    "fnr": 0.06115107913669065
+  },
+  "resize_0.25": {
+    "n_false_positives": 11,
+    "n_false_negatives": 22,
+    "fpr": 0.06666666666666667,
+    "fnr": 0.07913669064748201
+  },
+  "noise_s0.02": {
+    "n_false_positives": 12,
+    "n_false_negatives": 29,
+    "fpr": 0.07272727272727272,
+    "fnr": 0.10431654676258993
+  },
+  "noise_s0.05": {
+    "n_false_positives": 12,
+    "n_false_negatives": 37,
+    "fpr": 0.07272727272727272,
+    "fnr": 0.13309352517985612
+  },
+  "noise_s0.1": {
+    "n_false_positives": 11,
+    "n_false_negatives": 29,
+    "fpr": 0.06666666666666667,
+    "fnr": 0.10431654676258993
+  },
+  "colorjitter_down20": {
+    "n_false_positives": 29,
+    "n_false_negatives": 9,
+    "fpr": 0.17575757575757575,
+    "fnr": 0.03237410071942446
+  },
+  "colorjitter_up20": {
+    "n_false_positives": 13,
+    "n_false_negatives": 20,
+    "fpr": 0.07878787878787878,
+    "fnr": 0.07194244604316546
+  },
+  "crop80": {
+    "n_false_positives": 12,
+    "n_false_negatives": 19,
+    "fpr": 0.07272727272727272,
+    "fnr": 0.0683453237410072
+  }
+}

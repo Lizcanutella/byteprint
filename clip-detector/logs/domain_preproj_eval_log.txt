@@ -1,0 +1,65 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Held-out test set: 454 images
+[clean] (true group=clean) applying transform + predicting...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6419.62it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  balanced-preproj AUROC=0.9433 acc=0.8612 | specialists-preproj AUROC=0.9513 acc=0.8744 | routing_acc=0.3392
+[jpeg_q90] (true group=jpeg) applying transform + predicting...
+  balanced-preproj AUROC=0.9461 acc=0.8767 | specialists-preproj AUROC=0.9503 acc=0.8744 | routing_acc=0.4251
+[jpeg_q70] (true group=jpeg) applying transform + predicting...
+  balanced-preproj AUROC=0.9494 acc=0.8899 | specialists-preproj AUROC=0.9587 acc=0.9075 | routing_acc=0.8260
+[jpeg_q50] (true group=jpeg) applying transform + predicting...
+  balanced-preproj AUROC=0.9456 acc=0.8899 | specialists-preproj AUROC=0.9579 acc=0.8899 | routing_acc=0.9449
+[jpeg_q30] (true group=jpeg) applying transform + predicting...
+  balanced-preproj AUROC=0.9520 acc=0.8855 | specialists-preproj AUROC=0.9626 acc=0.9075 | routing_acc=0.9780
+[blur_s0.5] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9408 acc=0.8590 | specialists-preproj AUROC=0.9478 acc=0.8744 | routing_acc=0.4934
+[blur_s1.0] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9378 acc=0.8502 | specialists-preproj AUROC=0.9497 acc=0.8789 | routing_acc=0.9868
+[blur_s2.0] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9452 acc=0.8811 | specialists-preproj AUROC=0.9565 acc=0.8833 | routing_acc=0.9912
+[resize_0.5] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9347 acc=0.8480 | specialists-preproj AUROC=0.9505 acc=0.8811 | routing_acc=0.9097
+[resize_0.25] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9417 acc=0.8590 | specialists-preproj AUROC=0.9552 acc=0.8921 | routing_acc=0.9934
+[noise_s0.02] (true group=noise) applying transform + predicting...
+  balanced-preproj AUROC=0.9340 acc=0.8546 | specialists-preproj AUROC=0.9423 acc=0.8789 | routing_acc=0.3172
+[noise_s0.05] (true group=noise) applying transform + predicting...
+  balanced-preproj AUROC=0.9302 acc=0.8480 | specialists-preproj AUROC=0.9322 acc=0.8568 | routing_acc=0.6850
+[noise_s0.1] (true group=noise) applying transform + predicting...
+  balanced-preproj AUROC=0.9156 acc=0.8436 | specialists-preproj AUROC=0.9126 acc=0.8282 | routing_acc=0.9758
+[colorjitter_down20] (true group=colorjitter) applying transform + predicting...
+  balanced-preproj AUROC=0.9378 acc=0.8678 | specialists-preproj AUROC=0.9447 acc=0.8656 | routing_acc=0.6586
+[colorjitter_up20] (true group=colorjitter) applying transform + predicting...
+  balanced-preproj AUROC=0.9312 acc=0.8634 | specialists-preproj AUROC=0.9422 acc=0.8612 | routing_acc=0.3811
+[crop80] (true group=spatial) applying transform + predicting...
+  balanced-preproj AUROC=0.9355 acc=0.8612 | specialists-preproj AUROC=0.9495 acc=0.8722 | routing_acc=0.5551
+
+====================================================================================================
+PRE-PROJECTION: balanced-generalist vs. domain-specialists
+====================================================================================================
+transform           group       route_acc  bal_auc   spec_auc  
+---------------------------------------------------------------
+clean               clean       0.3392     0.9433    0.9513    
+jpeg_q90            jpeg        0.4251     0.9461    0.9503    
+jpeg_q70            jpeg        0.8260     0.9494    0.9587    
+jpeg_q50            jpeg        0.9449     0.9456    0.9579    
+jpeg_q30            jpeg        0.9780     0.9520    0.9626    
+blur_s0.5           spatial     0.4934     0.9408    0.9478    
+blur_s1.0           spatial     0.9868     0.9378    0.9497    
+blur_s2.0           spatial     0.9912     0.9452    0.9565    
+resize_0.5          spatial     0.9097     0.9347    0.9505    
+resize_0.25         spatial     0.9934     0.9417    0.9552    
+noise_s0.02         noise       0.3172     0.9340    0.9423    
+noise_s0.05         noise       0.6850     0.9302    0.9322    
+noise_s0.1          noise       0.9758     0.9156    0.9126    
+colorjitter_down20  colorjitter 0.6586     0.9378    0.9447    
+colorjitter_up20    colorjitter 0.3811     0.9312    0.9422    
+crop80              spatial     0.5551     0.9355    0.9495    
+
+Mean across all 16 cells: balanced-preproj=0.9388  specialists-preproj=0.9478
+
+For reference (post-projection, from earlier experiments):
+  baseline=0.9316  balanced=0.9408  specialists=0.9362
+
+Saved: /home/jh/noise-residual-experiment/results_detector/experiments/domain_approaches_preproj_eval_result.json

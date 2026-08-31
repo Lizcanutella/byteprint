@@ -1,0 +1,10 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Streaming Rajarshi-Roy-research/Defactify_Image_Dataset (train split, no shuffle - sequential, memory-safe)...
+Collected per generator:
+  real: 150
+  sd21: 150
+  sdxl: 150
+  sd3: 150
+  dalle3: 150
+  midjourney6: 150
+Total: real=150, ai=750

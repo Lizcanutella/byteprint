@@ -1,0 +1,47 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+======================================================================
+TEST 1: cross-generator generalization (leave-one-generator-out)
+======================================================================
+Loaded 360 images across ['real', 'sd21', 'sdxl', 'sd3', 'dalle3', 'midjourney6']
+Embedding clean...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7534.76it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  32.1s
+Applying probe jpeg_q50 and embedding...
+  39.5s
+{
+  "absolute_embedding_only": 0.9086666666666666,
+  "delta_only": 0.9633888888888889,
+  "combined": 0.971111111111111
+}
+======================================================================
+TEST 2: does the jpeg_q50 delta survive on already-blur_s1.0-degraded inputs?
+======================================================================
+Loading + applying base transform (simulated unknown degradation)...
+  37.0s
+Embedding already-degraded (base) images...
+  39.8s
+Applying jpeg_q50 probe on top of the already-degraded images...
+  40.8s
+{
+  "absolute_embedding_of_degraded_input_only": {
+    "stratified_5fold": 0.9707434052757793,
+    "leave_one_source_out": 0.8154785262698931
+  },
+  "delta_only": {
+    "stratified_5fold": 0.99459341617615,
+    "leave_one_source_out": 0.8738827120122085
+  },
+  "combined": {
+    "stratified_5fold": 0.9988445607150643,
+    "leave_one_source_out": 0.9109657728362764
+  }
+}
+
+Saved to /home/jh/noise-residual-experiment/results_detector/reactivity_delta_comprehensive.json
+
+======================================================================
+FINAL SUMMARY
+======================================================================
+Test 1 (leave-one-generator-out): absolute=0.9087 delta=0.9634 combined=0.9711
+Test 2 (reactivity on already-blurred input), LOSO: absolute=0.8155 delta=0.8739 combined=0.9110

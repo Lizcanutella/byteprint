@@ -1,0 +1,178 @@
+[
+  {
+    "transform": "clean",
+    "true_group": "clean",
+    "routing_accuracy": 0.3392070484581498,
+    "baseline_auroc": 0.9458272612455066,
+    "baseline_accuracy": 0.8656387665198237,
+    "balanced_auroc": 0.9448751578742834,
+    "balanced_accuracy": 0.8788546255506607,
+    "specialists_auroc": 0.9306033226464588,
+    "specialists_accuracy": 0.8458149779735683
+  },
+  {
+    "transform": "jpeg_q90",
+    "true_group": "jpeg",
+    "routing_accuracy": 0.4251101321585903,
+    "baseline_auroc": 0.9457689692023705,
+    "baseline_accuracy": 0.8810572687224669,
+    "balanced_auroc": 0.9485378412513359,
+    "balanced_accuracy": 0.8722466960352423,
+    "specialists_auroc": 0.9333527640143786,
+    "specialists_accuracy": 0.8590308370044053
+  },
+  {
+    "transform": "jpeg_q70",
+    "true_group": "jpeg",
+    "routing_accuracy": 0.8259911894273128,
+    "baseline_auroc": 0.9530360439133392,
+    "baseline_accuracy": 0.8854625550660793,
+    "balanced_auroc": 0.953997862625085,
+    "balanced_accuracy": 0.8920704845814978,
+    "specialists_auroc": 0.9553482949577382,
+    "specialists_accuracy": 0.8788546255506607
+  },
+  {
+    "transform": "jpeg_q50",
+    "true_group": "jpeg",
+    "routing_accuracy": 0.9449339207048458,
+    "baseline_auroc": 0.9517244729427766,
+    "baseline_accuracy": 0.8876651982378855,
+    "balanced_auroc": 0.9537549791120179,
+    "balanced_accuracy": 0.8920704845814978,
+    "specialists_auroc": 0.9571650636354804,
+    "specialists_accuracy": 0.8942731277533039
+  },
+  {
+    "transform": "jpeg_q30",
+    "true_group": "jpeg",
+    "routing_accuracy": 0.9779735682819384,
+    "baseline_auroc": 0.9571553482949576,
+    "baseline_accuracy": 0.8986784140969163,
+    "balanced_auroc": 0.9575342465753425,
+    "balanced_accuracy": 0.9074889867841409,
+    "specialists_auroc": 0.960759739628874,
+    "specialists_accuracy": 0.8986784140969163
+  },
+  {
+    "transform": "blur_s0.5",
+    "true_group": "spatial",
+    "routing_accuracy": 0.4933920704845815,
+    "baseline_auroc": 0.9423783153599533,
+    "baseline_accuracy": 0.8612334801762115,
+    "balanced_auroc": 0.9420771398037502,
+    "balanced_accuracy": 0.8744493392070485,
+    "specialists_auroc": 0.9397260273972603,
+    "specialists_accuracy": 0.8656387665198237
+  },
+  {
+    "transform": "blur_s1.0",
+    "true_group": "spatial",
+    "routing_accuracy": 0.986784140969163,
+    "baseline_auroc": 0.929456912464782,
+    "baseline_accuracy": 0.8568281938325991,
+    "balanced_auroc": 0.9389293694744001,
+    "balanced_accuracy": 0.8700440528634361,
+    "specialists_auroc": 0.9392694063926941,
+    "specialists_accuracy": 0.8612334801762115
+  },
+  {
+    "transform": "blur_s2.0",
+    "true_group": "spatial",
+    "routing_accuracy": 0.9911894273127754,
+    "baseline_auroc": 0.90379869814437,
+    "baseline_accuracy": 0.8039647577092511,
+    "balanced_auroc": 0.9351015253084619,
+    "balanced_accuracy": 0.8392070484581498,
+    "specialists_auroc": 0.9475177304964538,
+    "specialists_accuracy": 0.8634361233480177
+  },
+  {
+    "transform": "resize_0.5",
+    "true_group": "spatial",
+    "routing_accuracy": 0.9096916299559471,
+    "baseline_auroc": 0.9290780141843971,
+    "baseline_accuracy": 0.8590308370044053,
+    "balanced_auroc": 0.9363645195764112,
+    "balanced_accuracy": 0.8700440528634361,
+    "specialists_auroc": 0.9348294957738269,
+    "specialists_accuracy": 0.8590308370044053
+  },
+  {
+    "transform": "resize_0.25",
+    "true_group": "spatial",
+    "routing_accuracy": 0.9933920704845814,
+    "baseline_auroc": 0.9034489458855532,
+    "baseline_accuracy": 0.788546255506608,
+    "balanced_auroc": 0.9396871660351696,
+    "balanced_accuracy": 0.8546255506607929,
+    "specialists_auroc": 0.9478286213931798,
+    "specialists_accuracy": 0.8700440528634361
+  },
+  {
+    "transform": "noise_s0.02",
+    "true_group": "noise",
+    "routing_accuracy": 0.31718061674008813,
+    "baseline_auroc": 0.9256873603419801,
+    "baseline_accuracy": 0.8678414096916299,
+    "balanced_auroc": 0.9379966967842224,
+    "balanced_accuracy": 0.8612334801762115,
+    "specialists_auroc": 0.9203439230545031,
+    "specialists_accuracy": 0.8524229074889867
+  },
+  {
+    "transform": "noise_s0.05",
+    "true_group": "noise",
+    "routing_accuracy": 0.7136563876651982,
+    "baseline_auroc": 0.9115806859030409,
+    "baseline_accuracy": 0.8480176211453745,
+    "balanced_auroc": 0.9265908870105897,
+    "balanced_accuracy": 0.8700440528634361,
+    "specialists_auroc": 0.9201884776061401,
+    "specialists_accuracy": 0.8458149779735683
+  },
+  {
+    "transform": "noise_s0.1",
+    "true_group": "noise",
+    "routing_accuracy": 0.973568281938326,
+    "baseline_auroc": 0.9031963470319634,
+    "baseline_accuracy": 0.8348017621145375,
+    "balanced_auroc": 0.9216943553871563,
+    "balanced_accuracy": 0.8612334801762115,
+    "specialists_auroc": 0.9084037695521228,
+    "specialists_accuracy": 0.8480176211453745
+  },
+  {
+    "transform": "colorjitter_down20",
+    "true_group": "colorjitter",
+    "routing_accuracy": 0.6585903083700441,
+    "baseline_auroc": 0.9312639658020013,
+    "baseline_accuracy": 0.8568281938325991,
+    "balanced_auroc": 0.9368502866025453,
+    "balanced_accuracy": 0.8546255506607929,
+    "specialists_auroc": 0.9200718935198678,
+    "specialists_accuracy": 0.8259911894273128
+  },
+  {
+    "transform": "colorjitter_up20",
+    "true_group": "colorjitter",
+    "routing_accuracy": 0.381057268722467,
+    "baseline_auroc": 0.9369085786456814,
+    "baseline_accuracy": 0.8546255506607929,
+    "balanced_auroc": 0.9381715729136307,
+    "balanced_accuracy": 0.8678414096916299,
+    "specialists_auroc": 0.9284173710288546,
+    "specialists_accuracy": 0.8458149779735683
+  },
+  {
+    "transform": "crop80",
+    "true_group": "spatial",
+    "routing_accuracy": 0.5550660792951542,
+    "baseline_auroc": 0.9351792480326435,
+    "baseline_accuracy": 0.8700440528634361,
+    "balanced_auroc": 0.940289517147576,
+    "balanced_accuracy": 0.8832599118942731,
+    "specialists_auroc": 0.9351986787136889,
+    "specialists_accuracy": 0.8634361233480177
+  }
+]

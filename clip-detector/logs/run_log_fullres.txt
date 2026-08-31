@@ -1,0 +1,84 @@
+================================================================================
+DIFFERENTIAL NOISE-RESIDUAL REACTIVITY EXPERIMENT  [profile: fullres]
+================================================================================
+Found cached data: n_real=500, n_ai=499. Skipping download.
+
+Data acquisition done in 0.0s
+  Source: cache (previous download)
+  n_real: 500, n_ai: 499
+  example real files: ['/home/jh/noise-residual-experiment/data_fullres/real/real_0000.png', '/home/jh/noise-residual-experiment/data_fullres/real/real_0001.png', '/home/jh/noise-residual-experiment/data_fullres/real/real_0002.png']
+  example ai files:   ['/home/jh/noise-residual-experiment/data_fullres/ai/ai_0000.png', '/home/jh/noise-residual-experiment/data_fullres/ai/ai_0001.png', '/home/jh/noise-residual-experiment/data_fullres/ai/ai_0002.png']
+
+Provenance control: every image (both classes) is re-encoded to JPEG q95 and reloaded before any measurement, so real and AI images share identical final compression provenance.
+
+Processing 999 images through the pipeline (provenance control + Test A clean + Test B pre-degraded)...
+Pipeline finished in 395.0s (0.395s/image)
+Successfully processed: n_real=500, n_ai=499
+
+Running content-leakage sanity check...
+  corr(Delta_energy, busyness) Test A: 0.620 [FLAGGED]
+  corr(Delta_energy, busyness) Test B: 0.578 [FLAGGED]
+  corr(Delta_energy_norm, busyness) Test A: 0.375 [ok]  (content-normalized variant)
+  corr(Delta_energy_norm, busyness) Test B: 0.657 [FLAGGED]  (content-normalized variant)
+  saved 6 leakage example PNGs to /home/jh/noise-residual-experiment/results_fullres/
+
+Results table:
+test  stat      raw_auroc   eff_auroc   flipped   n_real  n_ai    
+------------------------------------------------------------------
+A     energy    0.4015      0.5985      True      500     499     
+A     spectral  0.3941      0.6059      True      500     499     
+A     energy_norm0.4195      0.5805      True      500     499     
+B     energy    0.3501      0.6499      True      500     499     
+B     spectral  0.3473      0.6527      True      500     499     
+B     energy_norm0.3402      0.6598      True      500     499     
+
+================================================================================
+FINAL REPORT
+================================================================================
+Data source: cache (previous download)
+Counts: n_real=500, n_ai=499
+Provenance control applied: JPEG q95 re-encode+reload on all images (both classes share identical compression provenance).
+
+Results table:
+test  stat      raw_auroc   eff_auroc   flipped   n_real  n_ai    
+------------------------------------------------------------------
+A     energy    0.4015      0.5985      True      500     499     
+A     spectral  0.3941      0.6059      True      500     499     
+A     energy_norm0.4195      0.5805      True      500     499     
+B     energy    0.3501      0.6499      True      500     499     
+B     spectral  0.3473      0.6527      True      500     499     
+B     energy_norm0.3402      0.6598      True      500     499     
+
+VERDICT: DEAD
+  (Test A Delta_energy eff. AUROC = 0.5985, Test B Delta_energy eff. AUROC = 0.6499)
+
+Delta_energy does not meaningfully separate real from AI images even on cleanly processed inputs, so this particular noise-residual-reactivity signal is not a viable basis for an AI-image detector as tested here. A different denoiser, probe, or statistic might behave differently, but this configuration shows no usable effect.
+
+LEAKAGE CHECK: FLAGGED - the correlation between Delta_energy and image busyness exceeds 0.5 in at least one test, so part of the observed separation may reflect scene content/edge structure rather than a genuine real-vs-AI 'reactivity' difference. Treat the AUROC numbers above with caution.
+
+--------------------------------------------------------------------------------
+CONTENT-NORMALIZED VARIANT (Delta_energy_norm) - experimental extension
+--------------------------------------------------------------------------------
+Delta_energy_norm divides the pixel-wise squared residual-difference by a local scene-activity map (box-filter local variance, window=15) BEFORE averaging, so busy/edge pixels don't dominate the statistic regardless of real-vs-AI origin - a content-invariant-by-construction fix for the leakage seen above.
+  corr(Delta_energy_norm, busyness) Test A: 0.375 [ok]
+  corr(Delta_energy_norm, busyness) Test B: 0.657 [FLAGGED]
+  Test A Delta_energy_norm eff. AUROC = 0.5805
+  Test B Delta_energy_norm eff. AUROC = 0.6598
+  Normalized-variant verdict: DEAD  (primary verdict was: DEAD)
+  -> The verdict is unchanged under content normalization (DEAD). Content leakage does not appear to be the deciding factor here.
+
+Output files:
+  results.json: /home/jh/noise-residual-experiment/results_fullres/results.json
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testA_energy.png
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testA_spectral.png
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testA_energy_norm.png
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testB_energy.png
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testB_spectral.png
+  histogram: /home/jh/noise-residual-experiment/results_fullres/hist_testB_energy_norm.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_real_0.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_real_1.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_real_2.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_ai_3.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_ai_4.png
+  leakage example: /home/jh/noise-residual-experiment/results_fullres/leakage_example_ai_5.png
+================================================================================

@@ -1,0 +1,103 @@
+{
+  "profile": "fullres",
+  "data_source": "cache (previous download)",
+  "n_real": 500,
+  "n_ai": 499,
+  "provenance_control": "JPEG q95 re-encode+reload applied to all images",
+  "degrade_quality_test_B": 50,
+  "results_table": [
+    {
+      "test": "A",
+      "statistic": "energy",
+      "raw_auroc": 0.40153507014028056,
+      "effective_auroc": 0.5984649298597194,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    },
+    {
+      "test": "A",
+      "statistic": "spectral",
+      "raw_auroc": 0.3941282565130261,
+      "effective_auroc": 0.6058717434869739,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    },
+    {
+      "test": "A",
+      "statistic": "energy_norm",
+      "raw_auroc": 0.41953907815631264,
+      "effective_auroc": 0.5804609218436874,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    },
+    {
+      "test": "B",
+      "statistic": "energy",
+      "raw_auroc": 0.3500561122244489,
+      "effective_auroc": 0.6499438877755511,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    },
+    {
+      "test": "B",
+      "statistic": "spectral",
+      "raw_auroc": 0.34730661322645284,
+      "effective_auroc": 0.6526933867735472,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    },
+    {
+      "test": "B",
+      "statistic": "energy_norm",
+      "raw_auroc": 0.34021643286573144,
+      "effective_auroc": 0.6597835671342686,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 499
+    }
+  ],
+  "leakage_check": {
+    "corr_testA_energy_vs_busyness": 0.6199922450378116,
+    "corr_testB_energy_vs_busyness": 0.5779348505694389,
+    "flagged": true
+  },
+  "verdict": "DEAD",
+  "delta_energy_auroc_effective": {
+    "A": 0.5984649298597194,
+    "B": 0.6499438877755511
+  },
+  "content_normalized_variant": {
+    "description": "delta_energy_norm: pixel-wise (R1-R0)^2 divided by a local scene-activity map (box-filter local variance, window=15, eps=0.0001) before averaging, to make the reactivity statistic content-invariant by construction rather than correcting for busyness after the fact.",
+    "leakage_check": {
+      "corr_testA_energy_norm_vs_busyness": 0.37501086694767316,
+      "corr_testB_energy_norm_vs_busyness": 0.6569482968594361,
+      "flagged": true
+    },
+    "delta_energy_norm_auroc_effective": {
+      "A": 0.5804609218436874,
+      "B": 0.6597835671342686
+    },
+    "verdict": "DEAD"
+  },
+  "timing_seconds": {
+    "data_acquisition": 0.002335786819458008,
+    "pipeline": 412.13222074508667
+  },
+  "example_files": {
+    "real": [
+      "/home/jh/noise-residual-experiment/data_fullres/real/real_0000.png",
+      "/home/jh/noise-residual-experiment/data_fullres/real/real_0001.png",
+      "/home/jh/noise-residual-experiment/data_fullres/real/real_0002.png"
+    ],
+    "ai": [
+      "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0000.png",
+      "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0001.png",
+      "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0002.png"
+    ]
+  }
+}

@@ -1,0 +1,2522 @@
+[
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0000.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.024219107653285995,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0001.png",
+    "class": "real",
+    "label": 0,
+    "pred": 2.1993365718723606e-05,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0002.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.1435996100589788,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0003.png",
+    "class": "real",
+    "label": 0,
+    "pred": 8.604286746219714e-05,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0004.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.18026707112789156,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0005.png",
+    "class": "real",
+    "label": 0,
+    "pred": 4.219875447830645e-06,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0006.png",
+    "class": "real",
+    "label": 0,
+    "pred": 3.264052057902212e-06,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0007.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0003923380091161259,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0008.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.02572547832368097,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0009.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0008841479841256235,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0010.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.05357102091074921,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0011.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.046296776415935416,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0012.png",
+    "class": "real",
+    "label": 0,
+    "pred": 3.8015399230232826e-10,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0013.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00035302763904837775,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0014.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00240919558564201,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0015.png",
+    "class": "real",
+    "label": 0,
+    "pred": 2.113371077333189e-05,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0016.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.007246010907911113,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0017.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00014582798867195378,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0018.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00024818890192212465,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0019.png",
+    "class": "real",
+    "label": 0,
+    "pred": 3.1367049062206815e-06,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0020.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.03811110790731618,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0021.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0033079378721993184,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0022.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.1932017334395399,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0023.png",
+    "class": "real",
+    "label": 0,
+    "pred": 3.7920344406453903e-06,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0024.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0007659558387926306,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0025.png",
+    "class": "real",
+    "label": 0,
+    "pred": 8.482556696994454e-07,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0026.png",
+    "class": "real",
+    "label": 0,
+    "pred": 2.4308202730927892e-05,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0027.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.004261901559075341,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0028.png",
+    "class": "real",
+    "label": 0,
+    "pred": 1.766640615069361e-08,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0029.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00438176515364224,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0030.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.13555632600095122,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0031.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.06106044794122378,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0032.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.13102230064221657,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0033.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0016601255811125764,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0034.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00011943834253846339,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0035.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.015390835244785803,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0036.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.6636346723635991,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0037.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0024783220482845533,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0038.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0003120216488772106,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0039.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.07732167678574721,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0040.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0003196566412225365,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0041.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.39778388831027167,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0042.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0004149957862459056,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0043.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.031842083243342735,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0044.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.024558861579959436,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0045.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0005239580410867955,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0046.png",
+    "class": "real",
+    "label": 0,
+    "pred": 5.8208839791973325e-06,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0047.png",
+    "class": "real",
+    "label": 0,
+    "pred": 2.9775033202857536e-07,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0048.png",
+    "class": "real",
+    "label": 0,
+    "pred": 1.733140024498425e-05,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0049.png",
+    "class": "real",
+    "label": 0,
+    "pred": 4.946395032365085e-06,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0050.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0006177733567892575,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0051.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.052207585548361135,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0052.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.005840920853679564,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0053.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.001425216002000327,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0054.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.07142534005276199,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0055.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0025848542625256715,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0056.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.00024261813494414733,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0057.png",
+    "class": "real",
+    "label": 0,
+    "pred": 7.651669592749028e-09,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0058.png",
+    "class": "real",
+    "label": 0,
+    "pred": 0.0010002054341869855,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/real/real_0059.png",
+    "class": "real",
+    "label": 0,
+    "pred": 8.011189034521731e-07,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0000.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.09126775915928496,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0001.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.239762291641285,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0002.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.09657992642372845,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0003.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.0003158779466836374,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0004.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9978023819128673,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0005.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9884871768951418,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0006.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 3.709691250321612e-05,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0007.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.026151400655508042,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0008.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.07664972784928976,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0009.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.08616742549464106,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0010.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.23179951173166047,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0011.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.18838513920704522,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0012.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.02558302546851337,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0013.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.05486513320356608,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0014.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.1387764258760338,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0015.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.08116289282838501,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0016.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.04362387629846731,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0017.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.5655139141281446,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0018.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9997933852672576,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0019.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9281361534198124,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0020.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.12827899396419526,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0021.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.10040564213568966,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0022.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.3478527002533277,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0023.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.840038438240687,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0024.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.33382049968466165,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0025.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9999981455008189,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0026.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.7828495033582051,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0027.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.8981524441639583,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0028.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9892256327470142,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0029.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9708706404765446,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0030.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.09400162785003582,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0031.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9999512332677841,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0032.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.22168861945470172,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0033.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9602134907245635,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0034.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.17176443047821524,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0035.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.5625952382882436,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0036.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.6751786524057387,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0037.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.036071970012659826,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0038.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9486793001492817,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0039.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9931737353404364,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0040.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.09645643587534626,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0041.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.09848092193404834,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0042.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 4.741634658709396e-05,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0043.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.010578610077500343,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0044.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.03634862245681385,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0045.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.92078575472037,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0046.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.0001870973369902155,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0047.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9956144777933756,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0048.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.4658903088172277,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0049.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9999865607420603,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0050.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.07467453249671963,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0051.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9347146066029868,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0052.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.0015502576654398584,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0053.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9239036663373311,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0054.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9077580926815667,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0055.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9766134391228357,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0056.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9962127214670181,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0057.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9999951402346294,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0058.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.00020980008758973175,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd21/sd21_0059.png",
+    "class": "sd21",
+    "label": 1,
+    "pred": 0.9645195039113363,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0000.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9731990957260133,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0001.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.09865519133706888,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0002.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.04026239926305911,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0003.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999830842018127,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0004.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9991982062657674,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0005.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9656970340013503,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0006.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.8447636687755584,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0007.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9970380574464797,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0008.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.04082860049946855,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0009.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999865329265594,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0010.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.3644563847780227,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0011.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9968920230865479,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0012.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9997477199633915,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0013.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999996733665467,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0014.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9997942878802618,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0015.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9535569588343303,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0016.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.017929829141745963,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0017.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9976350496212641,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0018.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999982154369353,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0019.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 1.0,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0020.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999991401036581,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0021.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9133137939373652,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0022.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.625057978630066,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0023.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.980769840478897,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0024.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9987011955181757,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0025.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999606835842132,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0026.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.7796308414141336,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0027.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.8250320633252461,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0028.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999923308690389,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0029.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.40169018606344853,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0030.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.8560834240913391,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0031.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.009910079588492713,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0032.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.535886398355166,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0033.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.4502103923261166,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0034.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.00218303085713463,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0035.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.32345660792042813,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0036.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999994885921479,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0037.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9961000285545984,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0038.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.999965623219808,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0039.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9062493604421618,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0040.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999923717975616,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0041.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9299170770247778,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0042.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.05583315971152236,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0043.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9643738015492758,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0044.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9993391533692678,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0045.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9988130003213882,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0046.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.27731913673381015,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0047.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999686487515768,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0048.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9995706713199615,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0049.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999967376391091,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0050.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.8711104540030161,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0051.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9986415042479833,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0052.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.19996332846581935,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0053.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999733118216197,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0054.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9546416294574738,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0055.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.10054015492399535,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0056.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.7215396734078727,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0057.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9999998533725738,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0058.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.05633992992341519,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sdxl/sdxl_0059.png",
+    "class": "sdxl",
+    "label": 1,
+    "pred": 0.9997219550609587,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0000.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9431889156500498,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0001.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9885700130462646,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0002.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.27636039710914095,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0003.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9999813294410707,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0004.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.925622456073761,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0005.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.15592594208816685,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0006.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.5506875830888749,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0007.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.5200114573041598,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0008.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.007732190617049733,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0009.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9992355672518413,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0010.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.5091755461692811,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0011.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9221646704276403,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0012.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.0264078934242328,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0013.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.989974370598793,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0014.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.0018988425093387682,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0015.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.1292407952668145,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0016.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9970759942134221,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0017.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.4529150391121705,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0018.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.07419307616849741,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0019.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.8919001360734302,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0020.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.05239752837330646,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0021.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.996375454266866,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0022.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.3151637614518404,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0023.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9992495838801065,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0024.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.11852168910360586,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0025.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.08533101894582312,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0026.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.18547263390792065,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0027.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.09996393443027046,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0028.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9999741663535437,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0029.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.3979743934671084,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0030.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.8614771976570287,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0031.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.16893251399509607,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0032.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.37574079953754935,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0033.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9832534682750703,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0034.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.36818359961112335,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0035.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9999872910976411,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0036.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9998258805274963,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0037.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.837379272778829,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0038.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.0019000103701606959,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0039.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9998454519112905,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0040.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.1444630581404393,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0041.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 1.9987298030284725e-07,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0042.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9987146862347921,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0043.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.4082573553609351,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0044.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.8533330967028936,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0045.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9990196478366853,
+    "routed_domain": "clean"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0046.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9898634688059488,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0047.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.019716221431226585,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0048.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.4619405908385913,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0049.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 1.0,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0050.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.4683975867430369,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0051.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.975449555516243,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0052.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.6381318603952725,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0053.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.993540583451589,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0054.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.9980207339922588,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0055.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.2617568874607484,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0056.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.013425922239742552,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0057.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.779183384180069,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0058.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.696738540728887,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/sd3/sd3_0059.png",
+    "class": "sd3",
+    "label": 1,
+    "pred": 0.006573575684742537,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0000.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9931660850842794,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0001.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7833734109004338,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0002.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.8492915151516598,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0003.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.5019208970293403,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0004.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9983035747210185,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0005.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.014255589738798638,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0006.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.5705570849776268,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0007.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9884102259079616,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0008.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.4341139188905557,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0009.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.6837350647275646,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0010.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.00015229066838704362,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0011.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.522914669662714,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0012.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9762368090947469,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0013.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7553163463870685,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0014.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.13197342005868754,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0015.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.026015072400138405,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0016.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9967634359995524,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0017.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9947464569409689,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0018.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.3097881508773813,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0019.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.3933775124450525,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0020.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.8522068969408672,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0021.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.90749438226223,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0022.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.07611331584261885,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0023.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.2513729516665141,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0024.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.6933084553480148,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0025.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9980855792760849,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0026.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.05840468840052684,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0027.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.44937976598739626,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0028.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.08973001099574048,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0029.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.913517054716746,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0030.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7756385018428167,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0031.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7526958274344603,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0032.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.03216045182198286,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0033.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7760936574141184,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0034.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.2870665757358074,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0035.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.8694123903910319,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0036.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7456422557433446,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0037.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.7731338628133139,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0038.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.855655754407247,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0039.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.17509216662806767,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0040.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9838852608203889,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0041.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.007205983825648824,
+    "routed_domain": "colorjitter"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0042.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.5859142041206361,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0043.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9400181963046392,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0044.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.864712642232577,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0045.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9626183162132899,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0046.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.13356937695654172,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0047.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9706546485424042,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0048.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.255637388130029,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0049.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9895409816503524,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0050.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9347636212905248,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0051.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.6337243312473099,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0052.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.4153436143199603,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0053.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9998655303319295,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0054.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.60459294843177,
+    "routed_domain": "noise"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0055.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9917575085163117,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0056.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9075579899549484,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0057.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.6505236740658681,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0058.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.8080778004725775,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/dalle3/dalle3_0059.png",
+    "class": "dalle3",
+    "label": 1,
+    "pred": 0.9780268236001333,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0000.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.010889861903906421,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0001.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.5780869302892825,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0002.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.024050066241373617,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0003.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.8840258522828419,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0004.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.3951960304060049,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0005.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.7022500481953223,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0006.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.029760046910657065,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0007.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.002953887133238216,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0008.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.7735805852338672,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0009.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9904864406585694,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0010.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.5811620241900286,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0011.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.464124701867501,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0012.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.6669238031407198,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0013.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.4662172545492649,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0014.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.09811560298471401,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0015.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.5462927886843681,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0016.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.09448190308175981,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0017.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.09235956199117937,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0018.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.010020584987984573,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0019.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.0022324861539467144,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0020.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.6824787080287934,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0021.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.8222890135645866,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0022.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.0646642031467248,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0023.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.003556494296123371,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0024.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.7396001861492792,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0025.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9208395302295684,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0026.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.6192937781382352,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0027.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9999926090240479,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0028.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.028208430820174425,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0029.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9997824219862619,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0030.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.8269764373699825,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0031.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.4633376475563273,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0032.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9929747444391249,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0033.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.00014839089853163991,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0034.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9136639100313186,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0035.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.009635994871568984,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0036.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.8711569039026896,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0037.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.14575203493004665,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0038.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.7418549712421372,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0039.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9937955292065939,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0040.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.3414062826273342,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0041.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9372980459531148,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0042.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.7958053224782149,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0043.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.003552040754184418,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0044.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.5214062479883432,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0045.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.06297580102606541,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0046.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.393279506166776,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0047.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.9307912949721019,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0048.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.000346391438801182,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0049.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.12292343898443504,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0050.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.5679856382558743,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0051.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.016692132337820926,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0052.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.015793468268432965,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0053.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.0011874734684216531,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0054.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.021147634601171986,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0055.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.8527604923645655,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0056.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.17801151564344764,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0057.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.18396873754837237,
+    "routed_domain": "spatial"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0058.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.6617403677602609,
+    "routed_domain": "jpeg"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_generator_diagnostic/midjourney6/midjourney6_0059.png",
+    "class": "midjourney6",
+    "label": 1,
+    "pred": 0.6274566068955271,
+    "routed_domain": "jpeg"
+  }
+]

@@ -1,0 +1,18 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded 360 diagnostic images across ['real', 'sd21', 'sdxl', 'sd3', 'dalle3', 'midjourney6']
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7190.29it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+
+Overall AUROC (real vs. all generators pooled): 0.9597
+
+class         n     mean_pred   accuracy(@0.5)  
+------------------------------------------------
+real          60    0.0954      0.9333          
+sd21          60    0.7699      0.7333          
+sdxl          60    0.9280      0.9167          
+sd3           60    0.8565      0.9000          
+dalle3        60    0.9291      0.9500          
+midjourney6   60    0.7608      0.8667          
+
+Saved: /home/jh/noise-residual-experiment/results_detector/generator_diagnostic_results.json
+Saved: /home/jh/noise-residual-experiment/results_detector/generator_diagnostic_per_image.json

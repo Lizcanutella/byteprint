@@ -1,0 +1,62 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Held-out test set: 454 images
+[clean] applying transform + predicting...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 5234.91it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  AUROC=0.9513 acc=0.8744 f1=0.8858 FPR=0.1963 FNR=0.0596 (127.2s)
+[jpeg_q90] applying transform + predicting...
+  AUROC=0.9503 acc=0.8744 f1=0.8795 FPR=0.1370 FNR=0.1149 (94.0s)
+[jpeg_q70] applying transform + predicting...
+  AUROC=0.9587 acc=0.9075 f1=0.9118 FPR=0.1096 FNR=0.0766 (90.2s)
+[jpeg_q50] applying transform + predicting...
+  AUROC=0.9579 acc=0.8899 f1=0.8954 FPR=0.1324 FNR=0.0894 (89.1s)
+[jpeg_q30] applying transform + predicting...
+  AUROC=0.9626 acc=0.9075 f1=0.9129 FPR=0.1233 FNR=0.0638 (86.2s)
+[blur_s0.5] applying transform + predicting...
+  AUROC=0.9478 acc=0.8744 f1=0.8839 FPR=0.1781 FNR=0.0766 (93.4s)
+[blur_s1.0] applying transform + predicting...
+  AUROC=0.9497 acc=0.8789 f1=0.8884 FPR=0.1781 FNR=0.0681 (93.8s)
+[blur_s2.0] applying transform + predicting...
+  AUROC=0.9565 acc=0.8833 f1=0.8865 FPR=0.1142 FNR=0.1191 (96.4s)
+[resize_0.5] applying transform + predicting...
+  AUROC=0.9505 acc=0.8811 f1=0.8889 FPR=0.1598 FNR=0.0809 (88.1s)
+[resize_0.25] applying transform + predicting...
+  AUROC=0.9552 acc=0.8921 f1=0.8946 FPR=0.1005 FNR=0.1149 (88.7s)
+[noise_s0.02] applying transform + predicting...
+  AUROC=0.9414 acc=0.8744 f1=0.8779 FPR=0.1233 FNR=0.1277 (97.3s)
+[noise_s0.05] applying transform + predicting...
+  AUROC=0.9272 acc=0.8546 f1=0.8571 FPR=0.1324 FNR=0.1574 (95.9s)
+[noise_s0.1] applying transform + predicting...
+  AUROC=0.9169 acc=0.8414 f1=0.8442 FPR=0.1461 FNR=0.1702 (96.0s)
+[colorjitter_down20] applying transform + predicting...
+  AUROC=0.9447 acc=0.8656 f1=0.8768 FPR=0.1963 FNR=0.0766 (86.8s)
+[colorjitter_up20] applying transform + predicting...
+  AUROC=0.9422 acc=0.8612 f1=0.8621 FPR=0.1142 FNR=0.1617 (89.6s)
+[crop80] applying transform + predicting...
+  AUROC=0.9495 acc=0.8722 f1=0.8776 FPR=0.1416 FNR=0.1149 (87.2s)
+
+==========================================================================================
+ROBUSTNESS TABLE
+==========================================================================================
+transform           AUROC     acc       f1        FPR       FNR       
+----------------------------------------------------------------------
+clean               0.9513    0.8744    0.8858    0.1963    0.0596    
+jpeg_q90            0.9503    0.8744    0.8795    0.1370    0.1149    
+jpeg_q70            0.9587    0.9075    0.9118    0.1096    0.0766    
+jpeg_q50            0.9579    0.8899    0.8954    0.1324    0.0894    
+jpeg_q30            0.9626    0.9075    0.9129    0.1233    0.0638    
+blur_s0.5           0.9478    0.8744    0.8839    0.1781    0.0766    
+blur_s1.0           0.9497    0.8789    0.8884    0.1781    0.0681    
+blur_s2.0           0.9565    0.8833    0.8865    0.1142    0.1191    
+resize_0.5          0.9505    0.8811    0.8889    0.1598    0.0809    
+resize_0.25         0.9552    0.8921    0.8946    0.1005    0.1149    
+noise_s0.02         0.9414    0.8744    0.8779    0.1233    0.1277    
+noise_s0.05         0.9272    0.8546    0.8571    0.1324    0.1574    
+noise_s0.1          0.9169    0.8414    0.8442    0.1461    0.1702    
+colorjitter_down20  0.9447    0.8656    0.8768    0.1963    0.0766    
+colorjitter_up20    0.9422    0.8612    0.8621    0.1142    0.1617    
+crop80              0.9495    0.8722    0.8776    0.1416    0.1149    
+
+Saved table: /home/jh/noise-residual-experiment/results_detector/robustness_table.json
+Saved per-image predictions: /home/jh/noise-residual-experiment/results_detector/robustness_per_image.json
+Saved plot: /home/jh/noise-residual-experiment/results_detector/robustness_plot.png

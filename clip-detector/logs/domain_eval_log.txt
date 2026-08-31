@@ -1,0 +1,62 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Held-out test set: 454 images
+[clean] (true group=clean) applying transform + predicting...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7214.93it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  baseline AUROC=0.9458 acc=0.8656 | balanced AUROC=0.9449 acc=0.8789 | specialists AUROC=0.9306 acc=0.8458 | routing_acc=0.3392
+[jpeg_q90] (true group=jpeg) applying transform + predicting...
+  baseline AUROC=0.9458 acc=0.8811 | balanced AUROC=0.9485 acc=0.8722 | specialists AUROC=0.9334 acc=0.8590 | routing_acc=0.4251
+[jpeg_q70] (true group=jpeg) applying transform + predicting...
+  baseline AUROC=0.9530 acc=0.8855 | balanced AUROC=0.9540 acc=0.8921 | specialists AUROC=0.9553 acc=0.8789 | routing_acc=0.8260
+[jpeg_q50] (true group=jpeg) applying transform + predicting...
+  baseline AUROC=0.9517 acc=0.8877 | balanced AUROC=0.9538 acc=0.8921 | specialists AUROC=0.9572 acc=0.8943 | routing_acc=0.9449
+[jpeg_q30] (true group=jpeg) applying transform + predicting...
+  baseline AUROC=0.9572 acc=0.8987 | balanced AUROC=0.9575 acc=0.9075 | specialists AUROC=0.9608 acc=0.8987 | routing_acc=0.9780
+[blur_s0.5] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9424 acc=0.8612 | balanced AUROC=0.9421 acc=0.8744 | specialists AUROC=0.9397 acc=0.8656 | routing_acc=0.4934
+[blur_s1.0] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9295 acc=0.8568 | balanced AUROC=0.9389 acc=0.8700 | specialists AUROC=0.9393 acc=0.8612 | routing_acc=0.9868
+[blur_s2.0] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9038 acc=0.8040 | balanced AUROC=0.9351 acc=0.8392 | specialists AUROC=0.9475 acc=0.8634 | routing_acc=0.9912
+[resize_0.5] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9291 acc=0.8590 | balanced AUROC=0.9364 acc=0.8700 | specialists AUROC=0.9348 acc=0.8590 | routing_acc=0.9097
+[resize_0.25] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9034 acc=0.7885 | balanced AUROC=0.9397 acc=0.8546 | specialists AUROC=0.9478 acc=0.8700 | routing_acc=0.9934
+[noise_s0.02] (true group=noise) applying transform + predicting...
+  baseline AUROC=0.9257 acc=0.8678 | balanced AUROC=0.9380 acc=0.8612 | specialists AUROC=0.9203 acc=0.8524 | routing_acc=0.3172
+[noise_s0.05] (true group=noise) applying transform + predicting...
+  baseline AUROC=0.9116 acc=0.8480 | balanced AUROC=0.9266 acc=0.8700 | specialists AUROC=0.9202 acc=0.8458 | routing_acc=0.7137
+[noise_s0.1] (true group=noise) applying transform + predicting...
+  baseline AUROC=0.9032 acc=0.8348 | balanced AUROC=0.9217 acc=0.8612 | specialists AUROC=0.9084 acc=0.8480 | routing_acc=0.9736
+[colorjitter_down20] (true group=colorjitter) applying transform + predicting...
+  baseline AUROC=0.9313 acc=0.8568 | balanced AUROC=0.9369 acc=0.8546 | specialists AUROC=0.9201 acc=0.8260 | routing_acc=0.6586
+[colorjitter_up20] (true group=colorjitter) applying transform + predicting...
+  baseline AUROC=0.9369 acc=0.8546 | balanced AUROC=0.9382 acc=0.8678 | specialists AUROC=0.9284 acc=0.8458 | routing_acc=0.3811
+[crop80] (true group=spatial) applying transform + predicting...
+  baseline AUROC=0.9352 acc=0.8700 | balanced AUROC=0.9403 acc=0.8833 | specialists AUROC=0.9352 acc=0.8634 | routing_acc=0.5551
+
+==============================================================================================================
+COMPARISON: baseline vs. balanced-generalist vs. domain-specialists
+==============================================================================================================
+transform           group       route_acc  base_auc  bal_auc   spec_auc  
+-------------------------------------------------------------------------
+clean               clean       0.3392     0.9458    0.9449    0.9306    
+jpeg_q90            jpeg        0.4251     0.9458    0.9485    0.9334    
+jpeg_q70            jpeg        0.8260     0.9530    0.9540    0.9553    
+jpeg_q50            jpeg        0.9449     0.9517    0.9538    0.9572    
+jpeg_q30            jpeg        0.9780     0.9572    0.9575    0.9608    
+blur_s0.5           spatial     0.4934     0.9424    0.9421    0.9397    
+blur_s1.0           spatial     0.9868     0.9295    0.9389    0.9393    
+blur_s2.0           spatial     0.9912     0.9038    0.9351    0.9475    
+resize_0.5          spatial     0.9097     0.9291    0.9364    0.9348    
+resize_0.25         spatial     0.9934     0.9034    0.9397    0.9478    
+noise_s0.02         noise       0.3172     0.9257    0.9380    0.9203    
+noise_s0.05         noise       0.7137     0.9116    0.9266    0.9202    
+noise_s0.1          noise       0.9736     0.9032    0.9217    0.9084    
+colorjitter_down20  colorjitter 0.6586     0.9313    0.9369    0.9201    
+colorjitter_up20    colorjitter 0.3811     0.9369    0.9382    0.9284    
+crop80              spatial     0.5551     0.9352    0.9403    0.9352    
+
+Mean across all 16 cells: baseline=0.9316  balanced=0.9408  specialists=0.9362  routing_acc=0.7179
+
+Saved: /home/jh/noise-residual-experiment/results_detector/experiments/domain_approaches_eval_result.json

@@ -1,0 +1,15 @@
+mem_avail_mb=9665
+mem_avail_mb=9386
+mem_avail_mb=9173
+mem_avail_mb=9016
+mem_avail_mb=8247
+mem_avail_mb=7542
+mem_avail_mb=7951
+mem_avail_mb=7809
+mem_avail_mb=7667
+mem_avail_mb=7655
+mem_avail_mb=7279
+mem_avail_mb=7334
+mem_avail_mb=7333
+mem_avail_mb=7346
+DIAGNOSTIC_DONE

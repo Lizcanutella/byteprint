@@ -1,0 +1,19 @@
+numpy==2.5.2
+scipy==1.18.1
+scikit-image==0.26.0
+scikit-learn==1.9.0
+pillow==12.3.0
+matplotlib==3.11.1
+tqdm==4.70.0
+datasets==5.0.1
+huggingface_hub==1.29.0
+PyWavelets==1.9.0
+# bm3d is optional; not used by default (denoise_wavelet is the default denoiser)
+
+# --- Detector (Part 1): CLIP embeddings + logistic-regression head ---
+# CPU wheel used for this session's proof-of-concept work:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# On a GPU machine, just install the normal (CUDA) torch build instead -
+# clip_features.py auto-detects cuda vs cpu, same code either way.
+torch==2.13.0
+transformers==5.16.1

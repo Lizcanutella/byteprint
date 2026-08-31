@@ -1,0 +1,12 @@
+{
+  "experiment": "preprojection_features",
+  "feature_dim": 768,
+  "train_auroc": 0.999999461411769,
+  "test_auroc": 0.9505974934421452,
+  "test_accuracy": 0.8722466960352423,
+  "baseline_test_auroc_postproj": 0.9458272612455066,
+  "baseline_test_accuracy_postproj": 0.8656387665198237,
+  "delta_auroc_vs_baseline": 0.004770232196638524,
+  "n_train": 3857,
+  "n_test": 454
+}

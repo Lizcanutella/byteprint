@@ -1,0 +1,15 @@
+{
+  "approach_a_balanced_preproj_generalist": {
+    "test_auroc": 0.9730106823632003,
+    "test_accuracy": 0.9029345372460497
+  },
+  "approach_b_specialists_preproj": {
+    "group_train_sizes": {
+      "clean": 2506,
+      "jpeg": 2506,
+      "spatial": 2506,
+      "noise": 2506,
+      "colorjitter": 2506
+    }
+  }
+}

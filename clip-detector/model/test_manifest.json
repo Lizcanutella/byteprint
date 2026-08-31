@@ -1,0 +1,2217 @@
+[
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0046.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0167.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0273.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0010.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0596.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0345.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0400.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0424.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0072.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0189.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0163.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0010.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0096.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0512.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0325.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0113.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0064.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0533.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0407.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0286.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0215.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0574.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0130.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0434.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0161.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0219.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0024.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0318.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0389.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0097.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0284.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0398.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0242.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0436.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0231.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0043.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0249.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0373.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0648.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0295.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0147.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0719.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0126.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0383.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0404.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0339.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0414.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0136.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0102.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0484.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0494.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0160.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0520.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0441.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0278.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0119.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0514.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0043.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0110.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0278.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0483.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0100.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0538.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0507.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0422.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0285.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0218.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0041.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0531.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0580.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0317.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0098.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0245.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0103.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0143.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0431.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0431.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0121.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0073.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0452.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0417.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0288.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0306.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0213.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0305.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0022.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0200.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0542.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0014.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0332.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0279.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0040.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0562.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0344.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0292.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0173.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0072.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0397.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0458.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0213.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0315.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0293.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0542.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0108.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0508.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0490.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0550.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0147.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0028.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0295.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0135.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0026.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0027.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0014.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0279.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0286.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0497.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0493.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0030.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0400.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0184.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0187.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0189.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0012.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0678.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0252.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0122.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0244.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0308.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0467.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0010.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0271.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0442.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0350.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0317.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0106.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0255.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0496.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0251.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0440.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0093.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0455.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0650.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0448.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0354.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0377.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0021.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0443.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0003.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0019.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0287.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0482.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0693.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0119.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0118.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0050.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0747.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0405.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0449.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0117.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0233.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0245.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0164.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0521.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0029.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0133.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0624.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0623.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0372.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0564.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0504.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0386.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0028.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0349.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0289.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0257.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0733.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0041.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0202.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0378.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0211.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0015.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0273.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0205.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0103.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0216.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0254.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0492.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0128.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0559.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0340.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0096.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0411.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0420.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0313.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0408.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0089.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0086.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0074.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0336.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0287.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0261.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0504.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0396.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0471.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0075.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0129.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0070.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0082.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0377.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0597.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0620.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0365.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0127.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0174.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0134.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0003.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0444.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0542.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0369.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0488.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0562.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0164.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0670.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0128.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0104.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0140.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0370.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0185.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0133.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0211.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0291.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0490.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0364.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0343.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0167.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0132.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0499.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0026.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0244.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0486.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0395.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0315.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0046.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0120.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0364.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0151.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0435.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0470.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0706.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0381.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0553.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0465.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0205.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0513.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0260.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0473.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0182.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0171.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0427.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0060.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0340.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0005.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0583.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0459.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0201.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0463.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0291.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0289.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0585.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0195.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0431.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0091.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0223.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0208.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0125.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0234.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0043.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0588.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0436.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0019.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0480.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0439.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0040.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0311.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0195.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0431.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0267.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0552.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0596.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0303.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0141.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0430.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0356.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0331.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0119.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0065.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0246.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0458.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0142.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0381.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0061.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0506.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0298.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0710.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0123.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0450.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0479.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0469.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0367.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0659.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0469.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0075.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0476.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0462.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0474.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0461.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0582.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0150.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0068.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0528.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0250.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0519.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0468.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0137.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0020.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0279.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0374.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0215.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0460.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0141.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0425.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0164.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0138.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0571.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0125.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0286.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0428.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0236.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0558.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0196.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0116.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0059.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0377.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0298.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0577.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0149.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0465.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0440.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0496.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0250.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0455.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0346.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0521.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0522.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0001.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0170.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0036.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0446.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0391.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0375.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0332.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0517.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0176.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0265.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0006.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0430.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0243.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0334.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0385.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0268.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0354.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0475.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0358.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0564.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0486.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0430.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0105.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0151.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0737.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0720.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0197.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0005.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0372.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0144.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0196.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0389.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0212.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0206.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0538.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0311.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0090.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0074.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0253.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0355.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0479.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0534.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0491.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0208.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0567.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0371.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0130.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0381.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0403.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0561.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0427.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0190.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0372.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0126.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0680.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0186.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0440.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0329.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0392.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0288.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0399.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0146.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0459.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0073.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0536.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0527.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0104.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0164.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0422.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0471.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0448.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0220.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0552.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/ai/ai_0238.png",
+    "label": 1,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd21_0215.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0646.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_fullres/real/real_0045.png",
+    "label": 0,
+    "source": "fullres"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0473.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sd3_0057.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0511.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0321.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_dalle3_0378.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0604.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_midjourney6_0239.png",
+    "label": 1,
+    "source": "defactify"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0355.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/ai/ai_0405.png",
+    "label": 1,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_sid_set/real/real_0286.png",
+    "label": 0,
+    "source": "sid_set"
+  },
+  {
+    "path": "/home/jh/noise-residual-experiment/data_defactify_train/ai/ai_sdxl_0306.png",
+    "label": 1,
+    "source": "defactify"
+  }
+]

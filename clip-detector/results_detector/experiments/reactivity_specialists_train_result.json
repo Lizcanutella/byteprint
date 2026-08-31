@@ -1,0 +1,15 @@
+{
+  "probe": "jpeg_q50 (universal, all domains)",
+  "feature": "concat[CLIP preproj embedding (768d), jpeg_q50-probe embedding delta (768d)] = 1536d",
+  "group_train_sizes": {
+    "clean": 2506,
+    "jpeg": 2506,
+    "spatial": 2506,
+    "noise": 2506,
+    "colorjitter": 2506
+  },
+  "held_out_clean_test_auroc": 0.9984957488554611,
+  "held_out_clean_test_accuracy": 0.981941309255079,
+  "seed": 1234,
+  "timestamp": "2026-08-31T00:45:14"
+}

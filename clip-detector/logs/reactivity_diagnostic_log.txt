@@ -1,0 +1,52 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Held-out diagnostic set: 443 images, sources=[np.str_('defactify'), np.str_('fullres'), np.str_('sid_set')]
+Loading clean images...
+  42.3s
+Embedding clean images (pre-projection CLIP)...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 5500.93it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  64.5s
+Baseline (absolute embedding only): {'stratified_5fold_auroc': 0.9509919337257468, 'leave_one_source_out_auroc': 0.7168737737083062}
+
+=== Probe: blur_s1.0 ===
+  applied probe in 20.2s
+  embedded in 69.8s
+{
+  "delta_norm_univariate_auroc": 0.12323959014606498,
+  "delta_vector_stratified_5fold_auroc": 0.9768694135600611,
+  "delta_vector_leave_one_source_out_auroc": 0.824547634619577,
+  "combined_absolute_plus_delta_stratified_5fold_auroc": 0.9897318508829301,
+  "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.8632657510355353
+}
+
+=== Probe: noise_s0.05 ===
+  applied probe in 16.1s
+  embedded in 36.9s
+{
+  "delta_norm_univariate_auroc": 0.44562895138434705,
+  "delta_vector_stratified_5fold_auroc": 0.9655330281229562,
+  "delta_vector_leave_one_source_out_auroc": 0.7689884456071506,
+  "combined_absolute_plus_delta_stratified_5fold_auroc": 0.978482668410726,
+  "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.7410725964682799
+}
+
+=== Probe: jpeg_q50 ===
+  applied probe in 1.0s
+  embedded in 40.3s
+{
+  "delta_norm_univariate_auroc": 0.43233049923697403,
+  "delta_vector_stratified_5fold_auroc": 0.9953346413778068,
+  "delta_vector_leave_one_source_out_auroc": 0.920427294528014,
+  "combined_absolute_plus_delta_stratified_5fold_auroc": 0.9982341399607586,
+  "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.9149989099629388
+}
+
+Saved to results_detector/reactivity_delta_diagnostic.json
+
+======================================================================
+SUMMARY
+======================================================================
+Absolute embedding alone: 5fold=0.9510 LOSO=0.7169
+blur_s1.0: delta_only 5fold=0.9769 LOSO=0.8245 | combined 5fold=0.9897 LOSO=0.8633
+noise_s0.05: delta_only 5fold=0.9655 LOSO=0.7690 | combined 5fold=0.9785 LOSO=0.7411
+jpeg_q50: delta_only 5fold=0.9953 LOSO=0.9204 | combined 5fold=0.9982 LOSO=0.9150

@@ -1,0 +1,146 @@
+[
+  {
+    "transform": "clean",
+    "auroc": 0.9742148760330579,
+    "accuracy": 0.9272727272727272,
+    "f1": 0.927710843373494,
+    "n": 330,
+    "false_positive_rate": 0.07878787878787878,
+    "false_negative_rate": 0.06666666666666667
+  },
+  {
+    "transform": "jpeg_q90",
+    "auroc": 0.9818181818181817,
+    "accuracy": 0.9333333333333333,
+    "f1": 0.9325153374233128,
+    "n": 330,
+    "false_positive_rate": 0.05454545454545454,
+    "false_negative_rate": 0.07878787878787878
+  },
+  {
+    "transform": "jpeg_q70",
+    "auroc": 0.9985674931129477,
+    "accuracy": 0.9787878787878788,
+    "f1": 0.9787234042553191,
+    "n": 330,
+    "false_positive_rate": 0.01818181818181818,
+    "false_negative_rate": 0.024242424242424242
+  },
+  {
+    "transform": "jpeg_q50",
+    "auroc": 0.9991184573002755,
+    "accuracy": 0.9787878787878788,
+    "f1": 0.9785932721712538,
+    "n": 330,
+    "false_positive_rate": 0.012121212121212121,
+    "false_negative_rate": 0.030303030303030304
+  },
+  {
+    "transform": "jpeg_q30",
+    "auroc": 0.9994490358126722,
+    "accuracy": 0.9848484848484849,
+    "f1": 0.9848942598187311,
+    "n": 330,
+    "false_positive_rate": 0.01818181818181818,
+    "false_negative_rate": 0.012121212121212121
+  },
+  {
+    "transform": "blur_s0.5",
+    "auroc": 0.9844995408631771,
+    "accuracy": 0.9303030303030303,
+    "f1": 0.9305135951661632,
+    "n": 330,
+    "false_positive_rate": 0.07272727272727272,
+    "false_negative_rate": 0.06666666666666667
+  },
+  {
+    "transform": "blur_s1.0",
+    "auroc": 0.9771349862258953,
+    "accuracy": 0.9151515151515152,
+    "f1": 0.9151515151515152,
+    "n": 330,
+    "false_positive_rate": 0.08484848484848485,
+    "false_negative_rate": 0.08484848484848485
+  },
+  {
+    "transform": "blur_s2.0",
+    "auroc": 0.9847933884297521,
+    "accuracy": 0.9424242424242424,
+    "f1": 0.9411764705882353,
+    "n": 330,
+    "false_positive_rate": 0.03636363636363636,
+    "false_negative_rate": 0.07878787878787878
+  },
+  {
+    "transform": "resize_0.5",
+    "auroc": 0.9791000918273645,
+    "accuracy": 0.9272727272727272,
+    "f1": 0.9259259259259259,
+    "n": 330,
+    "false_positive_rate": 0.05454545454545454,
+    "false_negative_rate": 0.09090909090909091
+  },
+  {
+    "transform": "resize_0.25",
+    "auroc": 0.9837649219467401,
+    "accuracy": 0.9333333333333333,
+    "f1": 0.9316770186335404,
+    "n": 330,
+    "false_positive_rate": 0.04242424242424243,
+    "false_negative_rate": 0.09090909090909091
+  },
+  {
+    "transform": "noise_s0.02",
+    "auroc": 0.9633425160697888,
+    "accuracy": 0.9151515151515152,
+    "f1": 0.9119496855345912,
+    "n": 330,
+    "false_positive_rate": 0.048484848484848485,
+    "false_negative_rate": 0.12121212121212122
+  },
+  {
+    "transform": "noise_s0.05",
+    "auroc": 0.9728925619834711,
+    "accuracy": 0.9242424242424242,
+    "f1": 0.9206349206349206,
+    "n": 330,
+    "false_positive_rate": 0.030303030303030304,
+    "false_negative_rate": 0.12121212121212122
+  },
+  {
+    "transform": "noise_s0.1",
+    "auroc": 0.9748760330578513,
+    "accuracy": 0.9030303030303031,
+    "f1": 0.8974358974358975,
+    "n": 330,
+    "false_positive_rate": 0.04242424242424243,
+    "false_negative_rate": 0.15151515151515152
+  },
+  {
+    "transform": "colorjitter_down20",
+    "auroc": 0.9791368227731865,
+    "accuracy": 0.9212121212121213,
+    "f1": 0.9230769230769231,
+    "n": 330,
+    "false_positive_rate": 0.10303030303030303,
+    "false_negative_rate": 0.05454545454545454
+  },
+  {
+    "transform": "colorjitter_up20",
+    "auroc": 0.9772268135904499,
+    "accuracy": 0.9303030303030303,
+    "f1": 0.9287925696594427,
+    "n": 330,
+    "false_positive_rate": 0.048484848484848485,
+    "false_negative_rate": 0.09090909090909091
+  },
+  {
+    "transform": "crop80",
+    "auroc": 0.9831772268135904,
+    "accuracy": 0.9393939393939394,
+    "f1": 0.937888198757764,
+    "n": 330,
+    "false_positive_rate": 0.03636363636363636,
+    "false_negative_rate": 0.08484848484848485
+  }
+]

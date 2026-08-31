@@ -1,0 +1,103 @@
+{
+  "profile": "cifake",
+  "data_source": "cache (previous download)",
+  "n_real": 500,
+  "n_ai": 500,
+  "provenance_control": "JPEG q95 re-encode+reload applied to all images",
+  "degrade_quality_test_B": 50,
+  "results_table": [
+    {
+      "test": "A",
+      "statistic": "energy",
+      "raw_auroc": 0.33894399999999997,
+      "effective_auroc": 0.6610560000000001,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    },
+    {
+      "test": "A",
+      "statistic": "spectral",
+      "raw_auroc": 0.309932,
+      "effective_auroc": 0.690068,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    },
+    {
+      "test": "A",
+      "statistic": "energy_norm",
+      "raw_auroc": 0.376268,
+      "effective_auroc": 0.623732,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    },
+    {
+      "test": "B",
+      "statistic": "energy",
+      "raw_auroc": 0.30220800000000003,
+      "effective_auroc": 0.697792,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    },
+    {
+      "test": "B",
+      "statistic": "spectral",
+      "raw_auroc": 0.293204,
+      "effective_auroc": 0.706796,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    },
+    {
+      "test": "B",
+      "statistic": "energy_norm",
+      "raw_auroc": 0.314524,
+      "effective_auroc": 0.685476,
+      "direction_flipped": true,
+      "n_real": 500,
+      "n_ai": 500
+    }
+  ],
+  "leakage_check": {
+    "corr_testA_energy_vs_busyness": -0.4324358549253402,
+    "corr_testB_energy_vs_busyness": -0.41424895542465334,
+    "flagged": false
+  },
+  "verdict": "UPSIDE",
+  "delta_energy_auroc_effective": {
+    "A": 0.6610560000000001,
+    "B": 0.697792
+  },
+  "content_normalized_variant": {
+    "description": "delta_energy_norm: pixel-wise (R1-R0)^2 divided by a local scene-activity map (box-filter local variance, window=15, eps=0.0001) before averaging, to make the reactivity statistic content-invariant by construction rather than correcting for busyness after the fact.",
+    "leakage_check": {
+      "corr_testA_energy_norm_vs_busyness": -0.5499407765435621,
+      "corr_testB_energy_norm_vs_busyness": -0.390523300406485,
+      "flagged": true
+    },
+    "delta_energy_norm_auroc_effective": {
+      "A": 0.623732,
+      "B": 0.685476
+    },
+    "verdict": "DEAD"
+  },
+  "timing_seconds": {
+    "data_acquisition": 0.0112457275390625,
+    "pipeline": 226.75692534446716
+  },
+  "example_files": {
+    "real": [
+      "/home/jh/noise-residual-experiment/data/real/real_0000.png",
+      "/home/jh/noise-residual-experiment/data/real/real_0001.png",
+      "/home/jh/noise-residual-experiment/data/real/real_0002.png"
+    ],
+    "ai": [
+      "/home/jh/noise-residual-experiment/data/ai/ai_0000.png",
+      "/home/jh/noise-residual-experiment/data/ai/ai_0001.png",
+      "/home/jh/noise-residual-experiment/data/ai/ai_0002.png"
+    ]
+  }
+}

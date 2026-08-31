@@ -1,0 +1,14 @@
+{
+  "experiment": "balanced_augmentation_plus_preprojection_features",
+  "feature_dim": 768,
+  "train_auroc": 0.9988990814570661,
+  "test_auroc": 0.9433401340716993,
+  "test_accuracy": 0.8612334801762115,
+  "reference_scores": {
+    "baseline_postproj_single_random_aug": 0.9458272612455066,
+    "balanced_postproj": 0.9449,
+    "preproj_single_random_aug": 0.9506
+  },
+  "n_train": 12855,
+  "n_test": 454
+}

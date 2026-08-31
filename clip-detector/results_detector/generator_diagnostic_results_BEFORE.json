@@ -1,0 +1,35 @@
+{
+  "overall_auroc_real_vs_all_generators": 0.9185,
+  "per_class": {
+    "real": {
+      "n": 60,
+      "mean_pred": 0.04014883815733615,
+      "accuracy": 0.9833333333333333
+    },
+    "sd21": {
+      "n": 60,
+      "mean_pred": 0.47200332379207255,
+      "accuracy": 0.45
+    },
+    "sdxl": {
+      "n": 60,
+      "mean_pred": 0.7503568342221134,
+      "accuracy": 0.75
+    },
+    "sd3": {
+      "n": 60,
+      "mean_pred": 0.5652623136865459,
+      "accuracy": 0.5333333333333333
+    },
+    "dalle3": {
+      "n": 60,
+      "mean_pred": 0.631243448639345,
+      "accuracy": 0.6833333333333333
+    },
+    "midjourney6": {
+      "n": 60,
+      "mean_pred": 0.44149568067086525,
+      "accuracy": 0.48333333333333334
+    }
+  }
+}

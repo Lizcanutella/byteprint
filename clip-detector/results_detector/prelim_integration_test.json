@@ -1,0 +1,37 @@
+{
+  "clean": {
+    "baseline_auroc": 0.9717462393721387,
+    "extended_with_delta_auroc": 0.9986483540440375,
+    "delta_improvement": 0.026902114671898847,
+    "n_train": 500,
+    "n_test": 443
+  },
+  "jpeg": {
+    "baseline_auroc": 0.9894702419882276,
+    "extended_with_delta_auroc": 0.9898844560715063,
+    "delta_improvement": 0.0004142140832786856,
+    "n_train": 500,
+    "n_test": 443
+  },
+  "spatial": {
+    "baseline_auroc": 0.963134946588184,
+    "extended_with_delta_auroc": 0.9937213865271419,
+    "delta_improvement": 0.030586439938957932,
+    "n_train": 500,
+    "n_test": 443
+  },
+  "noise": {
+    "baseline_auroc": 0.9514933507739263,
+    "extended_with_delta_auroc": 0.996533682145193,
+    "delta_improvement": 0.04504033137126673,
+    "n_train": 500,
+    "n_test": 443
+  },
+  "colorjitter": {
+    "baseline_auroc": 0.9568127316328755,
+    "extended_with_delta_auroc": 0.9925223457597558,
+    "delta_improvement": 0.03570961412688034,
+    "n_train": 500,
+    "n_test": 443
+  }
+}

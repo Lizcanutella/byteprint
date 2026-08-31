@@ -1,0 +1,21 @@
+{
+  "test1_cross_generator_leave_one_out": {
+    "absolute_embedding_only": 0.9086666666666666,
+    "delta_only": 0.9633888888888889,
+    "combined": 0.971111111111111
+  },
+  "test2_reactivity_on_already_degraded_input": {
+    "absolute_embedding_of_degraded_input_only": {
+      "stratified_5fold": 0.9707434052757793,
+      "leave_one_source_out": 0.8154785262698931
+    },
+    "delta_only": {
+      "stratified_5fold": 0.99459341617615,
+      "leave_one_source_out": 0.8738827120122085
+    },
+    "combined": {
+      "stratified_5fold": 0.9988445607150643,
+      "leave_one_source_out": 0.9109657728362764
+    }
+  }
+}

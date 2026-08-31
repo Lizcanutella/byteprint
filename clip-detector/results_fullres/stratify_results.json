@@ -1,0 +1,81 @@
+{
+  "profile": "fullres",
+  "n_real": 500,
+  "n_ai": 499,
+  "degradation_regressor_validation": {
+    "n_train": 450,
+    "n_test": 150,
+    "blur_r2": 0.7104795013892544,
+    "blur_mae": 0.2886271335641833,
+    "quality_r2": 0.8826606549554518,
+    "quality_mae": 4.679151271773062
+  },
+  "confound_check": {
+    "native_quality_real_mean": 96.02737162952975,
+    "native_quality_ai_mean": 94.49912140263842,
+    "native_quality_mannwhitney_p": 2.165240153099943e-07,
+    "native_blur_real_mean": 0.4898305002546766,
+    "native_blur_ai_mean": 0.3810193012958975,
+    "native_blur_mannwhitney_p": 0.09818943791077182,
+    "quality_confound_flagged": true,
+    "blur_confound_flagged": false,
+    "native_quality_alone_auroc_effective": 0.5947535070140281,
+    "native_blur_alone_auroc_effective": 0.5302244488977956
+  },
+  "stratified_auroc_by_native_quality_tercile": [
+    {
+      "bin": 0,
+      "n": 333,
+      "native_quality_range": [
+        50.570763088529276,
+        95.12809621426699
+      ],
+      "delta_energy_auroc_effective": 0.7012781954887217
+    },
+    {
+      "bin": 1,
+      "n": 333,
+      "native_quality_range": [
+        95.1406641505017,
+        97.69077879178349
+      ],
+      "delta_energy_auroc_effective": 0.5841391254149229
+    },
+    {
+      "bin": 2,
+      "n": 333,
+      "native_quality_range": [
+        97.69122989076499,
+        98.90141567325996
+      ],
+      "delta_energy_auroc_effective": 0.5673026561915451
+    }
+  ],
+  "combined_classifier": {
+    "baseline_delta_energy_only_cv_auroc": 0.5991266666666666,
+    "baseline_folds": [
+      0.6301000000000001,
+      0.612,
+      0.5393,
+      0.5709,
+      0.6433333333333333
+    ],
+    "reactivity_only_cv_auroc": 0.5908569696969697,
+    "shortcut_only_cv_auroc": 0.7244541414141414,
+    "combined_with_degradation_features_cv_auroc": 0.7234272727272728,
+    "combined_folds": [
+      0.7006,
+      0.7114999999999999,
+      0.77,
+      0.7414000000000001,
+      0.6936363636363636
+    ],
+    "improved": true,
+    "shortcut_dominates": true
+  },
+  "plots": {
+    "scatter_quality_vs_delta": "/home/jh/noise-residual-experiment/results_fullres/stratify_scatter_quality_vs_delta.png",
+    "hist_native_quality_by_class": "/home/jh/noise-residual-experiment/results_fullres/stratify_hist_native_quality.png",
+    "bar_auroc_by_bin": "/home/jh/noise-residual-experiment/results_fullres/stratify_bar_auroc_by_bin.png"
+  }
+}

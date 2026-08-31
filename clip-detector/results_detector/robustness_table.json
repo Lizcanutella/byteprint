@@ -1,0 +1,146 @@
+[
+  {
+    "transform": "clean",
+    "auroc": 0.9989317636799652,
+    "accuracy": 0.9887133182844243,
+    "f1": 0.9910873440285205,
+    "n": 443,
+    "false_positive_rate": 0.030303030303030304,
+    "false_negative_rate": 0.0
+  },
+  {
+    "transform": "jpeg_q90",
+    "auroc": 0.9991061696097667,
+    "accuracy": 0.9774266365688488,
+    "f1": 0.9820143884892086,
+    "n": 443,
+    "false_positive_rate": 0.030303030303030304,
+    "false_negative_rate": 0.017985611510791366
+  },
+  {
+    "transform": "jpeg_q70",
+    "auroc": 0.9947460213647263,
+    "accuracy": 0.9571106094808126,
+    "f1": 0.966131907308378,
+    "n": 443,
+    "false_positive_rate": 0.07272727272727272,
+    "false_negative_rate": 0.025179856115107913
+  },
+  {
+    "transform": "jpeg_q50",
+    "auroc": 0.9976455199476784,
+    "accuracy": 0.9729119638826185,
+    "f1": 0.9785714285714285,
+    "n": 443,
+    "false_positive_rate": 0.048484848484848485,
+    "false_negative_rate": 0.014388489208633094
+  },
+  {
+    "transform": "jpeg_q30",
+    "auroc": 0.9961630695443645,
+    "accuracy": 0.9751693002257337,
+    "f1": 0.9802513464991023,
+    "n": 443,
+    "false_positive_rate": 0.03636363636363636,
+    "false_negative_rate": 0.017985611510791366
+  },
+  {
+    "transform": "blur_s0.5",
+    "auroc": 0.9982777414432091,
+    "accuracy": 0.9751693002257337,
+    "f1": 0.9803921568627451,
+    "n": 443,
+    "false_positive_rate": 0.048484848484848485,
+    "false_negative_rate": 0.01079136690647482
+  },
+  {
+    "transform": "blur_s1.0",
+    "auroc": 0.9982559407019839,
+    "accuracy": 0.9774266365688488,
+    "f1": 0.982078853046595,
+    "n": 443,
+    "false_positive_rate": 0.03636363636363636,
+    "false_negative_rate": 0.014388489208633094
+  },
+  {
+    "transform": "blur_s2.0",
+    "auroc": 0.9953128406365815,
+    "accuracy": 0.9683972911963883,
+    "f1": 0.9747292418772563,
+    "n": 443,
+    "false_positive_rate": 0.03636363636363636,
+    "false_negative_rate": 0.02877697841726619
+  },
+  {
+    "transform": "resize_0.5",
+    "auroc": 0.9977981251362547,
+    "accuracy": 0.9729119638826185,
+    "f1": 0.978494623655914,
+    "n": 443,
+    "false_positive_rate": 0.04242424242424243,
+    "false_negative_rate": 0.017985611510791366
+  },
+  {
+    "transform": "resize_0.25",
+    "auroc": 0.9972095051231742,
+    "accuracy": 0.9796839729119639,
+    "f1": 0.9837251356238698,
+    "n": 443,
+    "false_positive_rate": 0.01818181818181818,
+    "false_negative_rate": 0.02158273381294964
+  },
+  {
+    "transform": "noise_s0.02",
+    "auroc": 0.9968824940047962,
+    "accuracy": 0.9751693002257337,
+    "f1": 0.9800362976406534,
+    "n": 443,
+    "false_positive_rate": 0.01818181818181818,
+    "false_negative_rate": 0.02877697841726619
+  },
+  {
+    "transform": "noise_s0.05",
+    "auroc": 0.9984957488554611,
+    "accuracy": 0.9751693002257337,
+    "f1": 0.9799635701275046,
+    "n": 443,
+    "false_positive_rate": 0.012121212121212121,
+    "false_negative_rate": 0.03237410071942446
+  },
+  {
+    "transform": "noise_s0.1",
+    "auroc": 0.9965990843688686,
+    "accuracy": 0.9729119638826185,
+    "f1": 0.9781818181818182,
+    "n": 443,
+    "false_positive_rate": 0.01818181818181818,
+    "false_negative_rate": 0.03237410071942446
+  },
+  {
+    "transform": "colorjitter_down20",
+    "auroc": 0.9988227599738391,
+    "accuracy": 0.9796839729119639,
+    "f1": 0.983957219251337,
+    "n": 443,
+    "false_positive_rate": 0.04242424242424243,
+    "false_negative_rate": 0.007194244604316547
+  },
+  {
+    "transform": "colorjitter_up20",
+    "auroc": 0.9952038369304557,
+    "accuracy": 0.9751693002257337,
+    "f1": 0.9801084990958409,
+    "n": 443,
+    "false_positive_rate": 0.024242424242424242,
+    "false_negative_rate": 0.025179856115107913
+  },
+  {
+    "transform": "crop80",
+    "auroc": 0.9990407673860912,
+    "accuracy": 0.9887133182844243,
+    "f1": 0.9910554561717353,
+    "n": 443,
+    "false_positive_rate": 0.024242424242424242,
+    "false_negative_rate": 0.0035971223021582736
+  }
+]

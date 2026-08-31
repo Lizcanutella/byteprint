@@ -1,0 +1,29 @@
+Error rates by transform (FPR = real misclassified as AI, FNR = AI misclassified as real):
+transform           FPR       FNR       n_FP    n_FN    
+--------------------------------------------------------
+clean               0.0788    0.0667    13      11      
+jpeg_q90            0.0545    0.0788    9       13      
+jpeg_q70            0.0182    0.0242    3       4       
+jpeg_q50            0.0121    0.0303    2       5       
+jpeg_q30            0.0182    0.0121    3       2       
+blur_s0.5           0.0727    0.0667    12      11      
+blur_s1.0           0.0848    0.0848    14      14      
+blur_s2.0           0.0364    0.0788    6       13      
+resize_0.5          0.0545    0.0909    9       15      
+resize_0.25         0.0424    0.0909    7       15      
+noise_s0.02         0.0485    0.1212    8       20      
+noise_s0.05         0.0303    0.1212    5       20      
+noise_s0.1          0.0424    0.1515    7       25      
+colorjitter_down20  0.1030    0.0545    17      9       
+colorjitter_up20    0.0485    0.0909    8       15      
+crop80              0.0364    0.0848    6       14      
+
+Saved summary: /home/jh/noise-residual-experiment/results_detector/error_analysis_summary.json
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fp_clean.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fn_clean.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fp_jpeg_q30.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fn_jpeg_q30.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fp_blur_s2.0.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fn_blur_s2.0.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fp_crop80.png
+Saved example grid: /home/jh/noise-residual-experiment/results_detector/error_fn_crop80.png

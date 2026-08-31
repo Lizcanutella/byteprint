@@ -1,0 +1,29 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Full split: train=2506 test=443
+Training subsample: 400 of 2506 originals
+
+======================================================================
+DOMAIN: spatial
+======================================================================
+Building whole-image (production-style) train/test...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  80%|████████  | 319/398 [00:00<00:00, 3188.93it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3542.80it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  done in 229.2s
+Building native-crop (top_k=3) train/test...
+  done in 693.0s
+  whole-image AUROC=0.9574  native-crop AUROC=0.9325  crop_advantage=-0.0249
+
+======================================================================
+DOMAIN: jpeg
+======================================================================
+Building whole-image (production-style) train/test...
+  done in 212.8s
+Building native-crop (top_k=3) train/test...
+  done in 427.0s
+  whole-image AUROC=0.9838  native-crop AUROC=0.9452  crop_advantage=-0.0386
+
+======================================================================
+SUMMARY
+======================================================================
+spatial    whole=0.9574  crop=0.9325  advantage=-0.0249
+jpeg       whole=0.9838  crop=0.9452  advantage=-0.0386

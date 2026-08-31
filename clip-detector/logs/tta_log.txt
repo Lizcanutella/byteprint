@@ -1,0 +1,62 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Held-out test set: 454 images, TTA views: ['identity', 'hflip', 'crop95']
+[clean] applying transform, 3 TTA views + predicting...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7434.69it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  TTA AUROC=0.9487 acc=0.8722  (no-TTA baseline=0.9458272612455066, delta=+0.0029)
+[jpeg_q90] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9472 acc=0.8833  (no-TTA baseline=0.9457689692023705, delta=+0.0014)
+[jpeg_q70] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9511 acc=0.8855  (no-TTA baseline=0.9530360439133392, delta=-0.0019)
+[jpeg_q50] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9507 acc=0.8921  (no-TTA baseline=0.9517244729427766, delta=-0.0010)
+[jpeg_q30] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9539 acc=0.9031  (no-TTA baseline=0.9571553482949576, delta=-0.0033)
+[blur_s0.5] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9436 acc=0.8722  (no-TTA baseline=0.9423783153599533, delta=+0.0012)
+[blur_s1.0] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9307 acc=0.8612  (no-TTA baseline=0.929456912464782, delta=+0.0012)
+[blur_s2.0] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9066 acc=0.7930  (no-TTA baseline=0.90379869814437, delta=+0.0028)
+[resize_0.5] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9299 acc=0.8634  (no-TTA baseline=0.9290780141843971, delta=+0.0008)
+[resize_0.25] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9065 acc=0.8018  (no-TTA baseline=0.9034489458855532, delta=+0.0030)
+[noise_s0.02] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9297 acc=0.8656  (no-TTA baseline=0.9224910133100166, delta=+0.0073)
+[noise_s0.05] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9132 acc=0.8370  (no-TTA baseline=0.9063246866802681, delta=+0.0069)
+[noise_s0.1] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9084 acc=0.8392  (no-TTA baseline=0.9020887982123773, delta=+0.0063)
+[colorjitter_down20] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9385 acc=0.8524  (no-TTA baseline=0.9312639658020013, delta=+0.0072)
+[colorjitter_up20] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9396 acc=0.8568  (no-TTA baseline=0.9369085786456814, delta=+0.0027)
+[crop80] applying transform, 3 TTA views + predicting...
+  TTA AUROC=0.9385 acc=0.8744  (no-TTA baseline=0.9351792480326435, delta=+0.0033)
+
+==========================================================================================
+TTA vs NO-TTA
+==========================================================================================
+transform           no_tta_auroc  tta_auroc   delta     tta_acc   
+------------------------------------------------------------------
+clean               0.9458        0.9487      +0.0029   0.8722    
+jpeg_q90            0.9458        0.9472      +0.0014   0.8833    
+jpeg_q70            0.9530        0.9511      -0.0019   0.8855    
+jpeg_q50            0.9517        0.9507      -0.0010   0.8921    
+jpeg_q30            0.9572        0.9539      -0.0033   0.9031    
+blur_s0.5           0.9424        0.9436      +0.0012   0.8722    
+blur_s1.0           0.9295        0.9307      +0.0012   0.8612    
+blur_s2.0           0.9038        0.9066      +0.0028   0.7930    
+resize_0.5          0.9291        0.9299      +0.0008   0.8634    
+resize_0.25         0.9034        0.9065      +0.0030   0.8018    
+noise_s0.02         0.9225        0.9297      +0.0073   0.8656    
+noise_s0.05         0.9063        0.9132      +0.0069   0.8370    
+noise_s0.1          0.9021        0.9084      +0.0063   0.8392    
+colorjitter_down20  0.9313        0.9385      +0.0072   0.8524    
+colorjitter_up20    0.9369        0.9396      +0.0027   0.8568    
+crop80              0.9352        0.9385      +0.0033   0.8744    
+
+Mean AUROC delta across all cells: +0.0026
+
+Saved: /home/jh/noise-residual-experiment/results_detector/experiments/tta_result.json

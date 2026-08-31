@@ -1,0 +1,27 @@
+{
+  "baseline_absolute_embedding_only": {
+    "stratified_5fold_auroc": 0.9509919337257468,
+    "leave_one_source_out_auroc": 0.7168737737083062
+  },
+  "blur_s1.0": {
+    "delta_norm_univariate_auroc": 0.12323959014606498,
+    "delta_vector_stratified_5fold_auroc": 0.9768694135600611,
+    "delta_vector_leave_one_source_out_auroc": 0.824547634619577,
+    "combined_absolute_plus_delta_stratified_5fold_auroc": 0.9897318508829301,
+    "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.8632657510355353
+  },
+  "noise_s0.05": {
+    "delta_norm_univariate_auroc": 0.44562895138434705,
+    "delta_vector_stratified_5fold_auroc": 0.9655330281229562,
+    "delta_vector_leave_one_source_out_auroc": 0.7689884456071506,
+    "combined_absolute_plus_delta_stratified_5fold_auroc": 0.978482668410726,
+    "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.7410725964682799
+  },
+  "jpeg_q50": {
+    "delta_norm_univariate_auroc": 0.43233049923697403,
+    "delta_vector_stratified_5fold_auroc": 0.9953346413778068,
+    "delta_vector_leave_one_source_out_auroc": 0.920427294528014,
+    "combined_absolute_plus_delta_stratified_5fold_auroc": 0.9982341399607586,
+    "combined_absolute_plus_delta_leave_one_source_out_auroc": 0.9149989099629388
+  }
+}

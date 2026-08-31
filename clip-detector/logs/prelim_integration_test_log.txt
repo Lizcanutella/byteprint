@@ -1,0 +1,62 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Full split: train=2506 test=443
+Training subsample: 500 of 2506 originals
+
+======================================================================
+DOMAIN: clean
+======================================================================
+Building training batch (500 images, group=clean)...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8156.10it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  done in 110.8s
+Building held-out test batch (443 images, group=clean)...
+  done in 101.5s
+  baseline=0.9717  extended(+delta)=0.9986  delta=+0.0269
+
+======================================================================
+DOMAIN: jpeg
+======================================================================
+Building training batch (500 images, group=jpeg)...
+  done in 117.0s
+Building held-out test batch (443 images, group=jpeg)...
+  done in 108.1s
+  baseline=0.9895  extended(+delta)=0.9899  delta=+0.0004
+
+======================================================================
+DOMAIN: spatial
+======================================================================
+Building training batch (500 images, group=spatial)...
+  done in 113.6s
+Building held-out test batch (443 images, group=spatial)...
+  done in 108.3s
+  baseline=0.9631  extended(+delta)=0.9937  delta=+0.0306
+
+======================================================================
+DOMAIN: noise
+======================================================================
+Building training batch (500 images, group=noise)...
+  done in 119.7s
+Building held-out test batch (443 images, group=noise)...
+  done in 112.5s
+  baseline=0.9515  extended(+delta)=0.9965  delta=+0.0450
+
+======================================================================
+DOMAIN: colorjitter
+======================================================================
+Building training batch (500 images, group=colorjitter)...
+  done in 115.2s
+Building held-out test batch (443 images, group=colorjitter)...
+  done in 103.2s
+  baseline=0.9568  extended(+delta)=0.9925  delta=+0.0357
+
+Saved to /home/jh/noise-residual-experiment/results_detector/prelim_integration_test.json
+
+======================================================================
+SUMMARY (baseline vs extended-with-jpeg_q50-delta, per domain)
+======================================================================
+clean          baseline=0.9717  extended=0.9986  delta=+0.0269
+jpeg           baseline=0.9895  extended=0.9899  delta=+0.0004
+spatial        baseline=0.9631  extended=0.9937  delta=+0.0306
+noise          baseline=0.9515  extended=0.9965  delta=+0.0450
+colorjitter    baseline=0.9568  extended=0.9925  delta=+0.0357
+MEAN           baseline=0.9665  extended=0.9943  delta=+0.0277

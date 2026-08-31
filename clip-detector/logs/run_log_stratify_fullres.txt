@@ -1,0 +1,57 @@
+================================================================================
+DEGRADATION-AWARE STRATIFICATION EXPERIMENT  [profile: fullres]
+================================================================================
+Loaded 999 images (n_real=500, n_ai=499)
+
+Loading base (pre-provenance) grayscale images...
+  done in 137.3s
+
+Training degradation regressor on 150 images x 4 synthetic samples each...
+  done in 22.1s
+  Regressor validation (held-out synthetic samples):
+    blur_sigma:    R^2=0.710  MAE=0.289
+    jpeg_quality:  R^2=0.883  MAE=4.68
+
+Predicting native (pre-provenance) degradation for all images...
+
+Running Test-A residual pipeline (JPEG q95 provenance control)...
+  done in 367.6s (999 images)
+
+--------------------------------------------------------------------------------
+CONFOUND CHECK: native (pre-provenance) predicted degradation, by class
+--------------------------------------------------------------------------------
+  Native predicted JPEG quality: real mean=96.0 (median=97.3), ai mean=94.5 (median=95.8)  Mann-Whitney p=2.17e-07
+  Native predicted blur sigma:   real mean=0.490 (median=0.350), ai mean=0.381 (median=0.326)  Mann-Whitney p=9.82e-02
+  -> FLAGGED: native degradation state differs significantly by class. Part of any Delta_energy separation could reflect 'how heavily was this image already compressed/blurred before we touched it' rather than real-vs-AI reactivity.
+  (native_quality alone as a real/ai classifier: eff. AUROC = 0.5948)
+  (native_blur alone as a real/ai classifier:    eff. AUROC = 0.5302)
+
+--------------------------------------------------------------------------------
+STRATIFIED AUROC: Delta_energy by native-quality tercile
+--------------------------------------------------------------------------------
+  bin 0 (native quality 51-95, n=333): Delta_energy eff. AUROC = 0.7013
+  bin 1 (native quality 95-98, n=333): Delta_energy eff. AUROC = 0.5841
+  bin 2 (native quality 98-99, n=333): Delta_energy eff. AUROC = 0.5673
+
+--------------------------------------------------------------------------------
+COMBINED CLASSIFIER: Delta_energy alone vs. + degradation features
+--------------------------------------------------------------------------------
+  Baseline (Delta_energy only):                         CV eff. AUROC = 0.5991
+  Reactivity only (Delta_energy + Delta_energy_norm):   CV eff. AUROC = 0.5909
+  Shortcut only (native_quality + native_blur
+                 + busyness, NO residual stats at all): CV eff. AUROC = 0.7245
+  Combined (all five features):                         CV eff. AUROC = 0.7234
+  -> Combined score IS higher (+0.1243), but the shortcut-only score (0.7245) nearly matches it on its own - most of the gain is native-quality/busyness acting as a class shortcut for THIS dataset, not degradation-awareness rescuing genuine residual reactivity.
+
+================================================================================
+SUMMARY
+================================================================================
+Confound: native quality differs by class: True (p=2.17e-07)
+Confound: native blur differs by class:    False (p=9.82e-02)
+Delta_energy alone -> combined:  0.5991 -> 0.7234  (improved=True)
+Shortcut-only (no residual stats at all): 0.7245  (shortcut_dominates=True)
+Results saved to: /home/jh/noise-residual-experiment/results_fullres/stratify_results.json
+Plot saved to: /home/jh/noise-residual-experiment/results_fullres/stratify_scatter_quality_vs_delta.png
+Plot saved to: /home/jh/noise-residual-experiment/results_fullres/stratify_hist_native_quality.png
+Plot saved to: /home/jh/noise-residual-experiment/results_fullres/stratify_bar_auroc_by_bin.png
+================================================================================

@@ -1,0 +1,19 @@
+{
+  "backbone": "openai/clip-vit-base-patch32",
+  "backbone_param_count_approx": 151277313,
+  "device_used_for_training": "cpu",
+  "n_train_images_incl_augmented": 5030,
+  "n_test_images_heldout_clean": 593,
+  "train_sources": [
+    "cifake",
+    "defactify",
+    "fullres",
+    "sid_set"
+  ],
+  "augment_fraction": 0.5,
+  "train_auroc": 0.993632991790204,
+  "test_auroc": 0.9677053824362606,
+  "test_accuracy": 0.9106239460370995,
+  "seed": 1234,
+  "timestamp": "2026-08-30T19:14:55"
+}

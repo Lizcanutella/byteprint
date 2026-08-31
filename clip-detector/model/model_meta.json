@@ -1,0 +1,61 @@
+{
+  "pipeline": "domain_classifier (routing) + per-domain logistic-regression specialists on CLIP pre-projection features EXTENDED with a jpeg_q50 reactivity-delta feature, confidence-gated (soft mixture-of-experts) inference",
+  "backbone": "openai/clip-vit-base-patch32",
+  "backbone_param_count_approx": 151277313,
+  "backbone_feature_used": "pre-projection embedding (768-dim vision-encoder pooled output, before visual_projection) CONCATENATED with the embedding shift caused by re-JPEG-compressing the image at quality 50 (768-dim delta) = 1536-dim total. See 'Reactivity-delta feature' in README - validated via diagnostic_reactivity_delta.py / diagnostic_reactivity_comprehensive.py / prelim_integration_test.py / prelim_domain_matched_probe.py before production integration (train_reactivity_specialists.py).",
+  "domain_groups": [
+    "clean",
+    "jpeg",
+    "spatial",
+    "noise",
+    "colorjitter"
+  ],
+  "domain_classifier": "RandomForestClassifier on classical no-reference features (laplacian_var, highfreq_ratio, blockiness, contrast, mean_saturation)",
+  "domain_classifier_5way_accuracy": 0.75,
+  "specialist_heads": "sklearn Pipeline(StandardScaler, LogisticRegression) per domain group, 1536-dim extended feature, 2506 training images each",
+  "reactivity_delta_feature": {
+    "probe": "jpeg_q50 (universal, single probe used for all 5 domains - see scoping note)",
+    "scoping_note": "A domain-matched probe (blur_s1.0 specifically for the 'jpeg' domain, avoiding jpeg-on-jpeg redundancy) measured slightly better for that one domain (+0.008 vs +0.0004) in prelim_domain_matched_probe.py, but was NOT adopted in production: under confidence-gated soft routing every image needs a delta for every specialist it might get weighted to, so domain-matching would require a 3rd CLIP pass per image (both probes) instead of 2, for a gain that only affects the domain with the least headroom (already ~0.99 AUROC). Time-boxed decision given the deadline, not an oversight.",
+    "validation_summary": "cross-source generalization (leave-one-source-out): 0.72 (absolute embedding alone) -> 0.92 (delta alone, jpeg probe). Cross-generator generalization (leave-one-generator-out, Defactify TEST split): 0.909 -> 0.971 (combined). Survives being applied on top of an already-degraded (blurred) input: 0.816 -> 0.911 (combined, LOSO). Full production integration (all 5 domains, real training/eval pipeline): mean AUROC across 16-cell robustness grid 0.981 -> 0.997; generator-diagnostic pooled AUROC 0.940 -> 0.977."
+  },
+  "n_train_images_base": 2506,
+  "n_test_images_heldout_clean": 443,
+  "train_sources": [
+    "fullres",
+    "sid_set",
+    "defactify_ai_only"
+  ],
+  "dataset_compliance_summary": {
+    "sid_set": "used, organizer-recommended (saberzl/SID_Set), train split, labels 0/1 only",
+    "cifake": "TRIED (HF mirror of organizer-recommended Kaggle CIFAKE), REMOVED after measured dual regression: -0.020 mean AUROC on own robustness grid, -0.056 AUROC on generator diagnostic. Native 32x32 resolution incompatible with blur/resize/noise robustness testing. See model/*_v4_with_cifake_WORSE.* for the disclosed comparison.",
+    "wildfake": "never fetched (modelscope access friction; explicitly reserved by organizer for demonstration only, not training)",
+    "defactify_real_images": "excluded from training - sourced from MS COCO, and organizer WildFake demo benchmark uses COCO val2017 as its non-AIGC side. Overlap assessed as unlikely (Defactify draws from a ~16k-image pool, val2017 is only 5k) but removed as a precaution since real-photo diversity was already well covered by fullres/sid_set. See model/*_v3_INCLUDES_COCO_REAL* for the prior version.",
+    "itslen_fullres2": "excluded - separately found to be mislabeled (human-art-vs-AI-art, not real-vs-AI-photo); see README Data-quality fix."
+  },
+  "held_out_clean_test_auroc": 0.9989,
+  "held_out_clean_test_accuracy": 0.9887,
+  "mean_auroc_across_16cell_robustness_grid": 0.9974,
+  "mean_accuracy_across_16cell_robustness_grid": 0.9757,
+  "generator_diagnostic_final": {
+    "description": "held-out (Defactify TEST split, never trained on) per-generator accuracy, 60 images/class",
+    "real": 0.8833,
+    "sd21": 0.9667,
+    "sdxl": 1.0,
+    "sd3": 0.9833,
+    "dalle3": 0.9833,
+    "midjourney6": 0.9667,
+    "overall_auroc": 0.9767,
+    "note": "the reactivity-delta feature (v6) improved every single cell here over v5 (real 81.7%->88.3%, sd21 86.7%->96.7%, sdxl 98.3%->100%, sd3 91.7%->98.3%, dalle3 95.0%->98.3%, midjourney6 81.7%->96.7%; pooled AUROC 0.940->0.977) - the gain generalizes to unseen generators, not just the training-side robustness grid. Two specific hard, user-found real-world misses (a ChatGPT/DALL-E image of a complex NTU convocation scene, and a deliberately-blurred ChatGPT dog image) remain misses even after this fix (0.030 and 0.008 respectively) - these represent a content/style distribution gap (unusual real-world prompts vs. Defactify's simple COCO-caption-style training examples), a different problem than the generator-identity/robustness gaps this feature targets. See README 'Error analysis' and 'known_failure_examples/'."
+  },
+  "model_history": {
+    "v1_contaminated_3source": 0.9316,
+    "v2_clean_2source_hard_routing": 0.9821,
+    "v2_clean_2source_confidence_gated": 0.984,
+    "v3_plus_defactify_incl_coco_real": 0.9758,
+    "v4_plus_cifake_REVERTED": 0.9557,
+    "v5_defactify_ai_only_no_cifake": 0.981,
+    "v6_FINAL_plus_jpeg_reactivity_delta": 0.9974
+  },
+  "seed": 1234,
+  "timestamp": "2026-08-31T00:52:00"
+}

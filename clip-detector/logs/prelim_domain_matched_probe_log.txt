@@ -1,0 +1,32 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Training subsample: 500 of 2506 originals; group=jpeg
+Building jpeg-domain TRAIN images + base embeddings...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6544.74it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  done in 63.1s
+Building jpeg-domain TEST images + base embeddings...
+  done in 58.6s
+
+Baseline (absolute embedding only, no delta): AUROC=0.9860
+
+=== Probe: jpeg_q50 (original, redundant) ===
+  embedded probed copies in 82.9s
+  extended AUROC=0.9895  delta vs baseline=+0.0035
+
+=== Probe: blur_s1.0 ===
+  embedded probed copies in 99.9s
+  extended AUROC=0.9938  delta vs baseline=+0.0078
+
+=== Probe: noise_s0.05 ===
+  embedded probed copies in 99.0s
+  extended AUROC=0.9937  delta vs baseline=+0.0077
+
+Saved to /home/jh/noise-residual-experiment/results_detector/prelim_domain_matched_probe.json
+
+======================================================================
+SUMMARY (jpeg domain, best substitute probe search)
+======================================================================
+baseline (no delta): 0.9860
+  + jpeg_q50 (original, redundant): 0.9895  (+0.0035)
+  + blur_s1.0: 0.9938  (+0.0078)
+  + noise_s0.05: 0.9937  (+0.0077)
