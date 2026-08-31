@@ -112,36 +112,6 @@ paper's proper LPIPS metric. AEROBLADE's true ceiling is probably higher than
 0.7103 AUC. Worth a follow-up run with the import fixed before treating 0.71 as
 AEROBLADE's real number.
 
-## Debugging notes (useful if you rerun this)
-
-Getting a clean run on Kaggle took several real fixes, in order encountered:
-
-1. **`byteprint` and the CLIP code are both on private GitHub repos.** An
-   anonymous `git clone` in a batch Kaggle kernel has no stdin/TTY, so it just
-   hangs forever on a username prompt — this silently ate 5 hours of GPU quota
-   the first time. Fix: package the source as private Kaggle Datasets instead
-   (`byteprint-code`, `clip-reactivity-code`) and copy
-   from `/kaggle/input/` rather than cloning.
-2. **Kaggle can assign a Tesla P100** (compute capability sm_60), which the
-   installed PyTorch build doesn't support at all (`CUDA error: no kernel image
-   is available for execution on the device`). Fix: pin
-   `"machine_shape": "NvidiaTeslaT4"` explicitly in `kernel-metadata.json` — the
-   API supports this even though `kaggle kernels init`'s template doesn't show it.
-3. **`specialists.pkl`/`domain_classifier.pkl` were pickled with scikit-learn
-   1.9.0**; Kaggle's older default sklearn's `LogisticRegression.predict_proba`
-   reads a `self.multi_class` attribute that 1.9.0 no longer sets, so loading
-   breaks (`AttributeError: 'LogisticRegression' object has no attribute
-   'multi_class'`). Fix: `pip install scikit-learn==1.9.0` in the kernel to match
-   the exact version that pickled the models.
-4. **`degrade_model.py` imports a local `pipeline.py`** (unrelated to
-   `byteprint/pipeline.py`) which itself needs `scikit-image` — both were missing
-   from the first packaged code dataset and from the first pip install list.
-5. Add fail-fast `assert _exit_code == 0` checks after every `!` shell command in
-   the notebook, plus an explicit `torch.cuda.get_device_capability() >= (7, 0)`
-   check as the very first cell. Without these, a broken run can report `RUNNING`
-   for hours with zero real progress, indistinguishable from a working one via
-   `kaggle kernels status` alone.
-
 ## Next steps
 
 1. **LOGO for DINOv2, AEROBLADE, and the fused model** — `byteprint logo` already
