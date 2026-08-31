@@ -190,3 +190,20 @@ def select_crops(
         candidates=candidates,
         rng=np.random.default_rng(seed),
     )
+
+
+# -- primitives shared by crop strategies ----------------------------------
+#
+# Public because a strategy in another module is as first-class as one here, and
+# rewriting a Laplacian or a candidate sampler per plugin is how two strategies
+# end up not being comparable. See docs/extending.md.
+
+LAPLACIAN = _LAPLACIAN
+as_rgb = _as_rgb
+convolve2d_valid = _convolve2d_valid
+random_origins = _random_origins
+
+# Imported for its registrations, at the bottom because it imports from here.
+# Built in rather than a --plugin: locating the edited region is a core concern,
+# not an experiment someone has to remember to switch on.
+from byteprint import localize as _localize  # noqa: E402,F401
