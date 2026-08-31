@@ -34,6 +34,22 @@ probe, so scoring needs nothing but the probe and the directory. Every
 discovered image gets exactly one entry; unreadable files score 0.5 with an
 `error` field rather than aborting the run.
 
+## Where the numbers stand
+
+`siglip2_so400m_hf` is the default backbone and the best result: pooled **AUC
+0.9497**, **TPR@1%FPR 0.5854**, unseen-type transfer 0.7208, over the full §5.2
+ladder on SID_Set. It beat DINOv2-giant at 38% of its parameters — on this task
+the pretraining objective matters more than scale, which is the finding worth
+repeating. Full table in `docs/results-backbone-sweep.md`.
+
+The second expert is currently **not** carrying weight: AEROBLADE reconstruction
+error scores 0.5822 alone and fusion moves the pooled AUC by +0.0001. It is
+chance-level (0.4975) on tampered images, because a local edit in a real
+photograph is not what a whole-image reconstruction detector was built to catch.
+Do not describe BYTEPRINT as a working two-expert detector without saying this;
+`docs/results-recon-fusion.md` has the mechanism and the three reasons the test
+was hostile to the method.
+
 ## Judging weights
 
 Technical execution 35% · Innovation & insight 20% · Impact & relevance 20% ·
