@@ -32,7 +32,10 @@ set -euo pipefail
 BYTEPRINT_ROOT="${BYTEPRINT_ROOT:?set this to your compute directory}"
 cd "$BYTEPRINT_ROOT"
 
-PY="$BYTEPRINT_ROOT/.venv/bin/python"
+# Named rather than hardcoded: the two GPU node classes here do not carry the
+# same driver, and the venv that matches one fails at the first `.to("cuda")` on
+# the other -- ninety seconds in, after the weights and the split are staged.
+PY="${BYTEPRINT_PY:-$BYTEPRINT_ROOT/.venv/bin/python}"
 SRC="${BYTEPRINT_SRC:-$BYTEPRINT_ROOT/src}"
 DATA="$BYTEPRINT_ROOT/data"
 RUNS="$BYTEPRINT_ROOT/runs"
