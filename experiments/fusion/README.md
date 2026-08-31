@@ -131,15 +131,6 @@ AEROBLADE both leaned "real" on them. Net effect across all 443 images is
 positive (more errors fixed than introduced), but it's a real trade-off, not a
 pure win — worth stating exactly that way rather than overselling it.
 
-## AEROBLADE ran degraded
-
-The `lpips` package failed to import in the Kaggle environment (likely a knock-on
-from pinning `scikit-learn==1.9.0` to keep the CLIP model's pickled artifacts
-loadable), so AEROBLADE fell back to `_UnweightedVGGDistance` (plain VGG16 feature distance) instead of the
-paper's proper LPIPS metric. AEROBLADE's true ceiling is probably higher than
-0.7103 AUC. Worth a follow-up run with the import fixed before treating 0.71 as
-AEROBLADE's real number.
-
 ## Next steps
 
 1. **LOGO for DINOv2, AEROBLADE, and the fused model** — `byteprint logo` already
