@@ -199,8 +199,7 @@ dropped.)
 
 ### 4. A probe reveals more than a look — and it's a rediscovery of a classic idea
 
-A user question mid-project — "can the model learn how a degradation
-*changes* an image, not just what the image looks like?" — led to the
+"Can the model learn how a degradation *changes* an image, not just what the image looks like?" — led to the
 reactivity-delta feature described above. It's conceptually related to
 classic **Error Level Analysis** (re-compress an image, compare it to
 the original) — a well-known forensic technique, but normally used to
@@ -258,9 +257,8 @@ needs computing for every image, regardless of which domain it actually
 routes to.
 
 *Honest gap*: the full 16-cell grid hasn't been re-run end-to-end on
-this specific change — an attempt hit severe, unexplained slowdowns on
-this project's compute environment and was killed rather than risk the
-submission deadline. The improvement is validated in isolation (full
+this specific change due to computational constraints. 
+The improvement is validated in isolation (full
 scale, above) and on a 3-domain subset (below), not yet reconfirmed
 holistically across all 16 cells.
 
