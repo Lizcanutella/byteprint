@@ -42,6 +42,16 @@ ladder on SID_Set. It beat DINOv2-giant at 38% of its parameters — on this tas
 the pretraining objective matters more than scale, which is the finding worth
 repeating. Full table in `docs/results-backbone-sweep.md`.
 
+The sweep is now six backbones, and the finding held up when it was tested
+again: CLIP ViT-B/32 (0.09B) places **second**, beating DINOv2-giant (1.14B) on
+AUC, operating point and transfer. The top two are both language-supervised
+contrastive models from different families, so this is a property of the
+pretraining objective rather than of one checkpoint. That run measured
+`jiahui/clip-detector`'s *backbone* only — not its reactivity-delta feature or
+its domain routing, which are that branch's actual contribution, and which
+remain untested on our split and ladder. Do not quote it as a verdict on that
+detector. See `docs/results-clip-backbone.md`.
+
 The second expert is currently **not** carrying weight: AEROBLADE reconstruction
 error scores 0.5822 alone and fusion moves the pooled AUC by +0.0001. It is
 chance-level (0.4975) on tampered images, because a local edit in a real

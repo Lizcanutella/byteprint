@@ -442,16 +442,26 @@ AI-generated images.
 
 ### The backbone is what decided it
 
-Four frozen extractors through one identical pipeline, changing nothing else.
+Six frozen extractors through one identical pipeline, changing nothing else.
 **Ranking them by parameter count nearly inverts ranking them by AUC** — on this
 task the pretraining objective is the lever, not scale:
 
-| backbone | params | AUC | TPR@1%FPR | LOGO mean | ladder span |
-|---|---|---|---|---|---|
-| `dinov2_large_hf` (the original baseline) | 0.30B | 0.9025 | 0.3362 | 0.6457 | 0.064 |
-| `dinov2_giant_hf` | 1.14B | 0.9261 | 0.4170 | 0.6388 | **0.052** |
-| `eva02_large_timm` | 0.30B | 0.9182 | 0.4036 | 0.5871 | 0.120 |
-| **`siglip2_so400m_hf`** | **0.43B** | **0.9497** | **0.5854** | **0.7208** | 0.118 |
+| backbone | pretraining | params | AUC | TPR@1%FPR | LOGO mean | ladder span |
+|---|---|---|---|---|---|---|
+| `dinov2_large_hf` (the original baseline) | self-distillation | 0.30B | 0.9025 | 0.3362 | 0.6457 | 0.064 |
+| `dinov2_giant_hf` | self-distillation | 1.14B | 0.9261 | 0.4170 | 0.6388 | **0.052** |
+| `eva02_large_timm` | MIM from CLIP | 0.30B | 0.9182 | 0.4036 | 0.5871 | 0.120 |
+| `clip_b32_proj_hf` | language-supervised | **0.09B** | 0.9227 | 0.4457 | 0.7032 | 0.096 |
+| `clip_b32_hf` | language-supervised | **0.09B** | 0.9319 | 0.4575 | 0.7025 | 0.095 |
+| **`siglip2_so400m_hf`** | language-supervised | 0.43B | **0.9497** | **0.5854** | **0.7208** | 0.118 |
+
+**The top two are both language-supervised, from different model families.** The
+smallest entry in the table beats the largest — CLIP ViT-B/32 clears DINOv2-giant
+on AUC, on the operating point and on transfer at 7.6% of its parameters. Ranked
+by pretraining objective the table sorts cleanly; ranked by parameter count it
+does not sort at all. CLIP's own numbers, and what they do *not* say about the
+detector on `jiahui/clip-detector`, are in
+**[`docs/results-clip-backbone.md`](docs/results-clip-backbone.md)**.
 
 **The one honest argument against the default is in the last column.**
 Robustness is the graded axis, and DINOv2-giant keeps the flattest ladder (span
@@ -560,7 +570,9 @@ what an offline compute node needs — stage their weights first.
 | name | dim | params | notes |
 |------|-----|--------|-------|
 | `siglip2_so400m_hf` | 1152 | 0.43B | **default** — best on every axis, see [the sweep](docs/results-backbone-sweep.md) |
-| `dinov2_giant_hf` | 1536 | 1.14B | flattest robustness ladder, but 2.6× the parameters for less accuracy |
+| `clip_b32_hf` | 768 | 0.09B | second of six at a twelfth of giant's size; CLIP's pre-projection feature |
+| `clip_b32_proj_hf` | 512 | 0.09B | the same tower through `visual_projection` — slightly worse, except on transfer |
+| `dinov2_giant_hf` | 1536 | 1.14B | flattest robustness ladder, but 13× CLIP's parameters for less accuracy |
 | `eva02_large_timm` | 1024 | 0.30B | natively a 448 model; under-tested at our 224 crops |
 | `dinov2_large_hf` | 1024 | 0.30B | the original published baseline |
 | `dinov2_vits14` | 384 | 0.02B | no staging needed; runs on CPU |
@@ -573,7 +585,7 @@ your own module. See [Swappable parts](#swappable-parts).
 
 Device is auto-detected (`cuda` → `mps` → `cpu`). `--crop-size` must be a
 multiple of the backbone's patch size — 14 for the DINOv2 and EVA02 entries,
-16 for SigLIP2. 224 satisfies both.
+16 for SigLIP2, 32 for CLIP. 224 satisfies all three.
 
 ## Tests
 

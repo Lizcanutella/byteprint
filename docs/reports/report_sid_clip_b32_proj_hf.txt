@@ -1,0 +1,36 @@
+### BYTEPRINT — SID_Set, backbone=clip_b32_proj_hf, crops=2@224, augment=3
+### train/class=0=8000,1=4000,2=4000  test/class=0=800,1=400,2=400
+
+## Per-rung robustness (the §5.2 ladder)
+runs/cache/sid_ladder_clip_b32_proj_hf: AUC 0.9227  (12000 real / 12000 fake)
+  TPR @ 1.0% FPR   0.4457
+  TPR @ 0.1% FPR   0.1876
+  generator        AUC      n
+  tampered         0.8801   6000
+  full_synthetic   0.9653   6000
+
+laundering ladder
+  none                     AUC 0.9566   TPR@1%FPR 0.5863
+  blur:0.5                 AUC 0.9533   TPR@1%FPR 0.5813
+  blur:1.0                 AUC 0.9287   TPR@1%FPR 0.4925
+  blur:2.0                 AUC 0.8609   TPR@1%FPR 0.2725
+  crop:0.8                 AUC 0.9568   TPR@1%FPR 0.5637
+  jitter:0.2               AUC 0.9495   TPR@1%FPR 0.5663
+  jpeg:30                  AUC 0.9076   TPR@1%FPR 0.3400
+  jpeg:50                  AUC 0.9216   TPR@1%FPR 0.3713
+  jpeg:70                  AUC 0.9331   TPR@1%FPR 0.4575
+  jpeg:90                  AUC 0.9434   TPR@1%FPR 0.5038
+  noise:0.02               AUC 0.9272   TPR@1%FPR 0.4363
+  noise:0.05               AUC 0.9105   TPR@1%FPR 0.4338
+  noise:0.10               AUC 0.8608   TPR@1%FPR 0.3575
+  scale:0.25               AUC 0.8750   TPR@1%FPR 0.3225
+  scale:0.5                AUC 0.9360   TPR@1%FPR 0.5138
+
+## Leave-one-generator-out — does a detector trained on fully synthetic
+## images transfer to locally tampered ones, and vice versa?
+leave-one-generator-out over 2 generators
+
+  held out full_synthetic   AUC 0.7354   TPR@1%FPR 0.0925
+  held out tampered         AUC 0.6711   TPR@1%FPR 0.0528
+
+  mean unseen-generator AUC 0.7032

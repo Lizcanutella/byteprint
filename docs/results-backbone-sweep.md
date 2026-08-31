@@ -51,6 +51,10 @@ Per generator, and the shape of each ladder:
 Every backbone's worst rung is `noise:0.10`, without exception. Heavy Gaussian
 noise is the ladder's hardest rung and no choice of features changes that.
 
+> **Amended.** A later arm weakened this to *worst or tied-worst*: CLIP ViT-B/32
+> lands `noise:0.10` and `blur:2.0` on the same 0.8712, to four decimals. See
+> [the CLIP run](results-clip-backbone.md).
+
 ## What the sweep actually shows
 
 **Scale is not the lever; the pretraining objective is.** DINOv2-giant costs
@@ -121,6 +125,28 @@ The two 0.3–0.43B models cost less than half of giant and one beats it
 decisively — which is the practical form of the finding above. All runs used
 `--workers 4`; the published DINOv2-large baseline predates the prefetch pool,
 so its 4h40m is not comparable as a timing.
+
+## Since this ran: two more arms, and a stronger version of the finding
+
+CLIP ViT-B/32 — the backbone under `jiahui/clip-detector` — went through this
+same pipeline afterwards, in both of its feature widths. It is the smallest
+model in the table and it finishes **second of six**:
+
+| backbone | pretraining | params | AUC | TPR@1%FPR | LOGO mean |
+|---|---|---|---|---|---|
+| `clip_b32_hf` (pre-projection) | language-supervised | **0.09B** | 0.9319 | 0.4575 | 0.7025 |
+| `clip_b32_proj_hf` (post-projection) | language-supervised | 0.09B | 0.9227 | 0.4457 | 0.7032 |
+
+That sharpens the finding above rather than complicating it. The argument used
+to rest on one model beating one larger model; now the smallest entry beats
+DINOv2-giant at **7.6% of its parameters**, on AUC, on the operating point and
+on transfer, and the parameter ranking is close to the inverse of the AUC
+ranking across a 13× span. The top two entries are both language-supervised
+contrastive models from different families — so this is a property of the
+pretraining objective, not of one checkpoint.
+
+Full write-up, including why the un-projected feature wins in-distribution while
+the two tie on transfer: **[`results-clip-backbone.md`](results-clip-backbone.md)**.
 
 ## Reproducing
 
