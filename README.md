@@ -8,20 +8,31 @@ instead. BYTEPRINT looks for both traces at once — and, because an image is
 compressed, cropped and reposted before anyone sees it, it is graded on what
 survives the wash rather than on clean accuracy.
 
-By team ByteSized. The models are byte-sized too: the whole thing fits well
-inside the competition's <2B parameter budget, and the default configuration
-runs on a CPU.
+By team ByteSized. The models are byte-sized too: the default backbone is 0.43B
+parameters, well inside the competition's <2B budget, and the smallest
+registered backbone runs on a CPU with no staged weights at all.
 
-Two independent detectors fused at the score level:
+Two independent detectors behind one interface, fused at the score level:
 
-1. **DINOv2 + linear probe** — frozen self-supervised features, native-resolution
-   texture crops, a calibrated logistic-regression head.
+1. **Frozen backbone + linear probe** — SigLIP2-so400m features,
+   native-resolution texture crops, a calibrated logistic-regression head.
+   **This is the detector that works.**
 2. **AEROBLADE** — training-free reconstruction error through a bank of latent
    diffusion autoencoders.
 
-They fail on different inputs, so fusing them buys coverage rather than decimal
-places. Around both sits an evaluation harness built on the numbers that
-actually predict deployment behaviour.
+The argument for two experts was that they fail on different inputs. That has
+now been measured, and on SID_Set it does not hold: **the reconstruction expert
+scores AUC 0.5822 alone, and fusing it moves the pooled AUC by +0.0001** — it is
+chance-level (0.4975) on tampered images, because a local edit in a real
+photograph is not what a whole-image reconstruction detector was built to catch.
+It stays in the repo as a measured negative result rather than a load-bearing
+component; the mechanism, and the three ways this test was hostile to the
+method, are in
+[`docs/results-recon-fusion.md`](docs/results-recon-fusion.md).
+
+So read BYTEPRINT as a strong single-expert detector with a second expert that
+has been honestly evaluated and reported. Around both sits an evaluation harness
+built on the numbers that actually predict deployment behaviour.
 
 ## Competition context
 
@@ -68,18 +79,18 @@ Closed since the first draft:
   by a test so it cannot drift.
 - The directory → JSON entry point exists: `byteprint score`, below.
 
-## Expert 1 — DINOv2 probe
+## Expert 1 — frozen backbone + linear probe
 
 The backbone is never fine-tuned. That is deliberate: a general-purpose
-self-supervised representation transfers across unseen generators far better
-than a network trained end-to-end on one of them, which reliably descends onto
+pretrained representation transfers across unseen generators far better than a
+network trained end-to-end on one of them, which reliably descends onto
 generator-specific shortcuts. It also means embeddings are a pure function of
 (image, laundering spec, extraction config), so they are computed **once** and
 cached — after which retraining the probe, recalibrating a threshold, or running
 leave-one-generator-out costs seconds.
 
 ```
-                 ┌─ DINOv2 (frozen) ─────► dino cache ─► probe ──┐
+                 ┌─ backbone (frozen) ───► probe cache ─► probe ─┐
 images ─► crops ─┤                                               ├─► fused score
                  └─ VAE bank + LPIPS ────► recon cache ─► -min ──┘
 ```
@@ -117,6 +128,14 @@ with the per-autoencoder means showing the mechanism directly — the decoder th
 
 Ricker et al., CVPR 2024 ([arXiv:2401.17879](https://arxiv.org/abs/2401.17879)).
 
+**At scale on SID_Set, this expert does not carry weight.** The 20 vs 20 table
+above is a mechanism check on genuine SD-1.5 decoder output, not a result. Run
+over the full corpus it scores **AUC 0.5822**, and the multi-decoder bank turns
+out to be redundant here — min, mean and max aggregation all give 0.582, so it
+cost 3× the compute for no coverage. The distances are healthy and point the
+predicted direction; the effect is simply small.
+See [`docs/results-recon-fusion.md`](docs/results-recon-fusion.md).
+
 > **Cost.** ~1.2GB of VAE weights, and on CPU roughly **2.9 s/crop** at 112px or
 > **13.7 s/crop** at 224px with three autoencoders. Budget accordingly, or cut
 > `--aes` down to one. This expert wants a GPU.
@@ -128,6 +147,16 @@ extraction runs happen at different times, images can fail in one pass and not
 the other, and augmentation draws different specs. A two-feature logistic
 regression over `[probe_score, recon_score]` is then fitted and calibrated, and
 the `probe only / recon only / fused` ablation falls out for free.
+
+**Measured outcome on SID_Set: +0.0001.** Fusing the reconstruction expert with
+the DINOv2-L probe moves pooled AUC from 0.9025 to 0.9026; against the stronger
+SigLIP2 probe it is very slightly negative, 0.9497 → 0.9493. The fusion
+machinery itself behaves correctly — it recovers the better expert rather than
+being dragged down by the weaker one, which is exactly what a sound score-level
+fusion should do with a weak input. On this corpus the two-expert architecture
+is a one-expert architecture with overhead, and that is reported rather than
+quietly dropped:
+[`docs/results-recon-fusion.md`](docs/results-recon-fusion.md).
 
 ## The deliverable interface
 
@@ -392,33 +421,66 @@ over generators hides the one you cannot detect at all.
 
 ## Results on SID_Set
 
-`eval --by-spec` scores each rung of the §5.2 ladder separately. DINOv2-L probe,
-2×224px texture crops, 16,000 SID_Set training images with `--augment 3`, scored
-on 1,600 held-out images across all fifteen rungs — one 48 GB GPU, 4h 40m.
+`eval --by-spec` scores each rung of the §5.2 ladder separately. The headline
+configuration is the default one: SigLIP2-so400m, 2×224px texture crops, 16,000
+SID_Set training images with `--augment 3`, scored on 1,600 held-out images
+across all fifteen rungs — 24,000 views.
 
-| | AUC | TPR@1%FPR |
-|---|---|---|
-| pooled over the ladder | 0.9025 | 0.3362 |
-| clean (`none`) | 0.9112 | 0.4100 |
-| best rung (`blur:1.0`) | 0.9191 | 0.3750 |
-| worst rung (`noise:0.10`) | 0.8553 | 0.2550 |
+| | AUC |
+|---|---|
+| **pooled over the ladder** | **0.9497** |
+| best rung | 0.9805 |
+| worst rung (`noise:0.10`) | 0.8624 |
+| full synthetic | 0.9817 |
+| tampered | 0.9176 |
+| unseen manipulation type (LOGO mean) | 0.7208 |
 
-**The whole ladder spans 0.064 AUC.** Robustness is the graded axis, and this is
-the number to point at: the worst of fifteen real-world transformations costs
-six points. Clean is not even the best rung — `--augment 3` *replaces* the spec
-list rather than adding to it, so the probe trained almost entirely on laundered
-views, which is where deployed images live.
+At the operating point: **TPR@1%FPR 0.5854**, TPR@0.1%FPR 0.2554. That is the
+number to read rather than the AUC — at a threshold strict enough to wrongly
+flag one authentic image in a hundred, the detector catches 59% of
+AI-generated images.
 
-Three weaknesses the same run exposes, stated plainly:
+### The backbone is what decided it
 
-- **The operating point is mediocre.** At a threshold strict enough to wrongly
-  flag 1 authentic image in 100, two thirds of AI-generated images still get
-  through. AUC 0.90 flatters it.
-- **Tampered images are much harder** (AUC 0.8513) than fully synthetic ones
-  (0.9537) — only a *region* is generated, and texture-ranked crops have no
-  reason to land on it.
-- **Transfer to an unseen manipulation type is weak**: mean leave-one-out AUC
-  0.6457, down from ~0.90 in-distribution.
+Four frozen extractors through one identical pipeline, changing nothing else.
+**Ranking them by parameter count nearly inverts ranking them by AUC** — on this
+task the pretraining objective is the lever, not scale:
+
+| backbone | params | AUC | TPR@1%FPR | LOGO mean | ladder span |
+|---|---|---|---|---|---|
+| `dinov2_large_hf` (the original baseline) | 0.30B | 0.9025 | 0.3362 | 0.6457 | 0.064 |
+| `dinov2_giant_hf` | 1.14B | 0.9261 | 0.4170 | 0.6388 | **0.052** |
+| `eva02_large_timm` | 0.30B | 0.9182 | 0.4036 | 0.5871 | 0.120 |
+| **`siglip2_so400m_hf`** | **0.43B** | **0.9497** | **0.5854** | **0.7208** | 0.118 |
+
+**The one honest argument against the default is in the last column.**
+Robustness is the graded axis, and DINOv2-giant keeps the flattest ladder (span
+0.052 against 0.118) and the highest floor (0.8906 against 0.8624). Head to head
+per rung SigLIP2 takes 13 of 15 and giant takes the two heaviest-noise rungs.
+Every backbone's worst rung is `noise:0.10`, without exception. EVA02 ran at
+224px against a native 448, so it is under-tested here rather than beaten.
+
+Full table, per-rung numbers and cost:
+**[`docs/results-backbone-sweep.md`](docs/results-backbone-sweep.md)**.
+
+### How the baseline got here, and the control that cleared it
+
+The first run used a DINOv2-L probe — one 48 GB GPU, 4h 40m — and scored pooled
+AUC 0.9025, TPR@1%FPR 0.3362, with a ladder spanning **0.064 AUC** from 0.8553
+(`noise:0.10`) to 0.9191 (`blur:1.0`). Clean was not even its best rung:
+`--augment 3` *replaces* the spec list rather than adding to it, so the probe
+trained almost entirely on laundered views, which is where deployed images live.
+
+The three weaknesses it exposed, and where each one now stands under the default
+backbone:
+
+- **The operating point.** 0.3362 → **0.5854** at 1% FPR. Much improved, and
+  still the number that decides whether this is deployable.
+- **Tampered images are harder than fully synthetic ones.** 0.8513 vs 0.9537 →
+  **0.9176 vs 0.9817**. The gap narrowed but did not close, and crop placement
+  turned out not to be its cause — see the known gaps above.
+- **Transfer to an unseen manipulation type.** 0.6457 → **0.7208**. Still the
+  weakest axis, and still far below the ~0.95 in-distribution figure.
 
 One caveat used to bound all of it: SID_Set's reals are 100% JPEG while its
 fully-synthetic images are 100% PNG. Every class is re-encoded to PNG so the
@@ -529,8 +591,13 @@ those images marginally *harder* to reconstruct, hence the anti-correlation. It
 is also a genuine check on the fusion: a useless expert did not drag the
 ensemble down.
 
-The expert's real validation is the SD-1.5 table above, which the fixture cannot
-provide.
+The SD-1.5 table above shows the mechanism working on the output it was designed
+for. What neither the fixture nor that table can answer — and what SID_Set now
+does — is whether the mechanism is worth anything on the competition corpus. It
+is not: AUC 0.5822 overall, and chance-level (0.4975) on tampered images. That
+is a property of this corpus and these crops rather than a verdict on AEROBLADE;
+[`docs/results-recon-fusion.md`](docs/results-recon-fusion.md) sets out the
+three ways the test was hostile to the method.
 
 ## Not included
 
