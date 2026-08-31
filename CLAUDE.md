@@ -36,11 +36,24 @@ discovered image gets exactly one entry; unreadable files score 0.5 with an
 
 ## Where the numbers stand
 
-`siglip2_so400m_hf` is the default backbone and the best result: pooled **AUC
-0.9497**, **TPR@1%FPR 0.5854**, unseen-type transfer 0.7208, over the full §5.2
-ladder on SID_Set. It beat DINOv2-giant at 38% of its parameters — on this task
-the pretraining objective matters more than scale, which is the finding worth
-repeating. Full table in `docs/results-backbone-sweep.md`.
+`siglip2_so400m_hf` is the default backbone and the best result: at **8 crops**,
+pooled **AUC 0.9688**, **TPR@1%FPR 0.6995**, TPR@0.1%FPR 0.4626, tampered 0.9494,
+unseen-type transfer 0.7642, over the full §5.2 ladder on SID_Set. It beat
+DINOv2-giant at 38% of its parameters — on this task the pretraining objective
+matters more than scale, which is the finding worth repeating. Full table in
+`docs/results-backbone-sweep.md`.
+
+**Crop count is the largest lever found so far**, and it was found by accident:
+the same configuration at 2 crops scores 0.9497 / 0.5854. Going to 8 costs 4× the
+backbone forward at scoring time — a real cost that any deployment claim has to
+carry. `docs/results-crop-pooling.md` has the ablation.
+
+Max and top-k pooling over crop **scores** were tested and **refuted**: at
+matched crop count they lose to mean pooling on both backbones and badly damage
+the low-FPR operating point, because a max selects each image's noisiest crop.
+Do not re-propose them without reading that document — placement (`anomaly`,
+`ela`) and pooling have now both come back negative, and what has actually moved
+tampered detection twice is seeing *more* of the image, not a cleverer part of it.
 
 The second expert is currently **not** carrying weight: AEROBLADE reconstruction
 error scores 0.5822 alone and fusion moves the pooled AUC by +0.0001. It is
