@@ -1,0 +1,2217 @@
+[
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0028.png",
+    "label": 1,
+    "aeroblade_score": -0.15561580657958984
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0043.png",
+    "label": 1,
+    "aeroblade_score": -0.15365785360336304
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0073.png",
+    "label": 1,
+    "aeroblade_score": -0.1371012032032013
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0123.png",
+    "label": 1,
+    "aeroblade_score": -0.12405861169099808
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0128.png",
+    "label": 1,
+    "aeroblade_score": -0.140427827835083
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0218.png",
+    "label": 1,
+    "aeroblade_score": -0.17528675496578217
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0268.png",
+    "label": 1,
+    "aeroblade_score": -0.09777694195508957
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0273.png",
+    "label": 1,
+    "aeroblade_score": -0.1001555398106575
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0358.png",
+    "label": 1,
+    "aeroblade_score": -0.19391676783561707
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0378.png",
+    "label": 1,
+    "aeroblade_score": -0.18470409512519836
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0458.png",
+    "label": 1,
+    "aeroblade_score": -0.18370050191879272
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0468.png",
+    "label": 1,
+    "aeroblade_score": -0.1381499469280243
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0473.png",
+    "label": 1,
+    "aeroblade_score": -0.1439552754163742
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0483.png",
+    "label": 1,
+    "aeroblade_score": -0.15558865666389465
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0508.png",
+    "label": 1,
+    "aeroblade_score": -0.1906537115573883
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0623.png",
+    "label": 1,
+    "aeroblade_score": -0.18283316493034363
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0648.png",
+    "label": 1,
+    "aeroblade_score": -0.14481592178344727
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0678.png",
+    "label": 1,
+    "aeroblade_score": -0.12890085577964783
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0693.png",
+    "label": 1,
+    "aeroblade_score": -0.14943009614944458
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0733.png",
+    "label": 1,
+    "aeroblade_score": -0.17983663082122803
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0014.png",
+    "label": 1,
+    "aeroblade_score": -0.14117825031280518
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0019.png",
+    "label": 1,
+    "aeroblade_score": -0.12441520392894745
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0024.png",
+    "label": 1,
+    "aeroblade_score": -0.10055769979953766
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0119.png",
+    "label": 1,
+    "aeroblade_score": -0.08418327569961548
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0129.png",
+    "label": 1,
+    "aeroblade_score": -0.09899797290563583
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0134.png",
+    "label": 1,
+    "aeroblade_score": -0.09360406547784805
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0219.png",
+    "label": 1,
+    "aeroblade_score": -0.18971559405326843
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0234.png",
+    "label": 1,
+    "aeroblade_score": -0.09261780232191086
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0239.png",
+    "label": 1,
+    "aeroblade_score": -0.055762313306331635
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0244.png",
+    "label": 1,
+    "aeroblade_score": -0.06562652438879013
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0279.png",
+    "label": 1,
+    "aeroblade_score": -0.14646092057228088
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0289.png",
+    "label": 1,
+    "aeroblade_score": -0.05754585564136505
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0329.png",
+    "label": 1,
+    "aeroblade_score": -0.1789538562297821
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0339.png",
+    "label": 1,
+    "aeroblade_score": -0.11158925294876099
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0344.png",
+    "label": 1,
+    "aeroblade_score": -0.11167316138744354
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0364.png",
+    "label": 1,
+    "aeroblade_score": -0.1138906329870224
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0369.png",
+    "label": 1,
+    "aeroblade_score": -0.17140796780586243
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0389.png",
+    "label": 1,
+    "aeroblade_score": -0.08774592727422714
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0404.png",
+    "label": 1,
+    "aeroblade_score": -0.14465749263763428
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0484.png",
+    "label": 1,
+    "aeroblade_score": -0.1411139816045761
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0494.png",
+    "label": 1,
+    "aeroblade_score": -0.043445974588394165
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0504.png",
+    "label": 1,
+    "aeroblade_score": -0.10589992254972458
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0604.png",
+    "label": 1,
+    "aeroblade_score": -0.12593257427215576
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0624.png",
+    "label": 1,
+    "aeroblade_score": -0.08460579812526703
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0659.png",
+    "label": 1,
+    "aeroblade_score": -0.1449868083000183
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0719.png",
+    "label": 1,
+    "aeroblade_score": -0.16427765786647797
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0060.png",
+    "label": 1,
+    "aeroblade_score": -0.06903131306171417
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0065.png",
+    "label": 1,
+    "aeroblade_score": -0.07347775250673294
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0075.png",
+    "label": 1,
+    "aeroblade_score": -0.11212961375713348
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0130.png",
+    "label": 1,
+    "aeroblade_score": -0.07383441925048828
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0185.png",
+    "label": 1,
+    "aeroblade_score": -0.07109768688678741
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0190.png",
+    "label": 1,
+    "aeroblade_score": -0.09846246242523193
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0215.png",
+    "label": 1,
+    "aeroblade_score": -0.13778163492679596
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0220.png",
+    "label": 1,
+    "aeroblade_score": -0.095999576151371
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0245.png",
+    "label": 1,
+    "aeroblade_score": -0.07281772792339325
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0255.png",
+    "label": 1,
+    "aeroblade_score": -0.1120455414056778
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0265.png",
+    "label": 1,
+    "aeroblade_score": -0.09700681269168854
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0355.png",
+    "label": 1,
+    "aeroblade_score": -0.1376706212759018
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0375.png",
+    "label": 1,
+    "aeroblade_score": -0.13293969631195068
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0385.png",
+    "label": 1,
+    "aeroblade_score": -0.08428934961557388
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0400.png",
+    "label": 1,
+    "aeroblade_score": -0.12375804781913757
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0430.png",
+    "label": 1,
+    "aeroblade_score": -0.07864650338888168
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0460.png",
+    "label": 1,
+    "aeroblade_score": -0.12101089954376221
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0475.png",
+    "label": 1,
+    "aeroblade_score": -0.07524701952934265
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0620.png",
+    "label": 1,
+    "aeroblade_score": -0.09609784185886383
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0650.png",
+    "label": 1,
+    "aeroblade_score": -0.05722126364707947
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0670.png",
+    "label": 1,
+    "aeroblade_score": -0.06129994988441467
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0680.png",
+    "label": 1,
+    "aeroblade_score": -0.1172613650560379
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0710.png",
+    "label": 1,
+    "aeroblade_score": -0.04196630045771599
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0720.png",
+    "label": 1,
+    "aeroblade_score": -0.1436728835105896
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0012.png",
+    "label": 1,
+    "aeroblade_score": -0.12292547523975372
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0022.png",
+    "label": 1,
+    "aeroblade_score": -0.10482889413833618
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0057.png",
+    "label": 1,
+    "aeroblade_score": -0.06281565874814987
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0072.png",
+    "label": 1,
+    "aeroblade_score": -0.12097220867872238
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0097.png",
+    "label": 1,
+    "aeroblade_score": -0.027169963344931602
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0137.png",
+    "label": 1,
+    "aeroblade_score": -0.08752354979515076
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0147.png",
+    "label": 1,
+    "aeroblade_score": -0.22192814946174622
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0372.png",
+    "label": 1,
+    "aeroblade_score": -0.11621629446744919
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0407.png",
+    "label": 1,
+    "aeroblade_score": -0.02954789623618126
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0422.png",
+    "label": 1,
+    "aeroblade_score": -0.050257887691259384
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0427.png",
+    "label": 1,
+    "aeroblade_score": -0.1159433126449585
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0462.png",
+    "label": 1,
+    "aeroblade_score": -0.097072072327137
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0507.png",
+    "label": 1,
+    "aeroblade_score": -0.06982088834047318
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0512.png",
+    "label": 1,
+    "aeroblade_score": -0.12748168408870697
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0517.png",
+    "label": 1,
+    "aeroblade_score": -0.07854325324296951
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0522.png",
+    "label": 1,
+    "aeroblade_score": -0.17658765614032745
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0527.png",
+    "label": 1,
+    "aeroblade_score": -0.06897411495447159
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0542.png",
+    "label": 1,
+    "aeroblade_score": -0.10596827417612076
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0552.png",
+    "label": 1,
+    "aeroblade_score": -0.05452778935432434
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0562.png",
+    "label": 1,
+    "aeroblade_score": -0.033909156918525696
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0567.png",
+    "label": 1,
+    "aeroblade_score": -0.1125621497631073
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0582.png",
+    "label": 1,
+    "aeroblade_score": -0.04717635735869408
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0737.png",
+    "label": 1,
+    "aeroblade_score": -0.18207892775535583
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0747.png",
+    "label": 1,
+    "aeroblade_score": -0.0638793557882309
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0036.png",
+    "label": 1,
+    "aeroblade_score": -0.12008623033761978
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0106.png",
+    "label": 1,
+    "aeroblade_score": -0.19736260175704956
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0126.png",
+    "label": 1,
+    "aeroblade_score": -0.0845123752951622
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0141.png",
+    "label": 1,
+    "aeroblade_score": -0.1254681795835495
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0151.png",
+    "label": 1,
+    "aeroblade_score": -0.0883389562368393
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0186.png",
+    "label": 1,
+    "aeroblade_score": -0.05561564490199089
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0206.png",
+    "label": 1,
+    "aeroblade_score": -0.061599571257829666
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0286.png",
+    "label": 1,
+    "aeroblade_score": -0.03549349680542946
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0306.png",
+    "label": 1,
+    "aeroblade_score": -0.1472102254629135
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0311.png",
+    "label": 1,
+    "aeroblade_score": -0.11634651571512222
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0431.png",
+    "label": 1,
+    "aeroblade_score": -0.10256399214267731
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0446.png",
+    "label": 1,
+    "aeroblade_score": -0.058858565986156464
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0476.png",
+    "label": 1,
+    "aeroblade_score": -0.057655949145555496
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0506.png",
+    "label": 1,
+    "aeroblade_score": -0.08582885563373566
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0511.png",
+    "label": 1,
+    "aeroblade_score": -0.08610714972019196
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0536.png",
+    "label": 1,
+    "aeroblade_score": -0.07757789641618729
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0596.png",
+    "label": 1,
+    "aeroblade_score": -0.058208905160427094
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0646.png",
+    "label": 1,
+    "aeroblade_score": -0.08633232116699219
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0706.png",
+    "label": 1,
+    "aeroblade_score": -0.13224469125270844
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0003.png",
+    "label": 1,
+    "aeroblade_score": -0.17199492454528809
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0005.png",
+    "label": 1,
+    "aeroblade_score": -0.05271876975893974
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0006.png",
+    "label": 1,
+    "aeroblade_score": -0.23899661004543304
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0019.png",
+    "label": 1,
+    "aeroblade_score": -0.17823120951652527
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0029.png",
+    "label": 1,
+    "aeroblade_score": -0.15015023946762085
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0040.png",
+    "label": 1,
+    "aeroblade_score": -0.08635328710079193
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0043.png",
+    "label": 1,
+    "aeroblade_score": -0.056817952543497086
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0050.png",
+    "label": 1,
+    "aeroblade_score": -0.058519281446933746
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0070.png",
+    "label": 1,
+    "aeroblade_score": -0.09357337653636932
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0074.png",
+    "label": 1,
+    "aeroblade_score": -0.10261724889278412
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0096.png",
+    "label": 1,
+    "aeroblade_score": -0.061109479516744614
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0098.png",
+    "label": 1,
+    "aeroblade_score": -0.1219816654920578
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0103.png",
+    "label": 1,
+    "aeroblade_score": -0.04187806695699692
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0104.png",
+    "label": 1,
+    "aeroblade_score": -0.09118518233299255
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0122.png",
+    "label": 1,
+    "aeroblade_score": -0.10080768913030624
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0125.png",
+    "label": 1,
+    "aeroblade_score": -0.14559423923492432
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0127.png",
+    "label": 1,
+    "aeroblade_score": -0.06452866643667221
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0128.png",
+    "label": 1,
+    "aeroblade_score": -0.06524430215358734
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0133.png",
+    "label": 1,
+    "aeroblade_score": -0.04231956973671913
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0143.png",
+    "label": 1,
+    "aeroblade_score": -0.1323520392179489
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0144.png",
+    "label": 1,
+    "aeroblade_score": -0.16347089409828186
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0146.png",
+    "label": 1,
+    "aeroblade_score": -0.10140907019376755
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0147.png",
+    "label": 1,
+    "aeroblade_score": -0.17416508495807648
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0160.png",
+    "label": 1,
+    "aeroblade_score": -0.1677054464817047
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0161.png",
+    "label": 1,
+    "aeroblade_score": -0.0713363066315651
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0164.png",
+    "label": 1,
+    "aeroblade_score": -0.0707990750670433
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0170.png",
+    "label": 1,
+    "aeroblade_score": -0.14285752177238464
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0171.png",
+    "label": 1,
+    "aeroblade_score": -0.13503563404083252
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0174.png",
+    "label": 1,
+    "aeroblade_score": -0.05340854451060295
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0189.png",
+    "label": 1,
+    "aeroblade_score": -0.05597034469246864
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0196.png",
+    "label": 1,
+    "aeroblade_score": -0.06263188272714615
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0201.png",
+    "label": 1,
+    "aeroblade_score": -0.04412294179201126
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0205.png",
+    "label": 1,
+    "aeroblade_score": -0.11788767576217651
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0211.png",
+    "label": 1,
+    "aeroblade_score": -0.16988857090473175
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0215.png",
+    "label": 1,
+    "aeroblade_score": -0.09909379482269287
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0231.png",
+    "label": 1,
+    "aeroblade_score": -0.14577868580818176
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0238.png",
+    "label": 1,
+    "aeroblade_score": -0.07723070681095123
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0249.png",
+    "label": 1,
+    "aeroblade_score": -0.15515945851802826
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0250.png",
+    "label": 1,
+    "aeroblade_score": -0.13662783801555634
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0278.png",
+    "label": 1,
+    "aeroblade_score": -0.05194368585944176
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0286.png",
+    "label": 1,
+    "aeroblade_score": -0.15834647417068481
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0287.png",
+    "label": 1,
+    "aeroblade_score": -0.17050617933273315
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0288.png",
+    "label": 1,
+    "aeroblade_score": -0.06264802813529968
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0291.png",
+    "label": 1,
+    "aeroblade_score": -0.11496718227863312
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0295.png",
+    "label": 1,
+    "aeroblade_score": -0.2689753770828247
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0298.png",
+    "label": 1,
+    "aeroblade_score": -0.09227330982685089
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0305.png",
+    "label": 1,
+    "aeroblade_score": -0.0833897739648819
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0331.png",
+    "label": 1,
+    "aeroblade_score": -0.04208644479513168
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0349.png",
+    "label": 1,
+    "aeroblade_score": -0.16500918567180634
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0354.png",
+    "label": 1,
+    "aeroblade_score": -0.18282932043075562
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0372.png",
+    "label": 1,
+    "aeroblade_score": -0.1109350174665451
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0377.png",
+    "label": 1,
+    "aeroblade_score": -0.11374883353710175
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0381.png",
+    "label": 1,
+    "aeroblade_score": -0.10694941878318787
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0389.png",
+    "label": 1,
+    "aeroblade_score": -0.14265650510787964
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0395.png",
+    "label": 1,
+    "aeroblade_score": -0.04745572432875633
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0399.png",
+    "label": 1,
+    "aeroblade_score": -0.06038321554660797
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0405.png",
+    "label": 1,
+    "aeroblade_score": -0.040821075439453125
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0427.png",
+    "label": 1,
+    "aeroblade_score": -0.05525801703333855
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0428.png",
+    "label": 1,
+    "aeroblade_score": -0.09771732240915298
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0430.png",
+    "label": 1,
+    "aeroblade_score": -0.05376766622066498
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0431.png",
+    "label": 1,
+    "aeroblade_score": -0.047550514340400696
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0436.png",
+    "label": 1,
+    "aeroblade_score": -0.057597383856773376
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0440.png",
+    "label": 1,
+    "aeroblade_score": -0.11946094036102295
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0443.png",
+    "label": 1,
+    "aeroblade_score": -0.0514763742685318
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0444.png",
+    "label": 1,
+    "aeroblade_score": -0.04709324240684509
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0458.png",
+    "label": 1,
+    "aeroblade_score": -0.06306061893701553
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0459.png",
+    "label": 1,
+    "aeroblade_score": -0.05847762152552605
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0470.png",
+    "label": 1,
+    "aeroblade_score": -0.07860437780618668
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0473.png",
+    "label": 1,
+    "aeroblade_score": -0.10805913805961609
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0479.png",
+    "label": 1,
+    "aeroblade_score": -0.06288236379623413
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0486.png",
+    "label": 1,
+    "aeroblade_score": -0.12026121467351913
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0488.png",
+    "label": 1,
+    "aeroblade_score": -0.1079956442117691
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0005.png",
+    "label": 1,
+    "aeroblade_score": -0.0903320461511612
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0010.png",
+    "label": 1,
+    "aeroblade_score": -0.041274283081293106
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0021.png",
+    "label": 1,
+    "aeroblade_score": -0.10489366203546524
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0026.png",
+    "label": 1,
+    "aeroblade_score": -0.05782381817698479
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0041.png",
+    "label": 1,
+    "aeroblade_score": -0.10822867602109909
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0043.png",
+    "label": 1,
+    "aeroblade_score": -0.08367881178855896
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0064.png",
+    "label": 1,
+    "aeroblade_score": -0.09428049623966217
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0072.png",
+    "label": 1,
+    "aeroblade_score": -0.0481429323554039
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0086.png",
+    "label": 1,
+    "aeroblade_score": -0.032667554914951324
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0089.png",
+    "label": 1,
+    "aeroblade_score": -0.04344460740685463
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0090.png",
+    "label": 1,
+    "aeroblade_score": -0.09586312621831894
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0102.png",
+    "label": 1,
+    "aeroblade_score": -0.018320560455322266
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0104.png",
+    "label": 1,
+    "aeroblade_score": -0.055959347635507584
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0105.png",
+    "label": 1,
+    "aeroblade_score": -0.1357865035533905
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0110.png",
+    "label": 1,
+    "aeroblade_score": -0.12276794016361237
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0113.png",
+    "label": 1,
+    "aeroblade_score": -0.07143786549568176
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0118.png",
+    "label": 1,
+    "aeroblade_score": -0.048028651624917984
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0121.png",
+    "label": 1,
+    "aeroblade_score": -0.05455606058239937
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0132.png",
+    "label": 1,
+    "aeroblade_score": -0.029303090646862984
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0141.png",
+    "label": 1,
+    "aeroblade_score": -0.04186473786830902
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0149.png",
+    "label": 1,
+    "aeroblade_score": -0.06740948557853699
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0151.png",
+    "label": 1,
+    "aeroblade_score": -0.04285691678524017
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0164.png",
+    "label": 1,
+    "aeroblade_score": -0.07495424896478653
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0167.png",
+    "label": 1,
+    "aeroblade_score": -0.08330120146274567
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0176.png",
+    "label": 1,
+    "aeroblade_score": -0.07556715607643127
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0195.png",
+    "label": 1,
+    "aeroblade_score": -0.05287742614746094
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0200.png",
+    "label": 1,
+    "aeroblade_score": -0.09101806581020355
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0205.png",
+    "label": 1,
+    "aeroblade_score": -0.0519426167011261
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0208.png",
+    "label": 1,
+    "aeroblade_score": -0.06980791687965393
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0213.png",
+    "label": 1,
+    "aeroblade_score": -0.029486747458577156
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0215.png",
+    "label": 1,
+    "aeroblade_score": -0.1312658190727234
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0216.png",
+    "label": 1,
+    "aeroblade_score": -0.07741868495941162
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0242.png",
+    "label": 1,
+    "aeroblade_score": -0.04395788908004761
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0251.png",
+    "label": 1,
+    "aeroblade_score": -0.10965967923402786
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0252.png",
+    "label": 1,
+    "aeroblade_score": -0.0791240707039833
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0260.png",
+    "label": 1,
+    "aeroblade_score": -0.04863546043634415
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0267.png",
+    "label": 1,
+    "aeroblade_score": -0.12880389392375946
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0273.png",
+    "label": 1,
+    "aeroblade_score": -0.0765942633152008
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0278.png",
+    "label": 1,
+    "aeroblade_score": -0.04656986892223358
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0285.png",
+    "label": 1,
+    "aeroblade_score": -0.019622191786766052
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0286.png",
+    "label": 1,
+    "aeroblade_score": -0.0706755742430687
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0289.png",
+    "label": 1,
+    "aeroblade_score": -0.10239206999540329
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0295.png",
+    "label": 1,
+    "aeroblade_score": -0.07168686389923096
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0308.png",
+    "label": 1,
+    "aeroblade_score": -0.056462157517671585
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0315.png",
+    "label": 1,
+    "aeroblade_score": -0.0702311173081398
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0317.png",
+    "label": 1,
+    "aeroblade_score": -0.053712524473667145
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0321.png",
+    "label": 1,
+    "aeroblade_score": -0.053857576102018356
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0350.png",
+    "label": 1,
+    "aeroblade_score": -0.025167930871248245
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0356.png",
+    "label": 1,
+    "aeroblade_score": -0.03879255801439285
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0367.png",
+    "label": 1,
+    "aeroblade_score": -0.07395849376916885
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0370.png",
+    "label": 1,
+    "aeroblade_score": -0.08505064249038696
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0378.png",
+    "label": 1,
+    "aeroblade_score": -0.09620704501867294
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0381.png",
+    "label": 1,
+    "aeroblade_score": -0.14162403345108032
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0386.png",
+    "label": 1,
+    "aeroblade_score": -0.04518865793943405
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0392.png",
+    "label": 1,
+    "aeroblade_score": -0.040828168392181396
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0397.png",
+    "label": 1,
+    "aeroblade_score": -0.0460953414440155
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0403.png",
+    "label": 1,
+    "aeroblade_score": -0.0830298513174057
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0405.png",
+    "label": 1,
+    "aeroblade_score": -0.046486746519804
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0414.png",
+    "label": 1,
+    "aeroblade_score": -0.0705186277627945
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0422.png",
+    "label": 1,
+    "aeroblade_score": -0.04782721400260925
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0430.png",
+    "label": 1,
+    "aeroblade_score": -0.06068998947739601
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0431.png",
+    "label": 1,
+    "aeroblade_score": -0.044234830886125565
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0435.png",
+    "label": 1,
+    "aeroblade_score": -0.03543460741639137
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0440.png",
+    "label": 1,
+    "aeroblade_score": -0.13998574018478394
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0441.png",
+    "label": 1,
+    "aeroblade_score": -0.06675504148006439
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0448.png",
+    "label": 1,
+    "aeroblade_score": -0.03818138688802719
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0449.png",
+    "label": 1,
+    "aeroblade_score": -0.04352738708257675
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0452.png",
+    "label": 1,
+    "aeroblade_score": -0.08485351502895355
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0455.png",
+    "label": 1,
+    "aeroblade_score": -0.028463980183005333
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0461.png",
+    "label": 1,
+    "aeroblade_score": -0.04422673583030701
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0463.png",
+    "label": 1,
+    "aeroblade_score": -0.06763772666454315
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0467.png",
+    "label": 1,
+    "aeroblade_score": -0.07446567714214325
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0471.png",
+    "label": 1,
+    "aeroblade_score": -0.08895590901374817
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0474.png",
+    "label": 1,
+    "aeroblade_score": -0.0730757862329483
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0496.png",
+    "label": 1,
+    "aeroblade_score": -0.03836917132139206
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0497.png",
+    "label": 1,
+    "aeroblade_score": -0.06550249457359314
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0504.png",
+    "label": 1,
+    "aeroblade_score": -0.12201240658760071
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0513.png",
+    "label": 1,
+    "aeroblade_score": -0.1074155867099762
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0521.png",
+    "label": 1,
+    "aeroblade_score": -0.08426477015018463
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0531.png",
+    "label": 1,
+    "aeroblade_score": -0.04560806602239609
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0534.png",
+    "label": 1,
+    "aeroblade_score": -0.10331441462039948
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0538.png",
+    "label": 1,
+    "aeroblade_score": -0.16879066824913025
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0542.png",
+    "label": 1,
+    "aeroblade_score": -0.09916350245475769
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0552.png",
+    "label": 1,
+    "aeroblade_score": -0.049141768366098404
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0558.png",
+    "label": 1,
+    "aeroblade_score": -0.053779713809490204
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0561.png",
+    "label": 1,
+    "aeroblade_score": -0.07397675514221191
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0562.png",
+    "label": 1,
+    "aeroblade_score": -0.08622035384178162
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0564.png",
+    "label": 1,
+    "aeroblade_score": -0.10378667712211609
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0571.png",
+    "label": 1,
+    "aeroblade_score": -0.11746158450841904
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0585.png",
+    "label": 1,
+    "aeroblade_score": -0.04680294543504715
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0588.png",
+    "label": 1,
+    "aeroblade_score": -0.06237862631678581
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0596.png",
+    "label": 1,
+    "aeroblade_score": -0.06504674255847931
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0597.png",
+    "label": 1,
+    "aeroblade_score": -0.03847230225801468
+  },
+  {
+    "path": "test/real/fullres_real_0001.png",
+    "label": 0,
+    "aeroblade_score": -0.15579290688037872
+  },
+  {
+    "path": "test/real/fullres_real_0003.png",
+    "label": 0,
+    "aeroblade_score": -0.13698828220367432
+  },
+  {
+    "path": "test/real/fullres_real_0010.png",
+    "label": 0,
+    "aeroblade_score": -0.07799528539180756
+  },
+  {
+    "path": "test/real/fullres_real_0015.png",
+    "label": 0,
+    "aeroblade_score": -0.15470796823501587
+  },
+  {
+    "path": "test/real/fullres_real_0026.png",
+    "label": 0,
+    "aeroblade_score": -0.2644558846950531
+  },
+  {
+    "path": "test/real/fullres_real_0030.png",
+    "label": 0,
+    "aeroblade_score": -0.1308823525905609
+  },
+  {
+    "path": "test/real/fullres_real_0041.png",
+    "label": 0,
+    "aeroblade_score": -0.16547825932502747
+  },
+  {
+    "path": "test/real/fullres_real_0045.png",
+    "label": 0,
+    "aeroblade_score": -0.14163890480995178
+  },
+  {
+    "path": "test/real/fullres_real_0046.png",
+    "label": 0,
+    "aeroblade_score": -0.09776823967695236
+  },
+  {
+    "path": "test/real/fullres_real_0068.png",
+    "label": 0,
+    "aeroblade_score": -0.0943419486284256
+  },
+  {
+    "path": "test/real/fullres_real_0075.png",
+    "label": 0,
+    "aeroblade_score": -0.07632558047771454
+  },
+  {
+    "path": "test/real/fullres_real_0082.png",
+    "label": 0,
+    "aeroblade_score": -0.17277774214744568
+  },
+  {
+    "path": "test/real/fullres_real_0103.png",
+    "label": 0,
+    "aeroblade_score": -0.20339252054691315
+  },
+  {
+    "path": "test/real/fullres_real_0116.png",
+    "label": 0,
+    "aeroblade_score": -0.11339984089136124
+  },
+  {
+    "path": "test/real/fullres_real_0117.png",
+    "label": 0,
+    "aeroblade_score": -0.08623102307319641
+  },
+  {
+    "path": "test/real/fullres_real_0119.png",
+    "label": 0,
+    "aeroblade_score": -0.07707792520523071
+  },
+  {
+    "path": "test/real/fullres_real_0120.png",
+    "label": 0,
+    "aeroblade_score": -0.15099257230758667
+  },
+  {
+    "path": "test/real/fullres_real_0130.png",
+    "label": 0,
+    "aeroblade_score": -0.10931482911109924
+  },
+  {
+    "path": "test/real/fullres_real_0135.png",
+    "label": 0,
+    "aeroblade_score": -0.23237258195877075
+  },
+  {
+    "path": "test/real/fullres_real_0136.png",
+    "label": 0,
+    "aeroblade_score": -0.07893683016300201
+  },
+  {
+    "path": "test/real/fullres_real_0142.png",
+    "label": 0,
+    "aeroblade_score": -0.22972652316093445
+  },
+  {
+    "path": "test/real/fullres_real_0150.png",
+    "label": 0,
+    "aeroblade_score": -0.19315867125988007
+  },
+  {
+    "path": "test/real/fullres_real_0164.png",
+    "label": 0,
+    "aeroblade_score": -0.11398312449455261
+  },
+  {
+    "path": "test/real/fullres_real_0195.png",
+    "label": 0,
+    "aeroblade_score": -0.08535641431808472
+  },
+  {
+    "path": "test/real/fullres_real_0196.png",
+    "label": 0,
+    "aeroblade_score": -0.1473991572856903
+  },
+  {
+    "path": "test/real/fullres_real_0197.png",
+    "label": 0,
+    "aeroblade_score": -0.14559057354927063
+  },
+  {
+    "path": "test/real/fullres_real_0208.png",
+    "label": 0,
+    "aeroblade_score": -0.1590002328157425
+  },
+  {
+    "path": "test/real/fullres_real_0211.png",
+    "label": 0,
+    "aeroblade_score": -0.15709832310676575
+  },
+  {
+    "path": "test/real/fullres_real_0212.png",
+    "label": 0,
+    "aeroblade_score": -0.1522998809814453
+  },
+  {
+    "path": "test/real/fullres_real_0233.png",
+    "label": 0,
+    "aeroblade_score": -0.12368405610322952
+  },
+  {
+    "path": "test/real/fullres_real_0236.png",
+    "label": 0,
+    "aeroblade_score": -0.14141643047332764
+  },
+  {
+    "path": "test/real/fullres_real_0244.png",
+    "label": 0,
+    "aeroblade_score": -0.08111882209777832
+  },
+  {
+    "path": "test/real/fullres_real_0246.png",
+    "label": 0,
+    "aeroblade_score": -0.08135613799095154
+  },
+  {
+    "path": "test/real/fullres_real_0250.png",
+    "label": 0,
+    "aeroblade_score": -0.06401669234037399
+  },
+  {
+    "path": "test/real/fullres_real_0257.png",
+    "label": 0,
+    "aeroblade_score": -0.17178837954998016
+  },
+  {
+    "path": "test/real/fullres_real_0279.png",
+    "label": 0,
+    "aeroblade_score": -0.2287462055683136
+  },
+  {
+    "path": "test/real/fullres_real_0291.png",
+    "label": 0,
+    "aeroblade_score": -0.18140849471092224
+  },
+  {
+    "path": "test/real/fullres_real_0292.png",
+    "label": 0,
+    "aeroblade_score": -0.06331291794776917
+  },
+  {
+    "path": "test/real/fullres_real_0293.png",
+    "label": 0,
+    "aeroblade_score": -0.14940756559371948
+  },
+  {
+    "path": "test/real/fullres_real_0303.png",
+    "label": 0,
+    "aeroblade_score": -0.2133258581161499
+  },
+  {
+    "path": "test/real/fullres_real_0311.png",
+    "label": 0,
+    "aeroblade_score": -0.1262277066707611
+  },
+  {
+    "path": "test/real/fullres_real_0313.png",
+    "label": 0,
+    "aeroblade_score": -0.15168434381484985
+  },
+  {
+    "path": "test/real/fullres_real_0317.png",
+    "label": 0,
+    "aeroblade_score": -0.14579470455646515
+  },
+  {
+    "path": "test/real/fullres_real_0318.png",
+    "label": 0,
+    "aeroblade_score": -0.14352384209632874
+  },
+  {
+    "path": "test/real/fullres_real_0332.png",
+    "label": 0,
+    "aeroblade_score": -0.2703019678592682
+  },
+  {
+    "path": "test/real/fullres_real_0334.png",
+    "label": 0,
+    "aeroblade_score": -0.19268660247325897
+  },
+  {
+    "path": "test/real/fullres_real_0336.png",
+    "label": 0,
+    "aeroblade_score": -0.10853897035121918
+  },
+  {
+    "path": "test/real/fullres_real_0340.png",
+    "label": 0,
+    "aeroblade_score": -0.046037301421165466
+  },
+  {
+    "path": "test/real/fullres_real_0343.png",
+    "label": 0,
+    "aeroblade_score": -0.11637654155492783
+  },
+  {
+    "path": "test/real/fullres_real_0345.png",
+    "label": 0,
+    "aeroblade_score": -0.14262546598911285
+  },
+  {
+    "path": "test/real/fullres_real_0346.png",
+    "label": 0,
+    "aeroblade_score": -0.1429283767938614
+  },
+  {
+    "path": "test/real/fullres_real_0354.png",
+    "label": 0,
+    "aeroblade_score": -0.10165177285671234
+  },
+  {
+    "path": "test/real/fullres_real_0365.png",
+    "label": 0,
+    "aeroblade_score": -0.12962736189365387
+  },
+  {
+    "path": "test/real/fullres_real_0371.png",
+    "label": 0,
+    "aeroblade_score": -0.0941375195980072
+  },
+  {
+    "path": "test/real/fullres_real_0372.png",
+    "label": 0,
+    "aeroblade_score": -0.19026894867420197
+  },
+  {
+    "path": "test/real/fullres_real_0374.png",
+    "label": 0,
+    "aeroblade_score": -0.1876731961965561
+  },
+  {
+    "path": "test/real/fullres_real_0377.png",
+    "label": 0,
+    "aeroblade_score": -0.1632932424545288
+  },
+  {
+    "path": "test/real/fullres_real_0383.png",
+    "label": 0,
+    "aeroblade_score": -0.07030811905860901
+  },
+  {
+    "path": "test/real/fullres_real_0396.png",
+    "label": 0,
+    "aeroblade_score": -0.22598591446876526
+  },
+  {
+    "path": "test/real/fullres_real_0400.png",
+    "label": 0,
+    "aeroblade_score": -0.07653091102838516
+  },
+  {
+    "path": "test/real/fullres_real_0417.png",
+    "label": 0,
+    "aeroblade_score": -0.06557971239089966
+  },
+  {
+    "path": "test/real/fullres_real_0425.png",
+    "label": 0,
+    "aeroblade_score": -0.07320071011781693
+  },
+  {
+    "path": "test/real/fullres_real_0434.png",
+    "label": 0,
+    "aeroblade_score": -0.10789915919303894
+  },
+  {
+    "path": "test/real/fullres_real_0436.png",
+    "label": 0,
+    "aeroblade_score": -0.1230439767241478
+  },
+  {
+    "path": "test/real/fullres_real_0439.png",
+    "label": 0,
+    "aeroblade_score": -0.22981300950050354
+  },
+  {
+    "path": "test/real/fullres_real_0440.png",
+    "label": 0,
+    "aeroblade_score": -0.10602056980133057
+  },
+  {
+    "path": "test/real/fullres_real_0442.png",
+    "label": 0,
+    "aeroblade_score": -0.11638587713241577
+  },
+  {
+    "path": "test/real/fullres_real_0448.png",
+    "label": 0,
+    "aeroblade_score": -0.1670825481414795
+  },
+  {
+    "path": "test/real/fullres_real_0455.png",
+    "label": 0,
+    "aeroblade_score": -0.18164831399917603
+  },
+  {
+    "path": "test/real/fullres_real_0459.png",
+    "label": 0,
+    "aeroblade_score": -0.05978606641292572
+  },
+  {
+    "path": "test/real/fullres_real_0465.png",
+    "label": 0,
+    "aeroblade_score": -0.12748399376869202
+  },
+  {
+    "path": "test/real/fullres_real_0469.png",
+    "label": 0,
+    "aeroblade_score": -0.08597685396671295
+  },
+  {
+    "path": "test/real/fullres_real_0471.png",
+    "label": 0,
+    "aeroblade_score": -0.11469194293022156
+  },
+  {
+    "path": "test/real/fullres_real_0482.png",
+    "label": 0,
+    "aeroblade_score": -0.14289754629135132
+  },
+  {
+    "path": "test/real/fullres_real_0490.png",
+    "label": 0,
+    "aeroblade_score": -0.2227012813091278
+  },
+  {
+    "path": "test/real/fullres_real_0493.png",
+    "label": 0,
+    "aeroblade_score": -0.20143553614616394
+  },
+  {
+    "path": "test/real/sid_set_real_0010.png",
+    "label": 0,
+    "aeroblade_score": -0.04872303083539009
+  },
+  {
+    "path": "test/real/sid_set_real_0014.png",
+    "label": 0,
+    "aeroblade_score": -0.10294949263334274
+  },
+  {
+    "path": "test/real/sid_set_real_0020.png",
+    "label": 0,
+    "aeroblade_score": -0.09432978183031082
+  },
+  {
+    "path": "test/real/sid_set_real_0027.png",
+    "label": 0,
+    "aeroblade_score": -0.13690868020057678
+  },
+  {
+    "path": "test/real/sid_set_real_0028.png",
+    "label": 0,
+    "aeroblade_score": -0.20899711549282074
+  },
+  {
+    "path": "test/real/sid_set_real_0040.png",
+    "label": 0,
+    "aeroblade_score": -0.16329480707645416
+  },
+  {
+    "path": "test/real/sid_set_real_0046.png",
+    "label": 0,
+    "aeroblade_score": -0.16094443202018738
+  },
+  {
+    "path": "test/real/sid_set_real_0059.png",
+    "label": 0,
+    "aeroblade_score": -0.2017243206501007
+  },
+  {
+    "path": "test/real/sid_set_real_0061.png",
+    "label": 0,
+    "aeroblade_score": -0.18404832482337952
+  },
+  {
+    "path": "test/real/sid_set_real_0073.png",
+    "label": 0,
+    "aeroblade_score": -0.14323599636554718
+  },
+  {
+    "path": "test/real/sid_set_real_0074.png",
+    "label": 0,
+    "aeroblade_score": -0.15629254281520844
+  },
+  {
+    "path": "test/real/sid_set_real_0091.png",
+    "label": 0,
+    "aeroblade_score": -0.19900517165660858
+  },
+  {
+    "path": "test/real/sid_set_real_0093.png",
+    "label": 0,
+    "aeroblade_score": -0.06211235746741295
+  },
+  {
+    "path": "test/real/sid_set_real_0096.png",
+    "label": 0,
+    "aeroblade_score": -0.06597176194190979
+  },
+  {
+    "path": "test/real/sid_set_real_0100.png",
+    "label": 0,
+    "aeroblade_score": -0.13279487192630768
+  },
+  {
+    "path": "test/real/sid_set_real_0108.png",
+    "label": 0,
+    "aeroblade_score": -0.04053465276956558
+  },
+  {
+    "path": "test/real/sid_set_real_0119.png",
+    "label": 0,
+    "aeroblade_score": -0.0738176554441452
+  },
+  {
+    "path": "test/real/sid_set_real_0125.png",
+    "label": 0,
+    "aeroblade_score": -0.1336783617734909
+  },
+  {
+    "path": "test/real/sid_set_real_0126.png",
+    "label": 0,
+    "aeroblade_score": -0.12331147491931915
+  },
+  {
+    "path": "test/real/sid_set_real_0133.png",
+    "label": 0,
+    "aeroblade_score": -0.13752153515815735
+  },
+  {
+    "path": "test/real/sid_set_real_0138.png",
+    "label": 0,
+    "aeroblade_score": -0.0582757331430912
+  },
+  {
+    "path": "test/real/sid_set_real_0140.png",
+    "label": 0,
+    "aeroblade_score": -0.17913034558296204
+  },
+  {
+    "path": "test/real/sid_set_real_0163.png",
+    "label": 0,
+    "aeroblade_score": -0.08458086103200912
+  },
+  {
+    "path": "test/real/sid_set_real_0164.png",
+    "label": 0,
+    "aeroblade_score": -0.10837601870298386
+  },
+  {
+    "path": "test/real/sid_set_real_0167.png",
+    "label": 0,
+    "aeroblade_score": -0.042511917650699615
+  },
+  {
+    "path": "test/real/sid_set_real_0173.png",
+    "label": 0,
+    "aeroblade_score": -0.21068373322486877
+  },
+  {
+    "path": "test/real/sid_set_real_0182.png",
+    "label": 0,
+    "aeroblade_score": -0.08830824494361877
+  },
+  {
+    "path": "test/real/sid_set_real_0184.png",
+    "label": 0,
+    "aeroblade_score": -0.11538533121347427
+  },
+  {
+    "path": "test/real/sid_set_real_0187.png",
+    "label": 0,
+    "aeroblade_score": -0.1055714339017868
+  },
+  {
+    "path": "test/real/sid_set_real_0189.png",
+    "label": 0,
+    "aeroblade_score": -0.14295299351215363
+  },
+  {
+    "path": "test/real/sid_set_real_0202.png",
+    "label": 0,
+    "aeroblade_score": -0.16394299268722534
+  },
+  {
+    "path": "test/real/sid_set_real_0213.png",
+    "label": 0,
+    "aeroblade_score": -0.09071702510118484
+  },
+  {
+    "path": "test/real/sid_set_real_0223.png",
+    "label": 0,
+    "aeroblade_score": -0.14943940937519073
+  },
+  {
+    "path": "test/real/sid_set_real_0243.png",
+    "label": 0,
+    "aeroblade_score": -0.12299425154924393
+  },
+  {
+    "path": "test/real/sid_set_real_0245.png",
+    "label": 0,
+    "aeroblade_score": -0.1371103674173355
+  },
+  {
+    "path": "test/real/sid_set_real_0253.png",
+    "label": 0,
+    "aeroblade_score": -0.062166839838027954
+  },
+  {
+    "path": "test/real/sid_set_real_0254.png",
+    "label": 0,
+    "aeroblade_score": -0.13321536779403687
+  },
+  {
+    "path": "test/real/sid_set_real_0261.png",
+    "label": 0,
+    "aeroblade_score": -0.14333264529705048
+  },
+  {
+    "path": "test/real/sid_set_real_0271.png",
+    "label": 0,
+    "aeroblade_score": -0.0837138369679451
+  },
+  {
+    "path": "test/real/sid_set_real_0279.png",
+    "label": 0,
+    "aeroblade_score": -0.13101890683174133
+  },
+  {
+    "path": "test/real/sid_set_real_0284.png",
+    "label": 0,
+    "aeroblade_score": -0.052286919206380844
+  },
+  {
+    "path": "test/real/sid_set_real_0286.png",
+    "label": 0,
+    "aeroblade_score": -0.11973665654659271
+  },
+  {
+    "path": "test/real/sid_set_real_0287.png",
+    "label": 0,
+    "aeroblade_score": -0.12210030853748322
+  },
+  {
+    "path": "test/real/sid_set_real_0288.png",
+    "label": 0,
+    "aeroblade_score": -0.13824132084846497
+  },
+  {
+    "path": "test/real/sid_set_real_0298.png",
+    "label": 0,
+    "aeroblade_score": -0.11650565266609192
+  },
+  {
+    "path": "test/real/sid_set_real_0306.png",
+    "label": 0,
+    "aeroblade_score": -0.13674822449684143
+  },
+  {
+    "path": "test/real/sid_set_real_0315.png",
+    "label": 0,
+    "aeroblade_score": -0.17191414535045624
+  },
+  {
+    "path": "test/real/sid_set_real_0325.png",
+    "label": 0,
+    "aeroblade_score": -0.1178409606218338
+  },
+  {
+    "path": "test/real/sid_set_real_0332.png",
+    "label": 0,
+    "aeroblade_score": -0.11736591160297394
+  },
+  {
+    "path": "test/real/sid_set_real_0340.png",
+    "label": 0,
+    "aeroblade_score": -0.18593716621398926
+  },
+  {
+    "path": "test/real/sid_set_real_0355.png",
+    "label": 0,
+    "aeroblade_score": -0.09782503545284271
+  },
+  {
+    "path": "test/real/sid_set_real_0364.png",
+    "label": 0,
+    "aeroblade_score": -0.15540838241577148
+  },
+  {
+    "path": "test/real/sid_set_real_0373.png",
+    "label": 0,
+    "aeroblade_score": -0.06986240297555923
+  },
+  {
+    "path": "test/real/sid_set_real_0377.png",
+    "label": 0,
+    "aeroblade_score": -0.14365091919898987
+  },
+  {
+    "path": "test/real/sid_set_real_0381.png",
+    "label": 0,
+    "aeroblade_score": -0.06361445784568787
+  },
+  {
+    "path": "test/real/sid_set_real_0391.png",
+    "label": 0,
+    "aeroblade_score": -0.2165602743625641
+  },
+  {
+    "path": "test/real/sid_set_real_0398.png",
+    "label": 0,
+    "aeroblade_score": -0.11504439264535904
+  },
+  {
+    "path": "test/real/sid_set_real_0408.png",
+    "label": 0,
+    "aeroblade_score": -0.13236010074615479
+  },
+  {
+    "path": "test/real/sid_set_real_0411.png",
+    "label": 0,
+    "aeroblade_score": -0.15193788707256317
+  },
+  {
+    "path": "test/real/sid_set_real_0420.png",
+    "label": 0,
+    "aeroblade_score": -0.13448484241962433
+  },
+  {
+    "path": "test/real/sid_set_real_0424.png",
+    "label": 0,
+    "aeroblade_score": -0.09782496094703674
+  },
+  {
+    "path": "test/real/sid_set_real_0431.png",
+    "label": 0,
+    "aeroblade_score": -0.08727533370256424
+  },
+  {
+    "path": "test/real/sid_set_real_0450.png",
+    "label": 0,
+    "aeroblade_score": -0.13934141397476196
+  },
+  {
+    "path": "test/real/sid_set_real_0465.png",
+    "label": 0,
+    "aeroblade_score": -0.0651116594672203
+  },
+  {
+    "path": "test/real/sid_set_real_0469.png",
+    "label": 0,
+    "aeroblade_score": -0.13350297510623932
+  },
+  {
+    "path": "test/real/sid_set_real_0479.png",
+    "label": 0,
+    "aeroblade_score": -0.15525995194911957
+  },
+  {
+    "path": "test/real/sid_set_real_0480.png",
+    "label": 0,
+    "aeroblade_score": -0.05495095252990723
+  },
+  {
+    "path": "test/real/sid_set_real_0486.png",
+    "label": 0,
+    "aeroblade_score": -0.1420505940914154
+  },
+  {
+    "path": "test/real/sid_set_real_0490.png",
+    "label": 0,
+    "aeroblade_score": -0.09380829334259033
+  },
+  {
+    "path": "test/real/sid_set_real_0491.png",
+    "label": 0,
+    "aeroblade_score": -0.13372500240802765
+  },
+  {
+    "path": "test/real/sid_set_real_0492.png",
+    "label": 0,
+    "aeroblade_score": -0.10761773586273193
+  },
+  {
+    "path": "test/real/sid_set_real_0496.png",
+    "label": 0,
+    "aeroblade_score": -0.07351282238960266
+  },
+  {
+    "path": "test/real/sid_set_real_0499.png",
+    "label": 0,
+    "aeroblade_score": -0.0856555849313736
+  },
+  {
+    "path": "test/real/sid_set_real_0514.png",
+    "label": 0,
+    "aeroblade_score": -0.21137183904647827
+  },
+  {
+    "path": "test/real/sid_set_real_0519.png",
+    "label": 0,
+    "aeroblade_score": -0.13995394110679626
+  },
+  {
+    "path": "test/real/sid_set_real_0520.png",
+    "label": 0,
+    "aeroblade_score": -0.11564617604017258
+  },
+  {
+    "path": "test/real/sid_set_real_0521.png",
+    "label": 0,
+    "aeroblade_score": -0.08042390644550323
+  },
+  {
+    "path": "test/real/sid_set_real_0528.png",
+    "label": 0,
+    "aeroblade_score": -0.08489174395799637
+  },
+  {
+    "path": "test/real/sid_set_real_0533.png",
+    "label": 0,
+    "aeroblade_score": -0.14450764656066895
+  },
+  {
+    "path": "test/real/sid_set_real_0538.png",
+    "label": 0,
+    "aeroblade_score": -0.09269974380731583
+  },
+  {
+    "path": "test/real/sid_set_real_0542.png",
+    "label": 0,
+    "aeroblade_score": -0.20242977142333984
+  },
+  {
+    "path": "test/real/sid_set_real_0550.png",
+    "label": 0,
+    "aeroblade_score": -0.161987766623497
+  },
+  {
+    "path": "test/real/sid_set_real_0553.png",
+    "label": 0,
+    "aeroblade_score": -0.12403235584497452
+  },
+  {
+    "path": "test/real/sid_set_real_0559.png",
+    "label": 0,
+    "aeroblade_score": -0.12147225439548492
+  },
+  {
+    "path": "test/real/sid_set_real_0564.png",
+    "label": 0,
+    "aeroblade_score": -0.0570075586438179
+  },
+  {
+    "path": "test/real/sid_set_real_0574.png",
+    "label": 0,
+    "aeroblade_score": -0.11649189889431
+  },
+  {
+    "path": "test/real/sid_set_real_0577.png",
+    "label": 0,
+    "aeroblade_score": -0.1469058394432068
+  },
+  {
+    "path": "test/real/sid_set_real_0580.png",
+    "label": 0,
+    "aeroblade_score": -0.0756269097328186
+  },
+  {
+    "path": "test/real/sid_set_real_0583.png",
+    "label": 0,
+    "aeroblade_score": -0.11471691727638245
+  }
+]
