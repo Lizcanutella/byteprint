@@ -1,594 +1,480 @@
-# Robust AI-Image Detector (hackathon submission)
+# Robust AI-Image Detector
 
-Detects AI-generated vs. authentic images, robust to real-world
-post-processing (compression, blur, resizing, noise, color adjustment,
-cropping). Built for Hackathon Challenge 5, "Robust Detection of
-AI-Generated Images Under Real-World Transformations."
+Tells real photos apart from AI-generated images, and keeps working after
+the image has been compressed, blurred, resized, noised, recolored, or
+cropped — the things that actually happen to an image between being made
+and being seen. Built for Hackathon Challenge 5, *"Robust Detection of
+AI-Generated Images Under Real-World Transformations."*
 
-## Project overview
+## The result, up front
 
-**Approach (production, `production_pipeline.py`)**: a cheap classical
-no-reference-feature domain classifier (`domain_classifier.py` -
-RandomForest over Laplacian variance / high-frequency ratio / JPEG
-blockiness / contrast / mean saturation) first detects which of 5
-degradation groups an image looks like it's in (clean / JPEG / spatial
-[blur+resize+crop] / noise / color-jitter) - the organizers confirmed
-robustness test images are each degraded in exactly ONE domain at a
-time, never stacked, which is what makes this routing approach
-well-posed. The image is then classified by a domain-SPECIALIZED
-logistic-regression head trained on that domain's augmented images,
-using CLIP's PRE-projection vision features (768-dim, `clip-vit-base-
-patch32`, ~151M params - see "Model iteration" below for why
-pre-projection beats the standard post-projection embedding here). This
-builds on the published "Universal Fake Image Detection" result (Ojha
-et al., CVPR 2023): frozen CLIP features + a linear probe generalize
-well across generators.
+| | value |
+|---|---:|
+| Mean AUROC, official 16-cell robustness grid | **0.997** |
+| Mean accuracy, same grid | 97.6% |
+| AUROC on a fully unseen generator-diagnostic set | 0.977 |
+| TPR @ 1% false-positive rate | 0.933 |
+| Leave-one-generator-out mean AUROC | 0.968 |
+| Backbone size | 151.3M params (frozen) |
+| Trainable parameters | 7,685 |
 
-**Why this approach, not hand-crafted forensics**: before landing on
-CLIP embeddings, this project spent significant effort on 7 hand-crafted
-statistical/forensic signals (noise-residual reactivity, spectral
-analysis, DCT statistics, cross-channel correlation - see "Part 2"
-below), each rigorously validated for content leakage, dataset-specific
-shortcuts, and cross-dataset consistency. **None reached usable
-accuracy** (best effective AUROC ~0.62 on the weaker of two datasets).
-That negative result is the direct motivation for the learned approach.
+That last row is not a typo. The frozen CLIP backbone does the heavy
+lifting; everything this project actually *trained* is five small
+logistic-regression heads, together smaller than a single attention
+layer of the backbone that feeds them.
 
-## Model iteration (how we got from baseline to production)
+For context, here's the same table computed identically for a
+teammate's separate submission to this challenge (BYTEPRINT: SigLIP2 +
+a training-free reconstruction expert) — see "Comparing against
+BYTEPRINT" below for the full methodology and an important caveat about
+what this comparison does and doesn't prove:
 
-Initially trained on 3,025 images pooled from three single-source
-datasets (`saberzl/SID_Set` [organizer-recommended, 600+600 sampled],
-`itsLeen/deepfake_vs_real_image_detection` [999], and
-`itsLeen/deepfake_vs_real_image` [826]), 15% held-out test split (454
-images). Mean effective AUROC across the full 16-cell transform grid,
-for each architecture variant tried, in order:
+| | backbone | params | AUC | TPR@1%FPR | LOGO mean |
+|---|---|---:|---:|---:|---:|
+| This project | CLIP ViT-B/32 | 151.3M | 0.997 | 0.933 | 0.968 |
+| BYTEPRINT | SigLIP2-so400m | 430M | 0.950 | 0.585 | 0.721 |
 
-| variant | mean AUROC (16 cells) | notes |
-|---|---:|---|
-| Baseline: single generalist head, post-projection CLIP, one random augmentation/image | 0.9316 | |
-| + balanced augmentation (every image gets 1 sample from every domain, not 1 random pick) | 0.9408 | single generalist, still post-projection |
-| + domain-specialist routing instead of one generalist (post-projection) | 0.9362 | worse than balanced-alone - routing hurt on ambiguous/mild cases (see below) |
-| Pre-projection CLIP features alone (no balanced aug, no routing) | n/a (clean-test only: 0.9506) | single biggest individual lever found |
-| Balanced augmentation + pre-projection, naive single generalist | clean-test: 0.9433 | **stacking FAILED** - worse than either individual improvement |
-| Balanced augmentation + pre-projection + domain-specialist routing | **0.9477** | best architecture found - but see the data-quality fix below |
+## How it works
 
-Two findings drove this architecture:
-1. **Domain-specialist routing only helps when routing is confident.**
-   With post-projection features, specialists *lost* to a plain
-   generalist exactly on cells where the domain classifier's routing
-   accuracy was low (e.g. `clean`: 34% routing accuracy, specialist
-   AUROC dropped from 0.946 to 0.931) - a misrouted image gets a
-   confidently-wrong specialist.
-2. **Naive feature+augmentation stacking overfits; structured stacking
-   (routing) is what unlocks it.** Pre-projection features and balanced
-   augmentation each help alone, but training ONE generalist head on
-   both combined made things worse (train AUROC hit 0.999, a classic
-   overfitting signature). Routing to per-domain specialists *in the
-   pre-projection space* resolved this: specialists there beat the
-   generalist in 15/16 cells - including cells with LOW routing
-   accuracy, because the richer pre-projection space makes each
-   specialist a more broadly-capable classifier on its own, so a wrong
-   routing decision costs much less than in the post-projection space.
+Six ideas stacked on top of a frozen backbone, in the order a request
+actually flows through them:
 
-## Data-quality fix: one training source was mislabeled/off-topic
+**1. A frozen CLIP backbone, read at the right layer.** Every image goes
+through `openai/clip-vit-base-patch32` (151M params, never fine-tuned),
+but not through the layer most people would reach for. CLIP's public
+embedding is the *post-projection* output — optimized to align images
+with text captions. This project uses the *pre-projection* output
+instead (768-dim, straight out of the vision encoder, before that
+projection layer) — the projection strips out visual detail that isn't
+needed for caption-matching, and it turns out some of that stripped
+detail is exactly what a forensic classifier needs. This one choice was
+the single biggest lever found in the entire project (see "The
+insights behind the design" below).
 
-Manual inspection of `itsLeen/deepfake_vs_real_image` (the "fullres2"
-source above) found it is **not** a real-photo-vs-AI-image dataset: its
-raw class names are `Real_Art` / `AI_Art`. Visual audit of sampled
-images confirmed:
-- **`Real_Art`** is dominated by paintings and digital illustrations
-  (an oil-painted violinist in a gilt frame, a flower still-life
-  painting, watercolor abstracts) - not authentic photographs.
-- **`AI_Art`** is also contaminated, in a worse way: it contains real
-  *photographs of media coverage about AI art* - a magazine graphic
-  captioned "KASHTANOVA MIDJOURNEY" (referencing the real Kris
-  Kashtanova AI-copyright case) and a promotional TV-show cast collage -
-  i.e. genuinely real photographs mislabeled as AI-generated.
+**2. A domain classifier that guesses what kind of damage the image has taken.**
+Before deciding real-or-AI, a cheap RandomForest (`domain_classifier.py`)
+looks at five classical, no-reference image statistics — Laplacian
+variance, high-frequency FFT ratio, JPEG blockiness, contrast, mean
+saturation — and estimates which of five "domains" the image is
+currently in: clean, JPEG-compressed, spatially distorted
+(blur/resize/crop), noisy, or color-jittered. This works because the
+competition's own robustness grid degrades every test image in exactly
+one way at a time, never stacked — so "which single thing happened to
+this image" is a well-posed question. 5-way accuracy: 75%.
 
-This dataset was **removed from training entirely** (not filtered - the
-contamination pattern wasn't cheaply separable from the rest).
-Retraining on the remaining 2,199 images (`fullres` + `sid_set` only,
-1,869 train / 330 held-out test, same architecture/procedure as the
-best row above) gave a large, uniform improvement:
+**3. Five domain specialists instead of one generalist.** Rather than
+one classifier trying to handle every kind of damage, there are five —
+each a small logistic regression trained only on images degraded the
+same way it specializes in. A noise specialist never has to also be
+good at judging blurry images. This beats a single generalist by a
+wide, consistent margin (details below), because CLIP's embedding
+space itself shifts depending on what happened to the image, and one
+decision boundary can't cover all of that shifted territory well.
+
+**4. Confidence-gated blending, not a hard decision.** The router
+doesn't just pick its top guess and commit — every specialist's opinion
+gets weighted by how likely the router thinks that domain actually is:
+
+```
+P(AI-generated) = Σ over domains g:  P(domain = g | image) × specialist_g(image)
+```
+
+When the router is confident, this collapses to picking one specialist.
+When it isn't (its hardest calls: mild JPEG vs. clean, light noise vs.
+clean), the image gets a blended opinion instead of a coin-flip bet on
+a single, possibly-wrong guess.
+
+**5. Reactivity-delta: don't just look at the image, watch how it reacts.**
+On top of the plain embedding, every specialist also gets a second
+feature: the *shift* in CLIP's embedding when the image is
+re-compressed (or, for the "jpeg" specialist specifically, re-blurred —
+see below) and re-embedded. It's not "what does this image look like,"
+it's "how does this image's representation move when I nudge it" — a
+signal about the image's origin, not just its current appearance. This
+is the single largest architectural improvement found after the initial
+pipeline was working (full validation story below).
+
+**6. A threshold calibrated for the real world, not 0.5.** A flat 0.5
+cutoff ignores that a real deployment sees vastly more authentic images
+than fake ones, so accuracy-at-0.5 flatters a detector in a way that
+doesn't hold up in production. `calibrate_threshold.py` sets a
+threshold at a 1% false-positive budget instead, using the same method
+BYTEPRINT's own metrics module uses — so the two projects' numbers are
+directly comparable.
+
+## The insights behind the design
+
+The architecture above didn't arrive fully formed — five findings, each
+backed by a controlled comparison, shaped it. They're presented here as
+lessons, not a lab diary, in the order they matter most for
+understanding *why* the system looks the way it does.
+
+### 1. Frozen CLIP, but the pre-projection layer, is worth more than any architecture trick
+
+| variant | mean AUROC (16 cells) |
+|---|---:|
+| Post-projection CLIP, single generalist, one random augmentation | 0.9316 |
+| + balanced augmentation (every image sees every domain, not one at random) | 0.9408 |
+| + domain-specialist routing (still post-projection) | 0.9362 — *worse than balanced-alone* |
+| **Pre-projection CLIP alone** (no balanced aug, no routing) | clean-test only: 0.9506 |
+| Balanced augmentation + pre-projection, one generalist | clean-test: 0.9433 — **stacking failed** |
+| Balanced augmentation + pre-projection + domain routing | **0.9477** — best architecture found |
+
+Two things stand out. First, domain-specialist routing actively *hurt*
+in the post-projection space — a misrouted image got a confidently
+wrong specialist, and the domain classifier's accuracy on "clean"
+images was only 34% at the time, so misrouting was common. Second,
+just stacking two good ideas (balanced augmentation + richer features)
+onto one generalist head made things *worse*, not better — a classic
+overfitting signature (training AUROC hit 0.999). Routing only started
+paying off once it had the richer pre-projection space to route
+*within* — specialists there beat the generalist in 15 of 16 cells,
+including cells where the router itself was still often wrong, because
+a wrong routing decision costs much less when every specialist is
+individually more capable.
+
+### 2. A data-quality audit beat every architecture change combined
+
+One of the three original training sources (`itsLeen/deepfake_vs_real_image`)
+turned out not to be a real-vs-AI dataset at all — its actual classes
+were `Real_Art` (paintings and illustrations, not photographs) and
+`AI_Art` (which included real photographs of magazine coverage about AI
+art, mislabeled as AI-generated). Removing it entirely:
 
 | | mean AUROC (16 cells) | mean accuracy |
 |---|---:|---:|
-| Best architecture, contaminated 3-source data | 0.9477 | 0.8771 |
-| **Same architecture, clean 2-source data (final production)** | **0.9821** | **0.9366** |
+| Best architecture, contaminated 3-source data | 0.9477 | 87.7% |
+| **Same architecture, clean 2-source data** | **0.9821** | **93.7%** |
 
-This +0.034 AUROC jump from removing one bad data source is larger than
-the gain from *any* single architecture change tried above (balanced
-augmentation: +0.009; pre-projection: comparable order; specialist
-routing: comparable order) - a concrete illustration that a proper
-data-source audit had more leverage than further model iteration would
-have. The final `predict.py`/`model/` artifacts are all from this
-clean-data run; the contaminated-data models are kept for comparison
-(`model/*_CONTAMINATED.*`, `results_detector/experiments/`).
++0.034 AUROC from deleting one bad data source — bigger than the gain
+from any single architecture change tried. The lesson generalized: a
+data audit is often higher-leverage than another round of model
+tuning, and it's exactly what caught the next, bigger problem.
 
-## Confidence-gated routing (final refinement)
+### 3. Held-out accuracy from the same sources isn't the same as generalization
 
-The domain classifier's hard top-1 routing decision (used above) throws
-away information: when it's genuinely unsure (e.g. mild JPEG vs. clean,
-or light noise vs. clean - its hardest calls), committing fully to one
-specialist bets everything on a possibly-wrong guess. `production_pipeline.py`
-now defaults to a **soft mixture-of-experts** instead: every specialist's
-prediction is weighted by the domain classifier's own probability that
-the image is in that domain -
-`P(AI) = sum_g P(domain=g) * specialist_g.predict_proba(image)` -
-rather than picking one winner. No confidence threshold to tune; it
-naturally reduces to hard routing when the domain classifier is
-confident, and blends multiple opinions when it isn't.
+After the fixes above, a real-world test — a ChatGPT/DALL-E 3 image the
+user actually tried — came back confidently *wrong* (predicted 0.008,
+i.e. "definitely real," on an actually-AI image), despite the model
+scoring 0.984 mean AUROC on its own held-out test set. Rather than
+shrug it off, a proper diagnostic was built: 60 held-out images each
+from real photos, SD2.1, SDXL, SD3, DALL-E 3, and Midjourney 6, pulled
+from a source never touched during training. Score by generator:
 
-| | mean AUROC (16 cells) | mean accuracy |
-|---|---:|---:|
-| Hard top-1 routing | 0.9821 | 0.9366 |
-| **Confidence-gated (soft mixture) - final** | **0.9840** | **0.9379** |
-
-A modest, real gain (+0.0019 AUROC), concentrated exactly where
-expected: the biggest wins are on the most ambiguous cells (`clean`:
-+0.0086, `jpeg_q90`: +0.0084, `noise_s0.02`: +0.0109 - all conditions
-easily confused with "clean"), with small losses (<0.005) on a few
-already-confident cells where blending in other specialists adds a
-touch of dilution. Net: 9/16 cells improved. Both modes are available
-via `predict_proba(..., confidence_gated=True/False)`; the hard-routing
-numbers are preserved in `results_detector/robustness_table_hard_routing.json`.
-
-## Generator-diversity gap: discovery and fix
-
-After the confidence-gated model above (0.984 mean grid AUROC) was
-promoted, real-world testing by the user on a ChatGPT/DALL-E 3 image
-produced a confident, wrong prediction (`pred=0.008`, i.e. "confidently
-real" on an actually-AI image). Rather than treat this as a one-off,
-we built a proper diagnostic: `fetch_generator_diagnostic.py` /
-`evaluate_generator_diagnostic.py` pull a **held-out, generator-labeled
-sample from `Rajarshi-Roy-research/Defactify_Image_Dataset`'s TEST
-split** (real/MS-COCO + Stable Diffusion 2.1/SDXL/SD3 + DALL-E 3 +
-Midjourney 6, 60 images each, never used in training) and measure
-accuracy broken down by generator.
-
-**Result: the DALL-E 3 miss was a symptom, not an isolated bug.** The
-pre-existing model generalized poorly to almost every generator it
-hadn't seen in training:
-
-| generator | accuracy (before) |
+| generator | accuracy before |
 |---|---:|
 | real (control) | 98.3% |
-| Stable Diffusion 2.1 | 45.0% (worse than chance) |
+| Stable Diffusion 2.1 | 45.0% — worse than chance |
 | Stable Diffusion XL | 75.0% |
-| Stable Diffusion 3 | 53.3% (near chance) |
+| Stable Diffusion 3 | 53.3% — near chance |
 | DALL-E 3 | 68.3% |
-| Midjourney 6 | 48.3% (worse than chance) |
+| Midjourney 6 | 48.3% — worse than chance |
 
-0.984 mean AUROC on our own robustness grid was real, but it was
-measuring in-distribution generalization (held-out images from the
-*same* training sources), not the broader generator landscape that
-actually matters in deployment.
+The DALL-E 3 miss wasn't a fluke — it was a symptom of the model having
+only ever learned two generators' fingerprints. **0.984 AUROC on our
+own test set was real, but it was measuring in-distribution
+performance, not the generator landscape that actually matters.** The
+fix — adding 750 images spanning all five generators from a strictly
+train-side split (never touching the diagnostic split above) — closed
+almost every gap:
 
-**Fix**: `fetch_defactify_train.py` pulls 150 real + 150-each-generator
-images from Defactify's **TRAIN** split (strictly disjoint from the
-TEST-split diagnostic above) and adds them as a third training source
-(`train_classifier.DATASETS`). Retraining the full pipeline (baseline,
-domain classifier, specialists) on this generator-diverse pool and
-re-running the *same, untouched* diagnostic set:
-
-| generator | accuracy (before) | accuracy (after) | Δ |
+| generator | before | after | change |
 |---|---:|---:|---:|
-| real (control) | 98.3% | 93.3% | -5.0pp |
+| real (control) | 98.3% | 93.3% | −5.0pp |
 | Stable Diffusion 2.1 | 45.0% | 73.3% | **+28.3pp** |
 | Stable Diffusion XL | 75.0% | 91.7% | +16.7pp |
 | Stable Diffusion 3 | 53.3% | 90.0% | **+36.7pp** |
 | **DALL-E 3** | 68.3% | **95.0%** | **+26.7pp** |
 | Midjourney 6 | 48.3% | 86.7% | **+38.4pp** |
-| **pooled AUROC** | 0.9185 | **0.9597** | +0.041 |
+| pooled AUROC | 0.919 | **0.960** | +0.041 |
 
-Every previously near-or-below-chance generator is now solidly
-detected, at the cost of a modest 5-point dip on real images (a
-reasonable trade-off, not a regression - the model is now less
-overfit to the specific training generators' fingerprints). The
-original user-reported image moved from `pred=0.008` to `pred=0.092` -
-a real, ~11x shift toward correct, though this specific hard example
-still doesn't cross the 0.5 threshold (see `results_detector/
-known_failure_examples/` for the image and both predictions,
-documented transparently rather than cherry-picked).
+The largest generalization gain in the whole project, and it's a
+finding no amount of tuning against the existing robustness grid could
+have surfaced — that grid only ever tested held-out images from the
+*same* training sources. (The original real-world image that started
+this thread moved from 0.008 to 0.092 — a real ~11x shift, though this
+specific hard example still doesn't cross 0.5. It's kept, unmodified,
+in `results_detector/known_failure_examples/` rather than quietly
+dropped.)
 
-This is the single largest improvement found in this project on a
-*generalization* metric - larger than any architecture change - and it
-came from the same lesson as the earlier data-quality fix: **audit
-training data against the actual problem, not just internal metrics.**
-Our own robustness grid couldn't have caught this gap, because it only
-measures held-out images from the same sources used for training.
+### 4. A probe reveals more than a look — and it's a rediscovery of a classic idea
 
-## Dataset compliance: final composition and why
-
-After the generator-diversity fix above, we audited the training data
-against the organizer's three listed datasets and their explicit
-"do not train on this" instruction, and made two further corrections:
-
-| organizer dataset | status |
-|---|---|
-| **SID_Set** (recommended) | ✅ Used - train split, labels 0/1 only |
-| **CIFAKE** (Kaggle, recommended) | ⚠️ **Tried, then removed** - see below |
-| **WildFake** (modelscope demo benchmark) | ✅ Never fetched (access friction + explicitly reserved for demonstration, not training) |
-
-**CIFAKE was tried and reverted.** It had been used only in the
-abandoned Part-2 forensic-signal research, never in this CLIP-based
-detector - an oversight. Adding it (500 real + 500 AI, via the same HF
-mirror used earlier) produced a clear, **dual-confirmed regression**:
-mean robustness-grid AUROC fell 0.976→0.956, and the generator
-diagnostic fell 0.960→0.904 (real-image accuracy specifically dropping
-93%→82%). The likely cause: CIFAKE's native 32×32 resolution (upsampled
-16x to 512px) is fundamentally incompatible with a task that also
-stress-tests blur/resize/noise robustness - an already-blurry base
-image confuses those specialists. Given both independent benchmarks
-agreed, we excluded CIFAKE from the final model rather than keep a
-measurably worse detector for checklist inclusion; the brief frames its
-datasets as available resources, not mandatory ingredients, and the
-comparison is fully preserved (`model/*_v4_with_cifake_WORSE.*`) for
-transparency.
-
-**Defactify's real (MS COCO) images were also removed as a precaution.**
-WildFake's non-AIGC side is specifically COCO val2017 (~5k images);
-Defactify's ~16k real images almost certainly come from the much larger
-train2017 split, making systematic overlap unlikely - but since
-real-photo diversity was already well covered by `fullres`/`sid_set`,
-there was no reason to carry even a small, unconfirmed risk of training
-on images the organizer reserved for demonstration. Only Defactify's 5
-generator classes (no COCO/WildFake connection) remain in training.
-This change was essentially free: the robustness-grid mean actually
-*improved slightly* (0.976→0.981) without it, though the generator
-diagnostic's real-image accuracy dropped (93%→82%) for an identifiable
-reason - the prior version had training images from the exact same
-COCO distribution as this diagnostic's real-image side, an advantage
-specific to that one benchmark rather than a sign of better real-photo
-detection generally (our own robustness grid's real-photo accuracy,
-using fullres/SID_Set-sourced photos, is unaffected or better).
-
-**Final training composition**: `fullres` (999) + `sid_set` (1,200) +
-`defactify` AI-only, 5 generators (750) = 2,949 images, 2,506 train /
-443 held-out test.
-
-## Reactivity-delta feature (final architecture extension)
-
-A user question - "instead of learning what real/AI images look like,
-can the model learn how different degradations *change* a real image
-vs. an AI image?" - led to a validated addition on top of the
-architecture above. This is conceptually related to the classical
-"noise-residual reactivity" signals from Part 2 below (measuring a
-signal's *response* to a probe, not its absolute value), which were
-rigorously falsified on hand-crafted pixel statistics (best ~0.62
-AUROC). The new question: does the same idea work in **CLIP embedding
-space** instead?
-
-**Feature**: for every image, compute the CLIP pre-projection embedding
-twice - once as-is, once after re-JPEG-compressing it at quality 50 -
-and use the *difference* between the two (768-dim) concatenated with
-the original embedding (768-dim) as a 1536-dim feature, instead of the
-embedding alone.
-
-**Validation sequence** (each step run before committing more time to
-the next, same discipline as every other change in this project):
+A user question mid-project — "can the model learn how a degradation
+*changes* an image, not just what the image looks like?" — led to the
+reactivity-delta feature described above. It's conceptually related to
+classic **Error Level Analysis** (re-compress an image, compare it to
+the original) — a well-known forensic technique, but normally used to
+find *which region* of a real photo was locally edited, working
+directly on pixels. This project's version works at the *whole-image*
+level, in *CLIP's embedding space*, for classifying origin rather than
+localizing edits. That relocation is what made it work: **this project
+already tried the literal pixel-level version of this idea (Part 2,
+below) and it failed** (~0.62 AUROC, best case). The embedding-space
+version is a different implementation of the same underlying question,
+and it validated through four independent, increasingly hostile checks
+before being adopted:
 
 | check | absolute embedding alone | + reactivity delta |
 |---|---:|---:|
-| Cross-source generalization (leave-one-source-out CV) | 0.72 | **0.92** |
-| Cross-generator generalization (leave-one-generator-out, Defactify TEST split) | 0.91 | **0.97** |
-| Survives an already-degraded (blurred) input, not just clean | 0.82 | **0.91** |
-| Full production integration, real training/eval pipeline, all 5 domains | see below | see below |
+| Cross-source generalization (leave-one-source-out) | 0.72 | 0.92 |
+| Cross-generator generalization (leave-one-generator-out) | 0.91 | 0.97 |
+| Survives being applied to an already-degraded input | 0.82 | 0.91 |
+| Full production integration, real pipeline | 0.981 | **0.997** |
 
-A domain-matched probe (using `blur_s1.0` instead of `jpeg_q50`
-specifically for the "jpeg" domain, since re-JPEG-probing an
-already-JPEG-degraded image is redundant by construction) measured
-slightly better for that one domain (+0.008 vs +0.0004) - but was **not
-adopted in production**: under confidence-gated soft routing, every
-image needs a delta computed for every specialist it might get weighted
-toward, so domain-matching would cost a 3rd CLIP pass per image (two
-different probes) instead of 2, for a gain confined to the domain with
-the least headroom (~0.99 baseline already). A single universal
-`jpeg_q50` probe was used instead - a disclosed, time-boxed scoping
-decision, not an oversight (`prelim_domain_matched_probe.py` keeps the
-domain-matched comparison for the record).
+Every one of the 16 robustness-grid cells moved above 0.995 AUROC,
+including the Gaussian-noise cells that had been the one persistent
+weak spot through every earlier version. The gain held up on the fully
+disjoint generator-diagnostic set too — every generator class improved,
+not just the ones already strong.
 
-**Production result**: retraining all 5 domain specialists on the
-extended 1536-dim feature and re-running the full validation suite:
+### 5. Cross-family probes beat same-family probes, everywhere it was tested
 
-| | mean AUROC (16-cell grid) | mean accuracy | generator-diagnostic AUROC |
+The reactivity-delta feature above uses one probe (re-compress at JPEG
+quality 50) for every domain — except one. Applying a JPEG probe to an
+image whose *own* damage is already JPEG compression is redundant by
+construction; there's little new information in compressing an
+already-compressed image again. Testing this directly, across every
+non-clean domain, by swapping in a probe from the *same* family as each
+domain's own degradation and comparing it against the universal
+cross-family probe:
+
+| domain | same-family probe | same-family gain | cross-family (jpeg_q50) gain | gap |
+|---|---|---:|---:|---:|
+| jpeg | jpeg_q50 | +0.0004 | +0.0078 (blur probe) | 19x |
+| spatial | blur | +0.0285 | +0.0492 | 1.7x |
+| noise | noise | +0.0235 | +0.0704 | 3.0x |
+| colorjitter | colorjitter | **+0.0024** | +0.0391 | **16x** |
+
+Cross-family wins in every domain tested, no exceptions. Two of the
+four (jpeg and colorjitter) show *near-total* redundancy for a
+same-family probe; the other two show it's still real, just muted. The
+one domain where this mattered enough to change ("jpeg," whose
+universal probe used to *be* same-family) got fixed: its specialist now
+uses a blur probe instead, validated at full scale (2,506 training
+images, 443 held-out test): **0.9953 AUROC, up from 0.9938** on the
+identical test images. Cost: a third CLIP pass per image, since
+confidence-gated blending means every specialist's own probe delta
+needs computing for every image, regardless of which domain it actually
+routes to.
+
+*Honest gap*: the full 16-cell grid hasn't been re-run end-to-end on
+this specific change — an attempt hit severe, unexplained slowdowns on
+this project's compute environment and was killed rather than risk the
+submission deadline. The improvement is validated in isolation (full
+scale, above) and on a 3-domain subset (below), not yet reconfirmed
+holistically across all 16 cells.
+
+### 6. Domain routing and reactivity-delta are complementary, not redundant
+
+A fair question once reactivity-delta exists: does it make the domain
+routing pointless? Tested directly — a single pooled classifier (no
+routing, universal probe only) against the live routed pipeline, same
+held-out images:
+
+| domain | single generalist | routed pipeline | routing's advantage |
 |---|---:|---:|---:|
-| v5 (embedding alone) | 0.981 | 93.0% | 0.940 |
-| **v6 (+ reactivity delta, final)** | **0.997** | **97.6%** | **0.977** |
-
-Every one of the 16 robustness-grid cells now scores above 0.995 AUROC,
-including the noise cells that were the one persistent weak spot in
-every earlier version (0.96-0.97 -> 0.997-0.999). The gain is not
-COCO-distribution-specific or a training-data artifact: it holds up on
-the fully-disjoint generator-diagnostic set too, improving every single
-generator class (real 81.7%->88.3%, SD2.1 86.7%->96.7%, SDXL
-98.3%->100%, SD3 91.7%->98.3%, DALL-E3 95.0%->98.3%, Midjourney6
-81.7%->96.7%). Cost: inference now requires 2 CLIP forward passes per
-image instead of 1 (the original + the jpeg_q50-probed copy).
-
-One honest limitation: the two hardest real-world misses found during
-manual testing (a ChatGPT-generated NTU convocation photo, and a
-deliberately-blurred ChatGPT dog image - see `known_failure_examples/`)
-are **still misses** after this fix (0.030 and 0.008 respectively,
-essentially unchanged). This feature targets generator-identity and
-degradation-robustness signal; those two images represent a different
-problem - a content/style distribution gap (unusual real-world prompts
-vs. the simple, COCO-caption-style training examples) - which this
-change was never expected to fix.
-
-**Relation to classic Error Level Analysis (ELA).** The reactivity-delta
-idea is conceptually related to ELA (re-compress an image, compare it to
-the original) - but relocated from ELA's usual home (pixel-space,
-localized tampering detection) into CLIP embedding space, whole-image
-classification. Notably, Part 2 of this project (before the CLIP pivot)
-tried several literal pixel-level, ELA-adjacent "reactivity" signals and
-none of them survived rigorous testing (best ~0.62 AUROC) - the same
-underlying principle only started working once it was relocated into a
-learned embedding space instead of raw pixel statistics.
-
-### Domain-matched probes (v7): fixing the one domain where the universal probe was redundant
-
-A user question - "why does the probe swap only help the jpeg domain?" -
-led to two follow-up experiments that both sharpened and validated the
-architecture further.
-
-**The mechanism, confirmed empirically across every domain.** A probe
-from the *same* degradation family as a domain adds little new
-information (redundant); a probe from a *different* family adds real
-signal. jpeg_q50 (the original universal probe) happened to violate
-this for the "jpeg" domain only, since probe-family == domain-family
-there. `test_same_vs_cross_family_probe.py` tested this directly on the
-other 3 non-clean domains too, each against their own same-family probe:
-
-| domain | same-family probe, gain | cross-family (jpeg_q50), gain | gap |
-|---|---|---|---|
-| jpeg | jpeg_q50, +0.0004 | blur_s1.0, +0.0078 | 19x |
-| spatial | blur_s1.0, +0.0285 | +0.0492 | 1.7x |
-| noise | noise_s0.05, +0.0235 | +0.0704 | 3.0x |
-| colorjitter | colorjitter_up20, **+0.0024** | +0.0391 | **16x** |
-
-Cross-family beats same-family in *every* domain tested, no exceptions
-- confirming the mechanism generalizes well beyond the one case that
-motivated it. Two patterns stand out: jpeg and colorjitter show
-*near-total* redundancy for a same-family probe (both under +0.003),
-while spatial and noise show only *partial* redundancy (same-family
-still helps, just 2-3x less than cross-family). This validates the
-current production setup - jpeg_q50 everywhere except "jpeg" itself -
-across the entire domain set, not just the two domains checked
-initially; colorjitter's near-zero same-family result is a second
-domain (after jpeg) where using jpeg_q50 is doing real work specifically
-*because* it's cross-family, not an arbitrary pick that happens to work.
-
-**The fix, validated at full scale and adopted.** The "jpeg" specialist
-now uses a blur_s1.0 probe instead of jpeg_q50 (`retrain_jpeg_
-specialist_domain_matched.py`); the other 4 specialists are unchanged.
-On the full 2,506-image training set / 443-image held-out test:
-domain-matched jpeg specialist AUROC **0.9953**, vs. **0.9938** for the
-prior universal-probe version on the identical test images (+0.0015).
-Cost: a 3rd CLIP forward pass per image (base + jpeg_q50-probed +
-blur_s1.0-probed) instead of 2, since confidence-gated soft routing
-means every image needs every specialist's own probe delta regardless
-of which domain it actually routes to.
-
-**Honest caveat**: the full 16-cell robustness grid has not been
-re-run end-to-end on this v7 change - an attempt hit severe, unexplained
-CPU throughput degradation on this sandbox (a recurring issue this
-session, unrelated to the change itself) and was killed rather than risk
-the deadline. v6's full-grid number (0.9974 mean AUROC, universal probe)
-remains the last fully end-to-end validated number; v7's improvement is
-validated in isolation (full-scale jpeg domain) and on a 3-domain
-ablation subset (clean/noise/jpeg, see below) but not yet reconfirmed
-holistically across all 16 cells. See `model/model_meta.json`'s
-`domain_matched_probe_v7` for full details.
-
-### Is domain-specialist routing still needed, now that reactivity-delta exists?
-
-A fair architectural question, since reactivity-delta also generalizes
-across degradation types: are the two mechanisms redundant?
-`ablation_generalist_vs_domain_routing.py` tested this directly - a
-single pooled generalist (no domain routing at all, universal jpeg_q50
-probe, since a domain-agnostic model can't match a probe to a domain it
-doesn't know) vs. the live production (domain-routed) pipeline, on the
-same held-out test images:
-
-| domain | single generalist | production (domain-routed) | routing advantage |
-|---|---|---|---|
 | clean | 0.9837 | 0.9982 | +0.0146 |
 | noise | 0.9769 | 0.9942 | +0.0173 |
 | jpeg | 0.9588 | 0.9949 | +0.0362 |
 | **mean** | 0.9731 | 0.9958 | **+0.0227** |
 
-Routing still adds a consistent, meaningful improvement in every domain
-tested - the two mechanisms are complementary, not redundant. Domain
-routing calibrates *where* the decision boundary sits (an appearance-
-space problem, since CLIP's absolute embedding shifts by degradation
-type); reactivity-delta adds a content-origin signal that generalizes
-*across* degradation types (a different axis of information). The
-largest routing advantage is on "jpeg" (+0.0362) - a pooled generalist
-has no domain to match a probe to, so it's stuck with the same
-redundant-probe problem the domain-matched fix above was built to solve.
+Routing still adds a real, consistent improvement in every domain
+tested — the two mechanisms answer different questions. Routing
+calibrates *where* the decision boundary sits, since CLIP's raw
+embedding shifts depending on what happened to the image (an
+appearance-space problem). Reactivity-delta adds a signal about the
+image's *origin* that generalizes across that shift (a different axis
+of information entirely). The biggest routing advantage lands on
+"jpeg" — a pooled generalist has no domain to match a probe to, so it's
+stuck with exactly the redundant-probe problem the fix above solved.
 
-## GPU experiment: native-resolution texture crops (tried, not adopted)
+## What we tried and didn't keep
 
-After comparing this project's architecture against a teammate's
-separate submission (BYTEPRINT: DINOv2 + a training-free autoencoder-
-reconstruction expert), one of their design choices looked directly
-applicable here: they extract several native-resolution texture-rich
-crops per image rather than resizing the whole image down to fit the
-backbone's input, on the reasoning that resizing is a low-pass filter
-applied straight to the forensic evidence. Since CLIP's own processor
-squashes any input to 224x224 internally regardless of size, the same
-idea was ported over: `crops.py` selects the `top_k` 224x224 crops
-richest in high-frequency detail (Laplacian-response variance) from the
-*native*-resolution image, embedded via a free GPU (Google Colab, then
-Kaggle after hitting Colab's usage limit) since extracting multiple
-crops per image multiplies backbone compute several-fold - impractical
-on this project's CPU-only sandbox.
+Not every idea worked, and the negative results are kept rather than
+quietly dropped — they're evidence the final architecture was actually
+tested against alternatives, not just the first thing that worked.
 
-Tested with `top_k=3` crops, on an enlarged training pool (6,006 images
-across the same three sources, vs. 2,949 in production) fetched fresh
-via GPU-side streaming:
+- **Native-resolution texture crops** (borrowed from BYTEPRINT's own
+  design: sample several native-resolution patches instead of resizing
+  the whole image, since resizing is a low-pass filter on forensic
+  evidence). Tested at three different scales on this project's CLIP
+  backbone — it **regressed performance every time** (clean domain
+  −0.008, spatial −0.025, jpeg −0.039 AUROC). The likely reason: CLIP's
+  strength is holistic, whole-scene semantic understanding, not local
+  texture (that's DINOv2's strength, which is why it works for
+  BYTEPRINT's design and not this one) — averaging a few small patches
+  throws away exactly the context CLIP relies on.
+- **More training data alone**, isolated from the crop change: doubling
+  the dataset (2,949 → 6,050 images, same architecture) moved AUROC by
+  +0.0003 — statistically noise. The model was already close to its
+  ceiling on the original data; volume alone had nowhere useful to go.
+- **AEROBLADE-style reconstruction error** (BYTEPRINT's training-free
+  second signal: measure how well a latent-diffusion VAE decoder
+  reconstructs an image). A genuinely promising idea to try — unlike
+  crops, it's an orthogonal signal source, not a different way of
+  extracting the same one — but the attempt to validate it hit a
+  stalled multi-hundred-megabyte weight download and was abandoned
+  given the deadline. Flagged as real, untested future work, not a
+  dead end.
 
-| | held-out clean-test AUROC | accuracy |
-|---|---|---|
-| **CPU production (whole-image, 2,949 images)** | **0.9989** | **98.87%** |
-| GPU native-crop (top_k=3, 6,006 images) | 0.9910 | 95.23% |
+## Dataset & organizer compliance
 
-**Result: a regression, not an improvement - not adopted.** Two
-confounded variables changed at once (more data AND crops), so this
-doesn't cleanly isolate which one hurt, but the combined result is
-clearly worse either way, which is enough to decide against promoting
-it. The likely reason the insight didn't transfer: BYTEPRINT's crop
-strategy was designed around **DINOv2**, a self-supervised backbone
-tuned to represent local visual/texture structure. **CLIP** (this
-project's backbone) is trained on image-text alignment, which pushes it
-toward *holistic, whole-scene* semantic understanding - averaging three
-small local patches likely throws away exactly the global context CLIP
-relies on, while a resize (which DINOv2 would also suffer from) doesn't
-cost CLIP as much since it wasn't leaning on high-frequency local detail
-in the first place. A second plausible factor: applying a degradation
-(blur/noise/jpeg) to the full native image before cropping changes its
-*effective* visual severity compared to applying it then resizing to
-224 (what production's whole-image pipeline actually does) - the same
-nominal parameter value looks much milder at native scale than after a
-resize concentrates it.
+| organizer dataset | status |
+|---|---|
+| **SID_Set** (recommended) | ✅ Used — train split, labels 0/1 only |
+| **CIFAKE** (Kaggle, recommended) | ⚠️ Tried, then reverted |
+| **WildFake** (modelscope demo benchmark) | ✅ Never touched — explicitly reserved for demonstration, not training |
 
-This is a disclosed negative result, not a bug: `crops.py`,
-`clip_features.embed_images_preproj_crops[_with_delta]`, and
-`train_reactivity_specialists_gpu.py` are kept in the repo for the
-record, but `model/specialists.pkl` (the CPU-trained whole-image
-version) remains the production model. A follow-up experiment
-(training on the larger data pool *without* crops, to isolate whether
-more data alone would have helped) was left incomplete due to time
-constraints - see git history / conversation log for the in-progress
-attempt.
+CIFAKE was added properly (500 real + 500 AI) to make sure an
+organizer-recommended resource was actually used, not just referenced
+in an earlier abandoned experiment. It caused a clear, dual-confirmed
+regression: robustness-grid AUROC fell 0.976→0.956, generator
+diagnostic fell 0.960→0.904. The likely cause: CIFAKE's native 32×32
+resolution, upsampled 16x, is fundamentally incompatible with a task
+that also stress-tests blur/resize/noise robustness. Both benchmarks
+agreed, so it was excluded rather than kept for checklist credit — the
+brief frames its datasets as available resources, not mandatory
+ingredients, and the comparison is preserved for transparency
+(`model/*_v4_with_cifake_WORSE.*`).
 
-## Results (final production pipeline, v6 with reactivity-delta)
+Defactify's real (MS-COCO-sourced) images were also excluded as a
+precaution, even though the overlap risk with the organizer's reserved
+WildFake/COCO-val2017 validation set was assessed as unlikely
+(Defactify draws from the much larger train2017 pool). Real-photo
+diversity was already covered by the other two sources, so there was
+no reason to carry even a small, unconfirmed risk — and the change was
+essentially free (robustness grid improved slightly without those
+images).
 
-**Held-out test set (clean images): AUROC 0.999, accuracy 98.9%.**
+**Final training composition**: `fullres` (999) + `sid_set` (1,200) +
+`defactify` AI-only across 5 generators (750) = 2,949 images, 2,506
+train / 443 held-out test.
 
-**Robustness table** (443 held-out test images, every cell from the
-hackathon's transform grid, full data in
-`results_detector/robustness_table.json`):
+## Full results
+
+**Held-out clean test**: AUROC 0.999, accuracy 98.9%.
+
+**Robustness grid** (443 held-out images, every official transform,
+full data in `results_detector/robustness_table.json`):
 
 | transform | AUROC | accuracy | FPR | FNR |
 |---|---|---|---|---|
 | clean (baseline) | 0.999 | 0.989 | 0.030 | 0.000 |
-| JPEG q90/70/50/30 | 0.999 / 0.995 / 0.998 / 0.996 | 0.957-0.977 | 0.036-0.073 | 0.014-0.025 |
-| Gaussian blur σ 0.5/1.0/2.0 | 0.998 / 0.998 / 0.995 | 0.968-0.977 | 0.036-0.048 | 0.011-0.029 |
-| Resize 0.5x/0.25x roundtrip | 0.998 / 0.997 | 0.973-0.980 | 0.018-0.042 | 0.018-0.022 |
-| Gaussian noise σ 0.02/0.05/0.10 | 0.997 / 0.998 / 0.997 | 0.973-0.975 | 0.012-0.018 | 0.029-0.032 |
-| Color jitter ±20% | 0.999 / 0.995 | 0.975-0.980 | 0.024-0.042 | 0.007-0.025 |
+| JPEG q90/70/50/30 | 0.999 / 0.995 / 0.998 / 0.996 | 0.957–0.977 | 0.036–0.073 | 0.014–0.025 |
+| Gaussian blur σ 0.5/1.0/2.0 | 0.998 / 0.998 / 0.995 | 0.968–0.977 | 0.036–0.048 | 0.011–0.029 |
+| Resize 0.5x/0.25x roundtrip | 0.998 / 0.997 | 0.973–0.980 | 0.018–0.042 | 0.018–0.022 |
+| Gaussian noise σ 0.02/0.05/0.10 | 0.997 / 0.998 / 0.997 | 0.973–0.975 | 0.012–0.018 | 0.029–0.032 |
+| Color jitter ±20% | 0.999 / 0.995 | 0.975–0.980 | 0.024–0.042 | 0.007–0.025 |
 | Center crop 80% | 0.999 | 0.989 | 0.024 | 0.004 |
 
-**Mean across all 16 cells: AUROC 0.997, accuracy 97.6%** - the best
-result of every version tried in this project. Every cell now sits at
-0.995-0.999 AUROC; the Gaussian-noise cells that were the one
-consistent weak spot in every earlier version (0.96-0.97 AUROC) are now
-solved (0.997-0.998), the direct result of adding the reactivity-delta
-feature above.
+**Mean across all 16 cells: AUROC 0.997, accuracy 97.6%.** Every cell
+sits at 0.995–0.999 — the Gaussian-noise cells that were the one
+consistent weak spot in every earlier version are now solved. (This
+table is the last version with a full end-to-end re-validation — see
+the honest gap noted in "insight 5" above for what's changed since.)
 
-**Generator diagnostic** (held-out Defactify TEST split, never
-trained on): pooled AUROC 0.977 (real 88.3%, SD2.1 96.7%, SDXL 100%,
-SD3 98.3%, DALL-E3 98.3%, Midjourney6 96.7%) - every class improved
-over the pre-reactivity-delta version (see "Reactivity-delta feature"
-above for the full before/after). Real-image accuracy is still the
-softest spot, consistent with the dataset-compliance trade-off
-discussed above (no COCO-distribution-matched real images in training,
-by design, to avoid the organizer's reserved validation data).
+**Generator diagnostic** (held-out, never trained on): pooled AUROC
+0.977 — real 88.3%, SD2.1 96.7%, SDXL 100%, SD3 98.3%, DALL-E3 98.3%,
+Midjourney6 96.7%. Real-image accuracy is the softest spot, a direct
+consequence of the compliance decision above (no COCO-distribution
+real images in training, by design).
 
-**Note on the numbers above vs. the current production model**: the
-table above is v6 (universal jpeg_q50 probe), the last version with a
-full end-to-end 16-cell re-validation. Production has since moved to
-v7 (domain-matched probe for the "jpeg" specialist - see "Domain-matched
-probes" above), validated in isolation and on a subset but not yet
-reconfirmed across the full grid; treat the table above as very slightly
-conservative for the actual live model.
-
-### Threshold calibration
-
-Every number above uses a fixed 0.5 decision threshold, which ignores
-that score distributions shift between domains and generators - and on
-a real platform, authentic images vastly outnumber synthetic ones, so
-accuracy at 0.5 is a poor proxy for deployment usability.
-`calibrate_threshold.py` calibrates a threshold to a 1% false-positive
-budget, using the same `threshold_at_fpr`/`tpr_at_fpr` methodology as
-BYTEPRINT's own `byteprint/metrics.py`, on the pooled predictions across
-all 16 robustness-grid cells (7,088 images, 2,640 real - a much more
-stable quantile estimate than a single small split):
+**Threshold calibration**: a flat 0.5 cutoff ignores that score
+distributions shift between domains and generators, and that a real
+platform sees far more authentic images than fake ones. Calibrated to a
+1% false-positive budget instead (same method as BYTEPRINT's own
+`byteprint/metrics.py`):
 
 | | fixed 0.5 | calibrated to 1% FPR |
-|---|---|---|
+|---|---:|---:|
 | mean accuracy | 97.6% | 95.4% |
-| mean FPR | varies by cell (1.2%-7.3%) | 0.98% (on target) |
-| mean FNR | varies by cell (0%-3.2%) | 6.7% |
+| mean FPR | 1.2%–7.3% (by cell) | 0.98% (on target) |
+| mean FNR | 0%–3.2% (by cell) | 6.7% |
 
-This is the expected, correct trade-off of enforcing a strict false-
-positive budget - some accuracy and recall are sacrificed to guarantee
-the false-positive rate stays where a real deployment would need it.
-`production_pipeline.calibrated_predict()` exposes this threshold for
-callers that want a binary decision (`model/calibration.json`); the
-required `predict.py` deliverable still reports raw probabilities per
-the brief's exact spec, unaffected by this.
+The expected trade-off of enforcing a strict false-positive budget —
+some recall is sacrificed to keep false positives where a real
+deployment needs them. `production_pipeline.calibrated_predict()`
+exposes this for callers that want a binary decision; the required
+`predict.py` deliverable still reports raw probabilities per the
+brief's exact spec.
 
-### BYTEPRINT-comparable metrics
+### Comparing against BYTEPRINT
 
-Computed using BYTEPRINT's own metric definitions, for a direct
-comparison against a teammate's separate submission for this same
-challenge (see `results_detector/summary_table.md` for full methodology
-notes):
+Computed with BYTEPRINT's own metric definitions (`byteprint/metrics.py`),
+for a direct comparison against a teammate's separate submission to
+this same challenge:
 
 | backbone | params | AUC | TPR@1%FPR | LOGO mean |
-|---|---|---|---|---|
+|---|---|---:|---:|---:|
 | CLIP ViT-B/32 (this project) | 151.3M | 0.997 | 0.933 | 0.968 |
 | SigLIP2-so400m (BYTEPRINT) | 430M | 0.950 | 0.585 | 0.721 |
 
 LOGO (leave-one-generator-out) breakdown for this project:
 
 | held-out generator | AUROC |
-|---|---|
+|---|---:|
 | SD2.1 | 0.994 |
 | SDXL | 0.994 |
 | SD3 | 0.961 |
 | DALL-E3 | 0.969 |
 | Midjourney6 | 0.918 |
 
-One caveat worth stating plainly: these are each team's own self-
-reported numbers on each team's own evaluation setup, not a controlled
-head-to-head on identical held-out data - different training data and
-different test images could contribute to part of the gap, so this
-should be read as "each team's best result under the same metric
-definitions," not "identical benchmark, decisive win."
+**Caveat worth stating plainly**: these are each team's own
+self-reported numbers on each team's own evaluation setup, not a
+controlled head-to-head on identical held-out data — different training
+data and different test images could contribute to part of the gap.
+Read it as "each team's best result under the same metric definitions,"
+not "identical benchmark, decisive win." Full methodology notes in
+`results_detector/summary_table.md`.
 
-## Error analysis (see `results_detector/error_analysis_summary.json`, `error_fp_*.png`/`error_fn_*.png`, and `results_detector/known_failure_examples/`)
+## Error analysis & known limitations
 
-- **False positives** (real images flagged as AI) are genuine,
-  unremarkable photographs - well-composed real photography that
-  shares visual statistics with the diverse set of generators now in
-  training.
-- **False negatives** (AI images flagged as real) cluster on genuinely
-  photorealistic generations - the kind that are hard to distinguish
-  from real photos on visual inspection even for a human, plus the
-  documented DALL-E 3 case in `known_failure_examples/` (a complex,
-  text-and-crowd event-photography composition unlike anything in the
-  simple, COCO-caption-style DALL-E 3 training examples - a content/
-  style gap distinct from the generator-identity gap that was fixed).
-- **Trade-off discussion**: false-negative rate is generally higher
-  than false-positive rate under noise degradation (FNR 0.029-0.032 vs.
-  FPR 0.012-0.018), while most other cells show the opposite (FPR >
-  FNR, most visibly on jpeg_q70: FPR 0.073 vs FNR 0.025). In a content-moderation deployment, false
-  positives (flagging real user photos as AI) and false negatives
-  (missing real fakes) have different costs depending on context - the
-  fixed 0.5 threshold used throughout this project is a reasonable
-  default, not a tuned choice, and a deployment-specific threshold
-  (or per-domain thresholds, since the specialists already produce
-  independent calibrations) would be a natural next step.
+**What the errors look like:**
+- **False positives** (real flagged as AI) are genuine, unremarkable
+  photographs that happen to share visual statistics with the diverse
+  generator set now in training.
+- **False negatives** (AI flagged as real) cluster on the most
+  photorealistic generations — hard to tell apart even by eye — plus
+  the documented DALL-E 3 case below.
+- Under noise degradation specifically, false negatives outnumber false
+  positives (FNR 2.9–3.2% vs. FPR 1.2–1.8%); most other cells show the
+  reverse. Different deployment contexts weigh these differently, which
+  is exactly why the calibrated threshold above exists.
+
+**Open limitations, honestly stated:**
+
+- **Two real-world misses remain unfixed.** A ChatGPT-generated NTU
+  convocation photo and a deliberately-blurred ChatGPT dog image both
+  still score confidently "real" (0.030, 0.008), even after every fix
+  above. This is a content/style distribution gap — unusual real-world
+  prompts and compositions vs. the simple, COCO-caption-style training
+  examples — not something generator diversity or robustness
+  augmentation was ever going to fix. Closing it needs training data
+  that looks like how people actually use these tools, not more
+  generators or more transforms.
+- **Generator coverage isn't exhaustive.** Five major generators are
+  covered; newer or less common ones (Flux, Imagen, Firefly, whatever
+  ships next) are untested. This class of problem can only be
+  continuously monitored and patched, never fully solved.
+- **Inference costs 3 CLIP forward passes per image** now (original +
+  two probed copies), not yet benchmarked for latency end-to-end.
+- **The domain router's confidence isn't separately calibrated** — a
+  Platt-scaling step on its raw probabilities might make the soft
+  blending even more effective.
+- **The backbone is frozen** — with GPU access, fine-tuning the last
+  few CLIP layers, or trying ViT-L/14 (still well under the 2B-param
+  budget), would likely help further.
+- **No adversarial robustness testing** — the transform grid covers
+  realistic incidental degradation, not an adversary deliberately
+  trying to evade the detector, a materially harder threat model.
+- **SID_Set's tampered/locally-edited class was never used** — excluded
+  from binary training, but could support a 3-way or segmentation-style
+  detector, arguably closer to real moderation needs.
 
 ## Setup & installation
 
 ```bash
-python3 -m virtualenv venv   # this session's environment used virtualenv
-                              # since python3-venv wasn't installable without sudo;
-                              # a plain `python3 -m venv venv` works fine if available
+python3 -m virtualenv venv   # or plain `python3 -m venv venv` if available
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -596,133 +482,58 @@ pip install -r requirements.txt
 ## Reproduce
 
 ```bash
-# 1. Fetch training data (each is cached; re-runs skip already-downloaded data).
-#    NOTE: fetch_data.FULLRES2_CANDIDATES (itsLeen/deepfake_vs_real_image)
-#    is intentionally NOT fetched here - see "Data-quality fix" above.
+# 1. Fetch training data (cached; re-runs skip already-downloaded data).
+#    itsLeen/deepfake_vs_real_image is intentionally NOT fetched here -
+#    see "Dataset & organizer compliance" above.
 python fetch_data.py                 # itsLeen/deepfake_vs_real_image_detection -> data_fullres/
 python sid_set_fetch.py              # saberzl/SID_Set -> data_sid_set/
 python fetch_defactify_train.py      # Defactify TRAIN split, 5 generators, AI-only -> data_defactify_train/ai/
-#    (fetch_defactify_train.py deliberately skips this dataset's real/
-#    MS-COCO-sourced images entirely - see "Dataset compliance" above
-#    for why; only the AI-generated side is fetched.)
-#
+#    (this deliberately skips Defactify's real/MS-COCO-sourced images
+#    entirely - only the AI-generated side is fetched.)
 #    CIFAKE is intentionally NOT fetched for the production model - see
-#    "Dataset compliance" above for the measured regression that led to
-#    excluding it. fetch_data.CIFAKE_CANDIDATES + acquire_data() are
-#    still there if you want to reproduce that comparison yourself.
+#    "Dataset & organizer compliance" for the measured regression.
+#    fetch_data.CIFAKE_CANDIDATES + acquire_data() are still there if
+#    you want to reproduce that comparison yourself.
 
 # 2. (Optional but recommended) fetch the held-out generator diagnostic
 #    set BEFORE training, so you can compare before/after like we did.
-#    This pulls from Defactify's TEST split - strictly disjoint from
-#    step 1's TRAIN-split fetch, so it stays a valid held-out check.
+#    Strictly disjoint from step 1's TRAIN-split fetch.
 python fetch_generator_diagnostic.py  # -> data_generator_diagnostic/
 
 # 3. Train the production pipeline
 python train_classifier.py                  # -> model/classifier_head.pkl (simple baseline + fresh test_manifest.json)
 python train_domain_classifier.py           # -> results_detector/experiments/domain_classifier.pkl
 python train_reactivity_specialists.py      # -> results_detector/experiments/specialists_preproj_v6_reactivity.pkl
-#    (extends train_domain_approaches_preproj.py's specialists with the
-#    jpeg_q50 reactivity-delta feature - see "Reactivity-delta feature"
-#    above. The pre-reactivity-delta specialists are still available via
-#    train_domain_approaches_preproj.py if you want the v5 comparison.)
-#    then promote into model/ (what predict.py and robustness_eval.py load):
 cp results_detector/experiments/domain_classifier.pkl model/
 cp results_detector/experiments/specialists_preproj_v6_reactivity.pkl model/specialists.pkl
 
-# 4. Evaluate robustness across the full transform grid (production pipeline)
+# 4. Evaluate robustness across the full transform grid
 python robustness_eval.py            # -> results_detector/robustness_table.json + plot
 
 # 5. Error analysis
 python error_analysis.py             # -> results_detector/error_analysis_summary.json + example grids
 
-# 6. Re-check the generator diagnostic (now that training includes Defactify)
-python evaluate_generator_diagnostic.py  # compare against your step 2 baseline numbers
+# 6. Re-check the generator diagnostic
+python evaluate_generator_diagnostic.py
 
-# 7. (v7) Retrain just the "jpeg" specialist with its domain-matched probe,
-#    then promote it into the specialists dict - see "Domain-matched probes"
-#    above. Only "jpeg" changes; the other 4 specialists are untouched.
+# 7. Domain-matched jpeg specialist (v7) - retrain just this one specialist
 python retrain_jpeg_specialist_domain_matched.py  # -> model/experiments_jpeg_specialist_domain_matched.pkl
-#    (swap the "jpeg" entry into model/specialists.pkl - see that script's
-#    printed comparison AUROC before promoting)
+#    (swap the "jpeg" entry into model/specialists.pkl - check the
+#    script's printed comparison AUROC before promoting)
 
 # 8. Calibrate a deployment threshold at a target false-positive rate
-python calibrate_threshold.py        # -> model/calibration.json + results_detector/robustness_table_calibrated.json
+python calibrate_threshold.py        # -> model/calibration.json
 
 # 9. Run the required deliverable script on any directory of images
 python predict.py --input_dir <DIR> --output out.json
 ```
 
-See "Model iteration", "Dataset compliance", and "Reactivity-delta
-feature" above for the earlier, simpler baselines and every
-intermediate data/architecture variant - all kept in
+Every intermediate data/architecture variant is kept, never deleted —
 `results_detector/experiments/` and `model/*_v2_2source.*` /
-`model/*_v3_INCLUDES_COCO_REAL*` / `model/*_v4_with_cifake_WORSE.*` /
-`model/*_v5_no_reactivity.*` / `model/*_v6_universal_probe.*` /
-`model/*_CONTAMINATED.*` (never deleted; filenames track which
-data-quality/diversity/compliance/architecture stage each artifact
-came from).
-
-## Limitations & what we'd improve with more time
-
-- **The two hardest real-world misses found by manual testing remain
-  unfixed.** A ChatGPT-generated NTU convocation photo and a
-  deliberately-blurred ChatGPT dog image both still score confidently
-  "real" (0.030, 0.008) even after the reactivity-delta fix closed the
-  generator-diversity and noise-robustness gaps. These represent a
-  content/style distribution gap - unusual real-world prompts and
-  compositions vs. the simple, COCO-caption-style training examples -
-  a different problem than what any fix so far has targeted. Closing it
-  would need training data that includes more varied, "in-the-wild"
-  AI-generated content (event photography, casual snapshots), not more
-  generator diversity or more robustness augmentation.
-- **Generator coverage is still not exhaustive.** The fixes above closed
-  the gap for 5 major generators (SD2.1/SDXL/SD3/DALL-E3/Midjourney6),
-  but newer or less common generators (Flux, Imagen, Firefly, and
-  whatever ships next) are untested and may reveal the same kind of gap
-  - this class of problem (train/test both drawn from a finite generator
-  list) can't be fully solved, only continuously monitored and patched,
-  which is a real operational commitment for any deployed version of
-  this detector, not a one-time fix.
-- ~~The reactivity-delta feature uses a single universal probe rather
-  than a domain-matched one~~ **FIXED (v7)**: the "jpeg" specialist now
-  uses a domain-matched blur_s1.0 probe instead of the redundant
-  jpeg_q50, validated at full scale (+0.0015 AUROC on that domain) and
-  the mechanism confirmed on a second domain (`test_same_vs_cross_
-  family_probe.py`) - see "Domain-matched probes (v7)" above. One
-  remaining gap: the full 16-cell grid hasn't been re-run end-to-end on
-  this change (a validation attempt hit severe, unexplained sandbox
-  slowdowns and was killed rather than risk the deadline) - the
-  improvement is validated in isolation and on a 3-domain subset, not
-  yet holistically reconfirmed.
-- **Inference now costs 3 CLIP forward passes per image** (original +
-  jpeg_q50-probed + blur_s1.0-probed) instead of 1, to compute the
-  domain-matched reactivity-delta feature - a real latency/throughput
-  trade-off for the accuracy gain, not yet benchmarked end-to-end.
-- **Domain-classifier routing confidence gating uses the router's
-  probabilities as-is**, not a separately calibrated confidence measure
-  - a proper calibration step (e.g. Platt scaling on the router's
-  outputs) might make the soft-mixture blending even more effective.
-- **Backbone frozen, only the linear heads are trained.** With GPU access
-  (per the plan, this session was CPU-only proof-of-concept; the "real"
-  run moves to GPU), fine-tuning the last few CLIP layers, or trying
-  CLIP:ViT-L/14 (still well under 2B params) instead of ViT-B/32, would
-  likely improve accuracy further.
-- ~~Decision threshold is a fixed 0.5~~ **FIXED**: `calibrate_
-  threshold.py` calibrates a threshold to a 1% false-positive budget
-  using the same methodology as BYTEPRINT's `byteprint/metrics.py`
-  (threshold_at_fpr/tpr_at_fpr), exposed via `production_pipeline.
-  calibrated_predict()` - see "Threshold calibration" above. Per-domain
-  thresholds (rather than one global calibrated threshold) remain
-  unexplored and could be a further refinement.
-- **No adversarial robustness testing** - the transform grid covers
-  realistic incidental degradation, not an adversary deliberately
-  optimizing to evade the detector, which is a materially different
-  (and harder) threat model.
-- **SID_Set's "locally edited/inpainted" class (label 2) was not used**
-  - it's excluded from binary training but could support a 3-way
-    detector or a segmentation-style "which region is fake" extension,
-    which is closer to real moderation needs than a single whole-image
-    label.
+`*_v3_INCLUDES_COCO_REAL*` / `*_v4_with_cifake_WORSE.*` /
+`*_v5_no_reactivity.*` / `*_v6_universal_probe.*` / `*_CONTAMINATED.*`
+track which data-quality/compliance/architecture stage each artifact
+came from.
 
 ## Team member contributions
 
@@ -738,14 +549,15 @@ for the "Innovation & Problem Insight" narrative - it's the evidence for
 *why* a learned approach was chosen, not itself the submitted detector.
 
 **Data-quality note**: this section's `fullres2` profile uses
-`itsLeen/deepfake_vs_real_image`, later found (see "Data-quality fix"
-above) to be a human-art-vs-AI-art dataset, not real-photo-vs-AI-image,
-and excluded from the production detector's training data. It was used
-here only as a *second, differently-sourced* dataset for cross-dataset
-consistency checks on the classical signals (i.e. "does this signal's
-effect direction hold on a dataset built differently") - a role where
-the mismatch matters less, but the numbers below should still be read
-with that caveat rather than as clean real-photo-vs-AI-photo results.
+`itsLeen/deepfake_vs_real_image`, later found (see "Dataset &
+organizer compliance" above) to be a human-art-vs-AI-art dataset, not
+real-photo-vs-AI-image, and excluded from the production detector's
+training data. It was used here only as a *second, differently-sourced*
+dataset for cross-dataset consistency checks on the classical signals
+(i.e. "does this signal's effect direction hold on a dataset built
+differently") - a role where the mismatch matters less, but the numbers
+below should still be read with that caveat rather than as clean
+real-photo-vs-AI-photo results.
 
 Tests whether real and AI-generated images react differently, in their
 **noise residual** (image minus its denoised version), to a controlled
