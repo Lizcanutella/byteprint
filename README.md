@@ -52,10 +52,13 @@ One decision is still open:
   materialiser files those images under their own generator directory so the
   choice is measurable. It is now measured: they score AUC 0.8513 against 0.9537
   for fully synthetic images, and a probe trained on one type transfers to the
-  other at only 0.6457. Both numbers argue for a crop strategy with some notion
-  of *where* to look. Two now exist — `anomaly` and `ela`, below — and are
-  measured on a planted-edit fixture; whether they move the SID_Set number is
-  what `scripts/run_crop_modes.sbatch` is for, and is not yet answered.
+  other at only 0.6457. Both numbers argued for a crop strategy with some notion
+  of *where* to look. Two were built — `anomaly` and `ela` — and **the answer is
+  no**: on SID_Set they move tampered AUC from 0.8513 to 0.8317 and 0.8318, the
+  wrong way, from two independent cues that agree to four decimals. Crop
+  placement is not what limits tampered detection. The evidence now points at
+  mean-pooling over crops instead; see below and
+  [`docs/results-crop-localisation.md`](docs/results-crop-localisation.md).
 
 Closed since the first draft:
 
@@ -277,13 +280,14 @@ samples candidate crops, scores each by Laplacian-response variance, and keeps
 the most texture-rich. `--crop-mode resize` reproduces the naive baseline so you
 can measure the difference rather than take it on faith.
 
-**1b. For a tampered image, look where the edit is — not where the detail is.**
-Ranking windows by high-frequency energy is right when the whole image is
-synthetic and wrong when only a region of it is. A region produced by a decoder
-is usually *cleaner* than the captured frame around it, so `texture` does not
-merely miss the edit, it sorts it last. On a fixture that plants a locally
-denoised patch — structure intact, sensor grain removed — `texture` lands on the
-planted region **0 times out of 40**.
+**1b. Looking where the edit is, tested and rejected.** *(A negative result, kept
+because it cost a day and rules something out.)* The reasoning was that ranking
+windows by high-frequency energy is right when the whole image is synthetic and
+wrong when only a region of it is: a region produced by a decoder is usually
+*cleaner* than the captured frame around it, so `texture` would not merely miss
+the edit but sort it last. On a fixture that plants a locally denoised patch —
+structure intact, sensor grain removed — `texture` does land on the planted
+region **0 times out of 40**.
 
 `--crop-mode anomaly` ranks each candidate window by how far its high-frequency
 statistics sit from *the rest of the same image*, in MAD units, using the median
@@ -319,11 +323,32 @@ window's texture score is the variance of its luma Laplacian, which is the same
 band the fingerprint needs, so both come out of one pass and the fallback path
 costs nothing extra.
 
-All of the above is measured on a **planted proxy**, and proves the mechanism
-rather than the result. Whether it moves SID_Set's tampered AUC is what
-`scripts/run_crop_modes.sbatch` answers, and it has not been run yet. Full
-tables, the cost breakdown, and the three specific ways this could fail to
-transfer: **[`docs/results-crop-localisation.md`](docs/results-crop-localisation.md)**.
+**And on SID_Set it does not work.** All of the above is a planted proxy, and it
+did not transfer:
+
+| | `texture` | `anomaly` | `ela` |
+|---|---|---|---|
+| **tampered** | **0.8513** | 0.8317 | 0.8318 |
+| full synthetic | **0.9537** | 0.9511 | 0.9505 |
+| pooled AUC | **0.9025** | 0.8914 | 0.8912 |
+| TPR @ 1% FPR | 0.3362 | **0.3693** | 0.3504 |
+| TPR @ 0.1% FPR | 0.1325 | **0.1683** | 0.1357 |
+
+Tampered AUC went the wrong way, and the two cues — grain statistics and
+compression response, physically unrelated — agree within 0.0001. Two independent
+instruments converging on the same wrong answer is what makes this conclusive:
+crop placement is not the constraint. `anomaly` does lift the operating point
+(+27% relative at 0.1% FPR), which was not predicted, has no mechanism yet, and
+is not shared by `ela` — so it is a lead, not a finding.
+
+Both modes stay registered as measured negative results. The default is still
+`texture`. What the run actually indicts is **mean-pooling**: crop embeddings are
+averaged into one row per image, so aiming crops at a region whose evidence is
+then averaged away costs more than it gains.
+
+Full tables, the cost breakdown, why the fixture was confidently wrong, and an
+exact reproduction of the published baseline that fell out of the control arm:
+**[`docs/results-crop-localisation.md`](docs/results-crop-localisation.md)**.
 
 **2. Train on the damage.** `--augment N` draws N distinct random laundering
 chains per image (JPEG, downscale, blur, noise, and combinations). Because the

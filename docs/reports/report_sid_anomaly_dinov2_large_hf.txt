@@ -1,0 +1,38 @@
+### BYTEPRINT — CROP MODE = anomaly
+### backbone=dinov2_large_hf, crops=2@224,
+### augment=3, workers=4
+### Read the per-generator table first: full_synthetic vs tampered is
+### what this comparison exists to move.
+
+## Per-rung robustness (the §5.2 ladder)
+runs/cache/sid_ladder_anomaly_dinov2_large_hf: AUC 0.8914  (12000 real / 12000 fake)
+  TPR @ 1.0% FPR   0.3693
+  TPR @ 0.1% FPR   0.1683
+  generator        AUC      n
+  tampered         0.8317   6000
+  full_synthetic   0.9511   6000
+
+laundering ladder
+  none                     AUC 0.9058   TPR@1%FPR 0.3975
+  blur:0.5                 AUC 0.9104   TPR@1%FPR 0.3825
+  blur:1.0                 AUC 0.9092   TPR@1%FPR 0.4213
+  blur:2.0                 AUC 0.8823   TPR@1%FPR 0.3937
+  crop:0.8                 AUC 0.9046   TPR@1%FPR 0.3663
+  jitter:0.2               AUC 0.9053   TPR@1%FPR 0.4050
+  jpeg:30                  AUC 0.8776   TPR@1%FPR 0.3650
+  jpeg:50                  AUC 0.8885   TPR@1%FPR 0.4288
+  jpeg:70                  AUC 0.9024   TPR@1%FPR 0.4550
+  jpeg:90                  AUC 0.9060   TPR@1%FPR 0.3837
+  noise:0.02               AUC 0.8927   TPR@1%FPR 0.3850
+  noise:0.05               AUC 0.8775   TPR@1%FPR 0.3525
+  noise:0.10               AUC 0.8476   TPR@1%FPR 0.2850
+  scale:0.25               AUC 0.8738   TPR@1%FPR 0.3925
+  scale:0.5                AUC 0.8970   TPR@1%FPR 0.3925
+
+## Leave-one-generator-out
+leave-one-generator-out over 2 generators
+
+  held out full_synthetic   AUC 0.6273   TPR@1%FPR 0.0365
+  held out tampered         AUC 0.6068   TPR@1%FPR 0.0661
+
+  mean unseen-generator AUC 0.6170
