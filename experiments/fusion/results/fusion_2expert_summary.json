@@ -1,0 +1,28 @@
+{
+  "_note": "clip+dino (2-expert) fusion, extracted from the same 443-image cross-validation as the 3-expert run (fusion_results_summary.json), plus an independent standalone rerun (byteprint_fusion_lite.ipynb, no AEROBLADE) that reproduced identical numbers -- confirms the pipeline is deterministic and the result isn't a fluke of one run.",
+  "CLIP+reactivity": {
+    "pooled_auc": 0.9925877479834315,
+    "fold_mean": 0.992741046831956,
+    "fold_std": 0.008032887760203567,
+    "tpr_at_1pct_fpr": 0.8597
+  },
+  "DINOv2": {
+    "pooled_auc": 0.9546108567691302,
+    "fold_mean": 0.9538842975206613,
+    "fold_std": 0.0266010491683503,
+    "tpr_at_1pct_fpr": 0.4101
+  },
+  "fused: clip+dino (2-expert)": {
+    "pooled_auc": 0.9945280139524744,
+    "fold_mean": 0.9943526170798898,
+    "fold_std": 0.0036945917795661123,
+    "tpr_at_1pct_fpr": 0.9029,
+    "independently_reproduced": true
+  },
+  "fused: all 3 (3-expert, for comparison -- see fusion_results_summary.json)": {
+    "pooled_auc": 0.9953346413778068,
+    "fold_mean": 0.995659189295553,
+    "fold_std": 0.00318826427082142,
+    "tpr_at_1pct_fpr": 0.9173
+  }
+}

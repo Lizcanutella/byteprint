@@ -89,6 +89,34 @@ Two things worth flagging in this table:
   catch almost nothing at a strict threshold — a clear illustration of why AUC
   alone can mislead, and why CLIP is doing the real load-bearing work here.
 
+## 2-expert vs 3-expert fusion
+
+Since CLIP+DINOv2 is the strongest pair on its own, it's worth asking directly:
+does adding the weakest expert (AEROBLADE, 0.7103 AUC alone) actually earn its
+place, or is `clip+dino` good enough by itself?
+
+| | AUC | TPR@1%FPR |
+|---|---|---|
+| clip+dino (2-expert) | 0.9945 | 0.9029 |
+| clip+dino+aero (3-expert) | **0.9953** | **0.9173** |
+| **Δ from adding AEROBLADE** | **+0.0008** | **+0.0144** |
+
+The 3-expert fusion wins on both metrics, but the two metrics disagree on *how
+much*: the AUC gain from adding AEROBLADE is tiny (+0.0008 — within noise at
+this sample size on its own), while the TPR@1%FPR gain is real and larger
+(+1.44 points) — consistent with the pattern in the full ablation table, where
+AEROBLADE's contribution shows up more at the strict end of the ROC curve than
+in the overall ranking. Read together with AEROBLADE running on its weaker
+VGG16 fallback distance (see below), this is likely a *lower bound* on what a
+3rd expert can add, not the ceiling.
+
+The 2-expert result was independently reproduced end-to-end in a **separate,
+standalone Kaggle run** (`byteprint_fusion_lite.ipynb` — deliberately excludes
+AEROBLADE so it runs in minutes instead of the ~50 minutes the full 3-expert
+notebook takes, most of which is AEROBLADE's diffusion-VAE reconstruction cost)
+and reproduced numerically identical numbers (AUC 0.9945, same to 4 decimal
+places) — confirming the pipeline is deterministic, not a one-off lucky run.
+
 ## Why fusion wins: the error analysis
 
 The fused model's biggest disagreements with CLIP alone are concentrated in the
@@ -106,8 +134,8 @@ pure win — worth stating exactly that way rather than overselling it.
 ## AEROBLADE ran degraded
 
 The `lpips` package failed to import in the Kaggle environment (likely a knock-on
-from pinning `scikit-learn==1.9.0` — see "Debugging notes"), so AEROBLADE fell
-back to `_UnweightedVGGDistance` (plain VGG16 feature distance) instead of the
+from pinning `scikit-learn==1.9.0` to keep the CLIP model's pickled artifacts
+loadable), so AEROBLADE fell back to `_UnweightedVGGDistance` (plain VGG16 feature distance) instead of the
 paper's proper LPIPS metric. AEROBLADE's true ceiling is probably higher than
 0.7103 AUC. Worth a follow-up run with the import fixed before treating 0.71 as
 AEROBLADE's real number.
@@ -127,14 +155,21 @@ AEROBLADE's real number.
 
 ## Files here
 
-- `byteprint_fusion_experiment.ipynb` — the Kaggle notebook that produced these
-  numbers. Needs three Kaggle Datasets attached (`byteprint-realdata`,
-  `byteprint-code`, `clip-reactivity-code`) and GPU (T4) enabled.
+- `byteprint_fusion_experiment.ipynb` — the full 3-expert Kaggle notebook that
+  produced the headline numbers. Needs three Kaggle Datasets attached
+  (`byteprint-realdata`, `byteprint-code`, `clip-reactivity-code`) and GPU (T4)
+  enabled. Runtime ≈ 50 minutes, dominated by AEROBLADE.
+- `byteprint_fusion_lite.ipynb` — the 2-expert-only companion (CLIP + DINOv2, no
+  AEROBLADE). Same dataset, same K-fold methodology, runs in a few minutes.
+  Used to independently confirm the clip+dino numbers below.
 - `results/clip_scores.json`, `results/dino_scores.json`,
   `results/aeroblade_scores.json` — raw per-image scores (`path`, `label`,
   `<expert>_score`) for all 443 test images, from each expert independently.
 - `results/fusion_results_summary.json` — the pooled/fold-mean/fold-std AUROC for
-  every combination in the ablation table above.
+  every combination in the full 7-way ablation table.
+- `results/fusion_2expert_summary.json` — the clip+dino (2-expert) numbers
+  isolated, including TPR@1%FPR and the independent-reproduction confirmation,
+  for the side-by-side comparison above.
 
 Model weights (`runs/probe.joblib`) and embedding caches are intentionally not
 committed, per this repo's convention (`CONTRIBUTING.md`) — they're a pure
