@@ -53,7 +53,9 @@ One decision is still open:
   choice is measurable. It is now measured: they score AUC 0.8513 against 0.9537
   for fully synthetic images, and a probe trained on one type transfers to the
   other at only 0.6457. Both numbers argue for a crop strategy with some notion
-  of *where* to look, which does not exist yet.
+  of *where* to look. Two now exist — `anomaly` and `ela`, below — and are
+  measured on a planted-edit fixture; whether they move the SID_Set number is
+  what `scripts/run_crop_modes.sbatch` is for, and is not yet answered.
 
 Closed since the first draft:
 
@@ -252,7 +254,7 @@ byteprint train --plugin myteam.heads --head gbt ...      # or BYTEPRINT_PLUGINS
 |---|---|---|
 | backbone — the model | `@register_backbone` | `dinov2_vits14/vitb14/vitl14/vitg14` |
 | head — the training objective | `@register_head` | `logreg` (log loss), `linear-svm` (hinge), `mlp` |
-| crop strategy — where you look | `@register_crop_mode` | `texture`, `random`, `center`, `resize` |
+| crop strategy — where you look | `@register_crop_mode` | `texture`, `anomaly`, `ela`, `random`, `center`, `resize` |
 | autoencoder bank | `AUTOENCODERS` dict | `sd15`, `sd14`, `vae-mse`, `vae-ema`, `sdxl` |
 
 Names are validated when they are *used*, not when arguments are parsed, so a
@@ -274,6 +276,54 @@ input is a low-pass filter applied directly to the evidence. The default mode
 samples candidate crops, scores each by Laplacian-response variance, and keeps
 the most texture-rich. `--crop-mode resize` reproduces the naive baseline so you
 can measure the difference rather than take it on faith.
+
+**1b. For a tampered image, look where the edit is — not where the detail is.**
+Ranking windows by high-frequency energy is right when the whole image is
+synthetic and wrong when only a region of it is. A region produced by a decoder
+is usually *cleaner* than the captured frame around it, so `texture` does not
+merely miss the edit, it sorts it last. On a fixture that plants a locally
+denoised patch — structure intact, sensor grain removed — `texture` lands on the
+planted region **0 times out of 40**.
+
+`--crop-mode anomaly` ranks each candidate window by how far its high-frequency
+statistics sit from *the rest of the same image*, in MAD units, using the median
+so that windows inside the edit cannot define the baseline they are measured
+against. It finds the planted region **40 times out of 40**.
+
+The separation is not delicate: images carrying an edit score a maximum
+deviation of 66+, uniform images at most 1.19, and the hand-over threshold sits
+at 6.0 — in the empty gap between them rather than on a slope. That matters
+because the mode must not buy back the 0.851 tampered number by spending the
+0.954 full-synthetic one: a uniformly generated image has no odd region, so when
+nothing stands out `anomaly` defers to `texture` and reproduces its ranking
+exactly, which is pinned by a test rather than assumed.
+
+Across the §5.2 ladder it holds 24/24 on twelve of the fifteen rungs and goes
+blind on `blur:2.0` and `scale:0.25` — which destroy the grain everywhere, and
+so destroy the contrast the cue reads. It fails *safely* there: the fallback
+fires on every image, so the mode degrades to today's behaviour rather than
+returning windows ranked by noise.
+
+`ela` (classic error-level analysis) is registered as the absolute-cue control.
+The expectation was that it would collapse under recompression while a
+within-image contrast survived. **It does not, and the control is what caught
+it**: ranked as an outlier rather than by raw energy, ELA holds across the ladder
+and beats `anomaly` outright on exactly the two rungs where the grain is gone.
+The two cues fail on different rungs — ELA has its own blind spot at `jpeg:90`,
+where re-encoding at the image's own quality leaves almost no residual — which is
+the same complementary-failure argument this project already makes for fusing two
+experts, and the reason both stay registered.
+
+Cost is ~1.8× `texture` per image, not the 4× a naive implementation gives: a
+window's texture score is the variance of its luma Laplacian, which is the same
+band the fingerprint needs, so both come out of one pass and the fallback path
+costs nothing extra.
+
+All of the above is measured on a **planted proxy**, and proves the mechanism
+rather than the result. Whether it moves SID_Set's tampered AUC is what
+`scripts/run_crop_modes.sbatch` answers, and it has not been run yet. Full
+tables, the cost breakdown, and the three specific ways this could fail to
+transfer: **[`docs/results-crop-localisation.md`](docs/results-crop-localisation.md)**.
 
 **2. Train on the damage.** `--augment N` draws N distinct random laundering
 chains per image (JPEG, downscale, blur, noise, and combinations). Because the

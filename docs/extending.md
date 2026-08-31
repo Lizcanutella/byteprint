@@ -86,6 +86,29 @@ def _sample(image, *, crop_size, top_k, candidates, rng):
     return crops[:top_k]
 ```
 
+Shipped: `texture` (the default — most high-frequency detail), `anomaly` and
+`ela` (both rank by how *unlike the rest of its own image* a window is, for
+tampered images where the edited region is not the busiest one), `random` (the
+control for `texture`), `center`, and `resize` (the naive whole-image baseline).
+
+`byteprint.crops` exports the primitives these are built from, so a strategy in
+your own module is as first-class as a built-in one and two strategies stay
+comparable: `texture_score`, `as_rgb`, `convolve2d_valid`, `random_origins` and
+the `LAPLACIAN` kernel. `byteprint.localize` adds `band_map`, `window_stats`,
+`anomaly_z` and `rank_origins` if you want to build on the localisation cue
+rather than rewrite it.
+
+Two things worth copying from `anomaly` if your strategy is a *ranking* rather
+than a fixed geometry:
+
+- **Draw the candidate pool the same way `texture` does** (`random_origins` with
+  the same seed and count). Then a comparison between the two isolates where the
+  strategy looked, rather than what it happened to sample.
+- **Have a defined answer for the images your cue says nothing about.** `anomaly`
+  hands over to `texture` when no window stands out, so an image it cannot help
+  is an image it cannot hurt. A ranking that degenerates to noise on some inputs
+  will quietly cost you on those inputs.
+
 ## 4. An autoencoder for the reconstruction expert
 
 `AUTOENCODERS` in `byteprint/recon.py` maps a short id to `(hf_repo, subfolder)`.
