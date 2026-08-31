@@ -97,6 +97,34 @@ class NaflexVision(nn.Module):
         return outputs.last_hidden_state.mean(dim=1)
 
 
+class ProjectedVision(nn.Module):
+    """CLIP's *post*-projection image embedding — the shared image/text space.
+
+    ``CLIPModel.get_image_features`` is exactly ``visual_projection(pooled)``,
+    but it wants the whole two-tower model rather than a vision tower, so
+    wrapping it here keeps the two CLIP registrations symmetric: the
+    un-projected arm is ``PooledHFVision`` over the same tower, and the only
+    difference between them is this one matrix.
+
+    Which of the two is the better detector is not obvious. The projection was
+    fitted to align images with captions, so it keeps what a caption can
+    describe and is free to discard what one cannot — and a generator
+    fingerprint is exactly the sort of thing no caption mentions.
+    """
+
+    def __init__(self, tower: nn.Module, projection: nn.Module) -> None:
+        super().__init__()
+        self.tower = tower
+        self.projection = projection
+
+    def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
+        outputs = self.tower(pixel_values)
+        pooled = getattr(outputs, "pooler_output", None)
+        if pooled is None:
+            pooled = outputs.last_hidden_state[:, 0, :]
+        return self.projection(pooled)
+
+
 def _from_hub(repo_id: str) -> Callable[[], nn.Module]:
     def build() -> nn.Module:
         from transformers import AutoModel
@@ -161,3 +189,38 @@ register_backbone("eva02_large_timm", dim=1024, patch_size=14, mean=CLIP_MEAN, s
 register_backbone(
     "siglip2_so400m_hf", dim=1152, patch_size=16, mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)
 )(_siglip2_tower("google/siglip2-so400m-patch16-naflex", patch_size=16))
+
+
+def _clip_vision(repo_id: str, *, projected: bool) -> Callable[[], nn.Module]:
+    def build() -> nn.Module:
+        from transformers import CLIPModel
+
+        model = CLIPModel.from_pretrained(repo_id, local_files_only=True)
+        if projected:
+            return ProjectedVision(model.vision_model, model.visual_projection)
+        # The text tower is dead weight here, as with SigLIP2.
+        return PooledHFVision(model.vision_model)
+
+    return build
+
+
+# CLIP ViT-B/32 — the backbone under the CLIP domain-specialist detector on
+# `jiahui/clip-detector`, registered here so it can be measured on the same
+# split and the same §5.2 ladder as the rest of the sweep. ~0.15B parameters,
+# the smallest entry in the table by a factor of two.
+#
+# Both widths are registered because the choice between them is a real one and
+# that branch's own notes prefer the pre-projection feature. `clip_b32_hf` is
+# the 768-d pooled vision output taken before `visual_projection`, which is
+# what it uses; `clip_b32_proj_hf` is the 512-d shared-space embedding CLIP is
+# more usually read through.
+#
+# Unlike EVA02, this one is not being judged below its weight: ViT-B/32 is
+# natively a 224 model, so byteprint's 224 crops are its design resolution.
+for _clip_name, _projected, _clip_dim in (
+    ("clip_b32_hf", False, 768),
+    ("clip_b32_proj_hf", True, 512),
+):
+    register_backbone(
+        _clip_name, dim=_clip_dim, patch_size=32, mean=CLIP_MEAN, std=CLIP_STD
+    )(_clip_vision("openai/clip-vit-base-patch32", projected=_projected))

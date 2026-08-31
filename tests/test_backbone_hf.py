@@ -182,3 +182,77 @@ def test_the_naflex_wrapper_mean_pools_when_the_tower_has_no_pooler() -> None:
     result = wrapped(torch.zeros(1, 3, 32, 32))
     assert result.shape == (1, 2)
     assert torch.equal(result, torch.tensor([[3.0, 4.0]]))
+
+
+def test_the_clip_checkpoint_is_registered_at_both_of_its_widths() -> None:
+    # jiahui's detector reads the 768-d pre-projection pooled output; the 512-d
+    # post-projection embedding is the one CLIP is usually used through. The two
+    # differ by a single matrix, so both are registered and the sweep can say
+    # which one the ladder prefers rather than assuming.
+    assert BACKBONES["clip_b32_hf"].dim == 768
+    assert BACKBONES["clip_b32_proj_hf"].dim == 512
+
+
+def test_clip_carries_its_own_patch_size_and_clip_normalisation() -> None:
+    for name in ("clip_b32_hf", "clip_b32_proj_hf"):
+        spec = BACKBONES[name]
+        assert spec.patch_size == 32, name
+        assert spec.mean == backbone_hf.CLIP_MEAN, name
+        assert spec.std == backbone_hf.CLIP_STD, name
+
+
+def test_registering_clip_does_not_import_transformers() -> None:
+    assert "transformers" not in sys.modules
+
+
+class _StubVisionTower(torch.nn.Module):
+    """Stands in for CLIPVisionTransformer, which publishes a pooler_output."""
+
+    def __init__(self, dim: int = 6) -> None:
+        super().__init__()
+        self.dim = dim
+
+    def forward(self, pixel_values):  # noqa: D102
+        n = pixel_values.shape[0]
+        dim_ = self.dim
+
+        class Output:
+            pooler_output = torch.arange(n * dim_, dtype=torch.float32).reshape(n, dim_)
+            last_hidden_state = torch.zeros(n, 2, dim_)
+
+        return Output()
+
+
+def test_the_projection_wrapper_applies_the_projection_to_the_pooled_output() -> None:
+    tower = _StubVisionTower(dim=6)
+    projection = torch.nn.Linear(6, 3, bias=False)
+    wrapped = backbone_hf.ProjectedVision(tower, projection)
+
+    pixels = torch.zeros(2, 3, 32, 32)
+    got = wrapped(pixels)
+
+    pooled = tower(pixels).pooler_output
+    assert got.shape == (2, 3)
+    assert torch.allclose(got, projection(pooled))
+
+
+def test_the_projection_wrapper_falls_back_to_the_class_token() -> None:
+    # A tower without a pooler must still project token 0 rather than crash --
+    # the same contract PooledHFVision keeps for the un-projected arm.
+    class _NoPooler(torch.nn.Module):
+        def forward(self, pixel_values):  # noqa: D102
+            n = pixel_values.shape[0]
+
+            class Output:
+                pooler_output = None
+                last_hidden_state = torch.ones(n, 4, 6)
+
+            return Output()
+
+    projection = torch.nn.Linear(6, 3, bias=False)
+    wrapped = backbone_hf.ProjectedVision(_NoPooler(), projection)
+
+    got = wrapped(torch.zeros(2, 3, 32, 32))
+
+    assert got.shape == (2, 3)
+    assert torch.allclose(got, projection(torch.ones(2, 6)))
