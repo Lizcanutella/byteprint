@@ -42,7 +42,13 @@ set -euo pipefail
 BYTEPRINT_ROOT="${BYTEPRINT_ROOT:?set this to your compute directory}"
 cd "$BYTEPRINT_ROOT"
 
-PY="$BYTEPRINT_ROOT/.venv/bin/python"
+# Overridable because not every GPU here runs the same CUDA build: a card whose
+# driver predates the default venv's torch needs an environment built against an
+# older CUDA, and the alternative to pointing this at one is leaving that card
+# idle. All three arms run inside one job, so whichever interpreter is used, the
+# comparison between crop modes stays internally controlled -- which is the
+# reason the texture arm is re-run here rather than quoted.
+PY="${BYTEPRINT_PY:-$BYTEPRINT_ROOT/.venv/bin/python}"
 SRC="${BYTEPRINT_SRC:-$BYTEPRINT_ROOT/src}"
 DATA="$BYTEPRINT_ROOT/data"
 RUNS="$BYTEPRINT_ROOT/runs"
