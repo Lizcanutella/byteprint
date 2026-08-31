@@ -109,7 +109,45 @@ than a fixed geometry:
   is an image it cannot hurt. A ranking that degenerates to noise on some inputs
   will quietly cost you on those inputs.
 
-## 4. An autoencoder for the reconstruction expert
+## 4. A pooling — how an image's crops become one score
+
+```python
+# myteam/pooling.py
+import numpy as np
+from byteprint.pooling import register_pooling
+
+@register_pooling("noisy-or", space="score")
+def _build(argument):
+    # Reduces axis 0 of one image's bag. In score space that bag is the
+    # per-crop probabilities; in feature space it is the crop embeddings.
+    return lambda scores: 1.0 - np.prod(1.0 - scores, axis=0)
+```
+
+```
+byteprint train --plugin myteam.pooling --pooling noisy-or ...
+```
+
+`space` is the decision that matters. `"feature"` reduces the embeddings and
+calls the head once per image — that is what `mean` does, and what the cache
+used to do on the way in. `"score"` calls the head on every crop and reduces the
+probabilities, which is the only way a signal confined to one crop survives.
+
+Two things worth knowing before adding one:
+
+- **The argument after the colon is yours to parse.** `resolve_pooling` splits
+  `"topk:2"` on the first `:` and hands your factory `"2"`, or `None` when there
+  is no argument. Validate it there — an unparseable `k` should cost a second at
+  startup, not an hour into an extraction.
+- **Bags are ragged.** `center` and `resize` return one crop whatever `--crops`
+  says, and an image smaller than the crop size can yield fewer. A reduction
+  that assumes `k` rows will eventually meet a bag with one. `topk` handles this
+  by using the whole bag when it is smaller than `k`.
+
+`--train-pooling` is deliberately *not* a registry: it chooses between fitting
+the head on one pooled row per image and fitting it on one row per crop, and
+there are two coherent answers rather than an open set.
+
+## 5. An autoencoder for the reconstruction expert
 
 `AUTOENCODERS` in `byteprint/recon.py` maps a short id to `(hf_repo, subfolder)`.
 Add a line. Any diffusers-loadable `AutoencoderKL` works. Then

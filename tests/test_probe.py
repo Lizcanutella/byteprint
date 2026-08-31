@@ -263,6 +263,25 @@ def test_a_crop_limit_truncates_every_bag_before_pooling() -> None:
     assert not np.allclose(limited.score_bags(X, counts), full.score_bags(X, counts))
 
 
+def test_pooling_reproduces_the_old_write_time_average_bit_for_bit() -> None:
+    # The reproduction arm of the pooling comparison is a gate: it must return
+    # the published numbers to four decimals, so "close enough" is not enough.
+    # The cache stored float32 and averaged in float32 before writing, so
+    # pooling happens in the array's own dtype and widens only afterwards.
+    rng = np.random.default_rng(3)
+    n_images, crops, dim = 60, 8, 16
+    X = rng.normal(size=(n_images * crops, dim)).astype(np.float32)
+    counts = np.full(n_images, crops, dtype=np.int64)
+    y = rng.integers(0, 2, size=n_images)
+
+    # What the previous format wrote: the mean of the first two crops, float32.
+    old_rows = np.stack([X[i * crops : i * crops + 2].mean(axis=0) for i in range(n_images)])
+    old = LinearProbe(ProbeConfig()).fit(old_rows, y)
+    new = LinearProbe(ProbeConfig(pooling="mean", crop_limit=2)).fit_bags(X, counts, y)
+
+    assert np.array_equal(old.score(old_rows), new.score_bags(X, counts))
+
+
 def test_pooling_settings_survive_being_saved_and_reloaded(tmp_path: Path) -> None:
     # A probe that scored with max at training time must not silently score
     # with mean after a round trip -- that is the failure this guards.

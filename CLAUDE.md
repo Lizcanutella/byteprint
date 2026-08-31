@@ -81,11 +81,16 @@ rewarded by the Feasibility criterion; naming the machine is not.
 - Two experts behind one interface — `embed(crops) -> (n_crops, dim)` — so
   extraction, caching, resume and the laundering ladder work on any of them.
 - Embeddings are cached and joined **on key**, never zipped by row order.
+- The cache stores **one row per crop** (schema 2), not one pooled row per
+  image. Pooling is a train/eval-time knob (`--pooling`, `--train-pooling`,
+  `--crop-limit`) so it can be swept over one extraction; reducing at write time
+  is what made it un-sweepable before. Schema-1 caches are refused, not migrated.
 - Report TPR at a fixed low FPR alongside AUC; accuracy at threshold 0.5 is
   meaningless when score distributions shift between generators.
 - The package is `byteprint` (project **BYTEPRINT**, team ByteSized). Swappable parts
   — backbone, head/loss, crop strategy — are **registries**: add one with
-  `@register_backbone` / `@register_head` / `@register_crop_mode` in your own
+  `@register_backbone` / `@register_head` / `@register_crop_mode` /
+  `@register_pooling` in your own
   module and load it with `--plugin`, never by editing a shared file. See
   `docs/extending.md`; `byteprint list` shows what is registered.
 - `OFFICIAL_LADDER` in `byteprint/launder.py` is §5.2 transcribed and pinned by a

@@ -112,8 +112,12 @@ class LinearProbe:
     def _bag_view(
         self, crop_features: np.ndarray, counts: np.ndarray
     ) -> tuple[np.ndarray, np.ndarray]:
-        X = np.asarray(crop_features, dtype=np.float64)
-        return truncate_bags(X, counts, self.config.crop_limit)
+        # Deliberately *not* widened to float64 here. The cache stores float32
+        # and used to average in float32 before writing, so pooling in the
+        # array's own dtype reproduces the previous path bit for bit -- which
+        # is what the reproduction arm of the pooling comparison asserts.
+        # `fit` and `score` widen afterwards, exactly as they always did.
+        return truncate_bags(np.asarray(crop_features), counts, self.config.crop_limit)
 
     def fit_bags(
         self, crop_features: np.ndarray, counts: np.ndarray, labels: np.ndarray
