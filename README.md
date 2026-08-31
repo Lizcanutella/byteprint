@@ -47,10 +47,13 @@ maximised.
 
 One decision is still open:
 
-- **Tampered images need a label.** SID_Set has three classes, and collapsing it
-  to binary means deciding whether class 2 (a real photograph with an AI-edited
-  region) counts as AIGC. It plausibly does, but the choice changes what the
-  detector learns and must be stated explicitly, not made silently.
+- **How much tampered images cost.** SID_Set's class 2 (a real photograph with
+  an AI-edited region) counts as AIGC here, and rather than assert that, the
+  materialiser files those images under their own generator directory so the
+  choice is measurable. It is now measured: they score AUC 0.8513 against 0.9537
+  for fully synthetic images, and a probe trained on one type transfers to the
+  other at only 0.6457. Both numbers argue for a crop strategy with some notion
+  of *where* to look, which does not exist yet.
 
 Closed since the first draft:
 
@@ -143,7 +146,8 @@ Nothing but the probe file and the directory is required — the extraction
 settings (backbone, crop size, crop count, crop mode) travel *inside* the saved
 probe, because scoring at a different crop size than you trained at degrades
 quietly rather than loudly. `--relative` reports bare filenames instead of
-absolute paths, for a harness keyed on those.
+absolute paths, for a harness keyed on those, and `--workers 4` roughly halves
+the wall clock on a large directory without changing a number in the output.
 
 **Every discovered image gets exactly one entry.** A directory of ten thousand
 images will contain a truncated download or an HTML page named `.png`, and a
@@ -276,6 +280,31 @@ chains per image (JPEG, downscale, blur, noise, and combinations). Because the
 cache is keyed by spec, augmented views cost backbone time once, not once per
 epoch.
 
+**2b. Overlap the decode with the backbone.** Both pipelines are CPU-bound, not
+GPU-bound: decoding a full-size photograph and scoring 32 candidate crop windows
+costs far more than pushing two crops through a frozen ViT. Choosing crops is
+the larger half — 52 ms/image against 31 ms to decode, at 1024px — so both
+stages move onto a thread pool behind `--workers N`:
+
+| | `extract` | `score` |
+|---|---|---|
+| `--workers 1` | 12.7 img/s | 12.8 img/s |
+| `--workers 4` | **27.8 img/s (2.2×)** | **29.1 img/s (2.3×)** |
+| `--workers 8` | 25.4 img/s | 21.5 img/s |
+
+The pool is deliberately invisible to the result. In `extract`, the laundering
+draw and the cache-skip check stay sequential and rows are appended in
+submission order; in `score`, chunks are cut at the same paths whatever the
+worker count, because an image's crops are seeded by its position within its
+chunk. The backbone is only ever called from the calling thread — a torch module
+is not safe to run forward on concurrently. Caches built at `--workers 1`, `4`
+and `12` are byte-identical, as is the predictions file, and that is pinned by
+tests rather than asserted here.
+
+The gain flattens past four threads as the GIL takes it back, and on small
+images the handover costs more than the work — which is why the default is `1`
+and the flag is opt-in.
+
 **3. Calibrate, don't threshold at 0.5.** Probe scores shift systematically
 between generators and laundering paths. `train` holds out a calibration split
 and fits the threshold at `--target-fpr`.
@@ -286,11 +315,68 @@ flatter a detector that would be unusable. Every report leads with AUC but
 carries TPR@1%FPR and TPR@0.1%FPR, plus a per-generator breakdown — an average
 over generators hides the one you cannot detect at all.
 
-## Why the laundering ladder matters
+## Results on SID_Set
 
-`eval --by-spec` scores each rung separately. The full §5.2 ladder on the
-bundled fixture — DINOv2-S, 40 images per class, probe trained with
-`--augment 4`, evaluated on the held-out split:
+`eval --by-spec` scores each rung of the §5.2 ladder separately. DINOv2-L probe,
+2×224px texture crops, 16,000 SID_Set training images with `--augment 3`, scored
+on 1,600 held-out images across all fifteen rungs — one 48 GB GPU, 4h 40m.
+
+| | AUC | TPR@1%FPR |
+|---|---|---|
+| pooled over the ladder | 0.9025 | 0.3362 |
+| clean (`none`) | 0.9112 | 0.4100 |
+| best rung (`blur:1.0`) | 0.9191 | 0.3750 |
+| worst rung (`noise:0.10`) | 0.8553 | 0.2550 |
+
+**The whole ladder spans 0.064 AUC.** Robustness is the graded axis, and this is
+the number to point at: the worst of fifteen real-world transformations costs
+six points. Clean is not even the best rung — `--augment 3` *replaces* the spec
+list rather than adding to it, so the probe trained almost entirely on laundered
+views, which is where deployed images live.
+
+Three weaknesses the same run exposes, stated plainly:
+
+- **The operating point is mediocre.** At a threshold strict enough to wrongly
+  flag 1 authentic image in 100, two thirds of AI-generated images still get
+  through. AUC 0.90 flatters it.
+- **Tampered images are much harder** (AUC 0.8513) than fully synthetic ones
+  (0.9537) — only a *region* is generated, and texture-ranked crops have no
+  reason to land on it.
+- **Transfer to an unseen manipulation type is weak**: mean leave-one-out AUC
+  0.6457, down from ~0.90 in-distribution.
+
+One caveat used to bound all of it: SID_Set's reals are 100% JPEG while its
+fully-synthetic images are 100% PNG. Every class is re-encoded to PNG so the
+container cannot be the classifier, but JPEG history survives in the pixels —
+which would make 0.9025 a measure of the dataset rather than of the detector.
+
+**That control has now run, and it clears the number.** Re-encoding *both*
+classes through JPEG-95 and rerunning the identical pipeline gives **0.9022**,
+against the baseline's 0.9025. No rung moves by more than 0.0016; the
+per-generator split is unchanged to three decimal places. Compression history
+was not what the probe was reading.
+
+| | baseline (PNG) | control (JPEG-95) |
+|---|---|---|
+| pooled over the ladder | 0.9025 | **0.9022** |
+| full synthetic | 0.9537 | 0.9535 |
+| tampered | 0.8513 | 0.8510 |
+| LOGO mean (unseen type) | 0.6457 | 0.6486 |
+
+What the control does not settle: the reals are now double-JPEG and the
+synthetics single, which is itself detectable. But if compression were the
+feature, changing it from "JPEG vs none" to "double vs single" should have
+perturbed *something*, and nothing moved.
+
+Full tables, per-rung numbers and stage timings:
+**[`docs/results-sid-set-first-run.md`](docs/results-sid-set-first-run.md)** and
+**[`docs/results-jpeg95-control.md`](docs/results-jpeg95-control.md)**.
+
+### The same ladder on the bundled fixture
+
+For contrast — DINOv2-S, 40 images per class, `--augment 4`. The fixture's fakes
+are a planted periodic grid, so its numbers mean *the wiring works*, nothing
+more, and its failure modes are artifacts of the plant:
 
 | rung | AUC | TPR@1%FPR | |
 |------|-----|-----------|---|
@@ -314,7 +400,8 @@ A single pooled number over that same set reads **0.8349**, which sounds
 respectable and tells you nothing about the two rungs where the detector is
 *worse than a coin*. Both destroy high-frequency detail, which on this fixture
 is the entire signal — the failure mode is legible only because the rungs are
-reported apart.
+reported apart. On real data those same two rungs hold 0.889 and 0.890, which
+is the point: per-rung reporting is what tells you whether a collapse is real.
 
 Note also what the pooled number does to the operating point: TPR@1%FPR over
 everything is 0.3833, but the per-rung values range from 0.85 to 0.05. A single

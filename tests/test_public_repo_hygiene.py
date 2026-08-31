@@ -95,8 +95,15 @@ def test_local_only_notes_are_not_publishable() -> None:
 
 
 def test_claude_directory_is_not_publishable() -> None:
-    """.claude/ carries environment-specific notes and stays local."""
-    published = [p for p in publishable_files() if ".claude" in p.parts]
+    """.claude/ carries environment-specific notes and stays local.
+
+    Judged relative to the repo root: a git worktree is conventionally created
+    *under* `.claude/worktrees/`, so an absolute-path check would fail every
+    file in it and turn a real guard into noise everyone learns to ignore.
+    """
+    published = [
+        p for p in publishable_files() if ".claude" in p.relative_to(REPO_ROOT).parts
+    ]
 
     assert not published
 

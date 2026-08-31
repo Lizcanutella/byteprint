@@ -188,6 +188,7 @@ def cmd_extract(args: argparse.Namespace, backbone_factory, recon_factory) -> in
         specs=specs,
         augment=args.augment,
         seed=args.seed,
+        workers=args.workers,
     )
     store.flush()
     print(f"{len(samples)} images -> {stats.render()} ({len(store)} rows in {args.cache})")
@@ -357,7 +358,9 @@ def _scorer_for(probe: LinearProbe, args: argparse.Namespace, backbone_factory) 
             "`byteprint train`, or pass --cache to borrow a cache's settings"
         )
     backbone = backbone_factory(config.backbone, args.device, args.batch_size)
-    return ProbeScorer(backbone=backbone, probe=probe, config=config)
+    return ProbeScorer(
+        backbone=backbone, probe=probe, config=config, workers=getattr(args, "workers", 1)
+    )
 
 
 def cmd_score(args: argparse.Namespace, backbone_factory) -> int:
@@ -374,6 +377,7 @@ def cmd_score(args: argparse.Namespace, backbone_factory) -> int:
         relative=args.relative,
         chunk_size=args.chunk_size,
         strict=args.strict,
+        workers=args.workers,
     )
     if not predictions:
         print(f"no images found under {args.images}", file=sys.stderr)
@@ -483,6 +487,16 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"extract every rung of a named ladder: {', '.join(sorted(LADDERS))}",
     )
     ext.add_argument("--specs", default="", help="comma-separated laundering specs")
+    ext.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="threads decoding, laundering and cropping ahead of the backbone. "
+        "The cache is byte-identical whatever this is set to; only the wall "
+        "clock changes. About 4 is the sweet spot on full-size photographs "
+        "(~2.2x); more contends on the GIL, and on small images the handover "
+        "costs more than the work (default: %(default)s)",
+    )
     ext.add_argument("--rebuild", action="store_true", help="discard a stale cache")
     ext.add_argument("--seed", type=int, default=0)
 
@@ -532,6 +546,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="report paths relative to IMAGE_DIR rather than absolute",
     )
     sc.add_argument("--chunk-size", type=int, default=8, help="images embedded per batch")
+    sc.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="threads decoding and cropping ahead of the backbone. The "
+        "predictions file is identical whatever this is set to; only the wall "
+        "clock changes. About 4 is the sweet spot on full-size photographs "
+        "(default: %(default)s)",
+    )
     sc.add_argument(
         "--strict", action="store_true",
         help="fail on the first unreadable image instead of scoring it 0.5",
