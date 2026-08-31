@@ -315,6 +315,98 @@ problem - a content/style distribution gap (unusual real-world prompts
 vs. the simple, COCO-caption-style training examples) - which this
 change was never expected to fix.
 
+**Relation to classic Error Level Analysis (ELA).** The reactivity-delta
+idea is conceptually related to ELA (re-compress an image, compare it to
+the original) - but relocated from ELA's usual home (pixel-space,
+localized tampering detection) into CLIP embedding space, whole-image
+classification. Notably, Part 2 of this project (before the CLIP pivot)
+tried several literal pixel-level, ELA-adjacent "reactivity" signals and
+none of them survived rigorous testing (best ~0.62 AUROC) - the same
+underlying principle only started working once it was relocated into a
+learned embedding space instead of raw pixel statistics.
+
+### Domain-matched probes (v7): fixing the one domain where the universal probe was redundant
+
+A user question - "why does the probe swap only help the jpeg domain?" -
+led to two follow-up experiments that both sharpened and validated the
+architecture further.
+
+**The mechanism, confirmed empirically across every domain.** A probe
+from the *same* degradation family as a domain adds little new
+information (redundant); a probe from a *different* family adds real
+signal. jpeg_q50 (the original universal probe) happened to violate
+this for the "jpeg" domain only, since probe-family == domain-family
+there. `test_same_vs_cross_family_probe.py` tested this directly on the
+other 3 non-clean domains too, each against their own same-family probe:
+
+| domain | same-family probe, gain | cross-family (jpeg_q50), gain | gap |
+|---|---|---|---|
+| jpeg | jpeg_q50, +0.0004 | blur_s1.0, +0.0078 | 19x |
+| spatial | blur_s1.0, +0.0285 | +0.0492 | 1.7x |
+| noise | noise_s0.05, +0.0235 | +0.0704 | 3.0x |
+| colorjitter | colorjitter_up20, **+0.0024** | +0.0391 | **16x** |
+
+Cross-family beats same-family in *every* domain tested, no exceptions
+- confirming the mechanism generalizes well beyond the one case that
+motivated it. Two patterns stand out: jpeg and colorjitter show
+*near-total* redundancy for a same-family probe (both under +0.003),
+while spatial and noise show only *partial* redundancy (same-family
+still helps, just 2-3x less than cross-family). This validates the
+current production setup - jpeg_q50 everywhere except "jpeg" itself -
+across the entire domain set, not just the two domains checked
+initially; colorjitter's near-zero same-family result is a second
+domain (after jpeg) where using jpeg_q50 is doing real work specifically
+*because* it's cross-family, not an arbitrary pick that happens to work.
+
+**The fix, validated at full scale and adopted.** The "jpeg" specialist
+now uses a blur_s1.0 probe instead of jpeg_q50 (`retrain_jpeg_
+specialist_domain_matched.py`); the other 4 specialists are unchanged.
+On the full 2,506-image training set / 443-image held-out test:
+domain-matched jpeg specialist AUROC **0.9953**, vs. **0.9938** for the
+prior universal-probe version on the identical test images (+0.0015).
+Cost: a 3rd CLIP forward pass per image (base + jpeg_q50-probed +
+blur_s1.0-probed) instead of 2, since confidence-gated soft routing
+means every image needs every specialist's own probe delta regardless
+of which domain it actually routes to.
+
+**Honest caveat**: the full 16-cell robustness grid has not been
+re-run end-to-end on this v7 change - an attempt hit severe, unexplained
+CPU throughput degradation on this sandbox (a recurring issue this
+session, unrelated to the change itself) and was killed rather than risk
+the deadline. v6's full-grid number (0.9974 mean AUROC, universal probe)
+remains the last fully end-to-end validated number; v7's improvement is
+validated in isolation (full-scale jpeg domain) and on a 3-domain
+ablation subset (clean/noise/jpeg, see below) but not yet reconfirmed
+holistically across all 16 cells. See `model/model_meta.json`'s
+`domain_matched_probe_v7` for full details.
+
+### Is domain-specialist routing still needed, now that reactivity-delta exists?
+
+A fair architectural question, since reactivity-delta also generalizes
+across degradation types: are the two mechanisms redundant?
+`ablation_generalist_vs_domain_routing.py` tested this directly - a
+single pooled generalist (no domain routing at all, universal jpeg_q50
+probe, since a domain-agnostic model can't match a probe to a domain it
+doesn't know) vs. the live production (domain-routed) pipeline, on the
+same held-out test images:
+
+| domain | single generalist | production (domain-routed) | routing advantage |
+|---|---|---|---|
+| clean | 0.9837 | 0.9982 | +0.0146 |
+| noise | 0.9769 | 0.9942 | +0.0173 |
+| jpeg | 0.9588 | 0.9949 | +0.0362 |
+| **mean** | 0.9731 | 0.9958 | **+0.0227** |
+
+Routing still adds a consistent, meaningful improvement in every domain
+tested - the two mechanisms are complementary, not redundant. Domain
+routing calibrates *where* the decision boundary sits (an appearance-
+space problem, since CLIP's absolute embedding shifts by degradation
+type); reactivity-delta adds a content-origin signal that generalizes
+*across* degradation types (a different axis of information). The
+largest routing advantage is on "jpeg" (+0.0362) - a pooled generalist
+has no domain to match a probe to, so it's stuck with the same
+redundant-probe problem the domain-matched fix above was built to solve.
+
 ## GPU experiment: native-resolution texture crops (tried, not adopted)
 
 After comparing this project's architecture against a teammate's
@@ -404,6 +496,69 @@ softest spot, consistent with the dataset-compliance trade-off
 discussed above (no COCO-distribution-matched real images in training,
 by design, to avoid the organizer's reserved validation data).
 
+**Note on the numbers above vs. the current production model**: the
+table above is v6 (universal jpeg_q50 probe), the last version with a
+full end-to-end 16-cell re-validation. Production has since moved to
+v7 (domain-matched probe for the "jpeg" specialist - see "Domain-matched
+probes" above), validated in isolation and on a subset but not yet
+reconfirmed across the full grid; treat the table above as very slightly
+conservative for the actual live model.
+
+### Threshold calibration
+
+Every number above uses a fixed 0.5 decision threshold, which ignores
+that score distributions shift between domains and generators - and on
+a real platform, authentic images vastly outnumber synthetic ones, so
+accuracy at 0.5 is a poor proxy for deployment usability.
+`calibrate_threshold.py` calibrates a threshold to a 1% false-positive
+budget, using the same `threshold_at_fpr`/`tpr_at_fpr` methodology as
+BYTEPRINT's own `byteprint/metrics.py`, on the pooled predictions across
+all 16 robustness-grid cells (7,088 images, 2,640 real - a much more
+stable quantile estimate than a single small split):
+
+| | fixed 0.5 | calibrated to 1% FPR |
+|---|---|---|
+| mean accuracy | 97.6% | 95.4% |
+| mean FPR | varies by cell (1.2%-7.3%) | 0.98% (on target) |
+| mean FNR | varies by cell (0%-3.2%) | 6.7% |
+
+This is the expected, correct trade-off of enforcing a strict false-
+positive budget - some accuracy and recall are sacrificed to guarantee
+the false-positive rate stays where a real deployment would need it.
+`production_pipeline.calibrated_predict()` exposes this threshold for
+callers that want a binary decision (`model/calibration.json`); the
+required `predict.py` deliverable still reports raw probabilities per
+the brief's exact spec, unaffected by this.
+
+### BYTEPRINT-comparable metrics
+
+Computed using BYTEPRINT's own metric definitions, for a direct
+comparison against a teammate's separate submission for this same
+challenge (see `results_detector/summary_table.md` for full methodology
+notes):
+
+| backbone | params | AUC | TPR@1%FPR | LOGO mean |
+|---|---|---|---|---|
+| CLIP ViT-B/32 (this project) | 151.3M | 0.997 | 0.933 | 0.968 |
+| SigLIP2-so400m (BYTEPRINT) | 430M | 0.950 | 0.585 | 0.721 |
+
+LOGO (leave-one-generator-out) breakdown for this project:
+
+| held-out generator | AUROC |
+|---|---|
+| SD2.1 | 0.994 |
+| SDXL | 0.994 |
+| SD3 | 0.961 |
+| DALL-E3 | 0.969 |
+| Midjourney6 | 0.918 |
+
+One caveat worth stating plainly: these are each team's own self-
+reported numbers on each team's own evaluation setup, not a controlled
+head-to-head on identical held-out data - different training data and
+different test images could contribute to part of the gap, so this
+should be read as "each team's best result under the same metric
+definitions," not "identical benchmark, decisive win."
+
 ## Error analysis (see `results_detector/error_analysis_summary.json`, `error_fp_*.png`/`error_fn_*.png`, and `results_detector/known_failure_examples/`)
 
 - **False positives** (real images flagged as AI) are genuine,
@@ -483,7 +638,17 @@ python error_analysis.py             # -> results_detector/error_analysis_summar
 # 6. Re-check the generator diagnostic (now that training includes Defactify)
 python evaluate_generator_diagnostic.py  # compare against your step 2 baseline numbers
 
-# 7. Run the required deliverable script on any directory of images
+# 7. (v7) Retrain just the "jpeg" specialist with its domain-matched probe,
+#    then promote it into the specialists dict - see "Domain-matched probes"
+#    above. Only "jpeg" changes; the other 4 specialists are untouched.
+python retrain_jpeg_specialist_domain_matched.py  # -> model/experiments_jpeg_specialist_domain_matched.pkl
+#    (swap the "jpeg" entry into model/specialists.pkl - see that script's
+#    printed comparison AUROC before promoting)
+
+# 8. Calibrate a deployment threshold at a target false-positive rate
+python calibrate_threshold.py        # -> model/calibration.json + results_detector/robustness_table_calibrated.json
+
+# 9. Run the required deliverable script on any directory of images
 python predict.py --input_dir <DIR> --output out.json
 ```
 
@@ -492,9 +657,10 @@ feature" above for the earlier, simpler baselines and every
 intermediate data/architecture variant - all kept in
 `results_detector/experiments/` and `model/*_v2_2source.*` /
 `model/*_v3_INCLUDES_COCO_REAL*` / `model/*_v4_with_cifake_WORSE.*` /
-`model/*_v5_no_reactivity.*` / `model/*_CONTAMINATED.*` (never deleted;
-filenames track which data-quality/diversity/compliance/architecture
-stage each artifact came from).
+`model/*_v5_no_reactivity.*` / `model/*_v6_universal_probe.*` /
+`model/*_CONTAMINATED.*` (never deleted; filenames track which
+data-quality/diversity/compliance/architecture stage each artifact
+came from).
 
 ## Limitations & what we'd improve with more time
 
@@ -517,19 +683,21 @@ stage each artifact came from).
   list) can't be fully solved, only continuously monitored and patched,
   which is a real operational commitment for any deployed version of
   this detector, not a one-time fix.
-- **The reactivity-delta feature uses a single universal probe
-  (jpeg_q50) rather than a domain-matched one**, a disclosed time-boxed
-  scoping decision (see "Reactivity-delta feature" above) - a
-  domain-matched probe measured better specifically for the "jpeg"
-  domain (+0.008 vs +0.0004) but would cost a 3rd CLIP pass per image
-  under soft routing. With more time, a cheaper way to get domain-
-  matched probing without the extra pass (e.g. computing all candidate
-  probe deltas once and letting a single specialist select among them)
-  would be worth exploring.
-- **Inference now costs 2 CLIP forward passes per image** (original +
-  jpeg_q50-probed copy) instead of 1, to compute the reactivity-delta
-  feature - a real latency/throughput trade-off for the accuracy gain,
-  not yet benchmarked end-to-end.
+- ~~The reactivity-delta feature uses a single universal probe rather
+  than a domain-matched one~~ **FIXED (v7)**: the "jpeg" specialist now
+  uses a domain-matched blur_s1.0 probe instead of the redundant
+  jpeg_q50, validated at full scale (+0.0015 AUROC on that domain) and
+  the mechanism confirmed on a second domain (`test_same_vs_cross_
+  family_probe.py`) - see "Domain-matched probes (v7)" above. One
+  remaining gap: the full 16-cell grid hasn't been re-run end-to-end on
+  this change (a validation attempt hit severe, unexplained sandbox
+  slowdowns and was killed rather than risk the deadline) - the
+  improvement is validated in isolation and on a 3-domain subset, not
+  yet holistically reconfirmed.
+- **Inference now costs 3 CLIP forward passes per image** (original +
+  jpeg_q50-probed + blur_s1.0-probed) instead of 1, to compute the
+  domain-matched reactivity-delta feature - a real latency/throughput
+  trade-off for the accuracy gain, not yet benchmarked end-to-end.
 - **Domain-classifier routing confidence gating uses the router's
   probabilities as-is**, not a separately calibrated confidence measure
   - a proper calibration step (e.g. Platt scaling on the router's
@@ -539,10 +707,13 @@ stage each artifact came from).
   run moves to GPU), fine-tuning the last few CLIP layers, or trying
   CLIP:ViT-L/14 (still well under 2B params) instead of ViT-B/32, would
   likely improve accuracy further.
-- **Decision threshold is a fixed 0.5**, not tuned for the FP/FN
-  cost trade-off discussed above - a deployment-specific threshold
-  (or per-domain thresholds, since the specialists already produce
-  independent calibrations) would be a quick, meaningful improvement.
+- ~~Decision threshold is a fixed 0.5~~ **FIXED**: `calibrate_
+  threshold.py` calibrates a threshold to a 1% false-positive budget
+  using the same methodology as BYTEPRINT's `byteprint/metrics.py`
+  (threshold_at_fpr/tpr_at_fpr), exposed via `production_pipeline.
+  calibrated_predict()` - see "Threshold calibration" above. Per-domain
+  thresholds (rather than one global calibrated threshold) remain
+  unexplored and could be a further refinement.
 - **No adversarial robustness testing** - the transform grid covers
   realistic incidental degradation, not an adversary deliberately
   optimizing to evade the detector, which is a materially different

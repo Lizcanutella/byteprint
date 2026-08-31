@@ -1,0 +1,30 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Training subsample: 100 of 2506 originals (balanced across 5 domains)
+Building pooled training set (all domains mixed, no domain labels used)...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7244.21it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  50/100 originals processed -> 250 so far
+  100/100 originals processed -> 250 so far
+  done in 105.8s, 500 total training rows
+
+Training single generalist (StandardScaler + LogisticRegression, extended feature)...
+
+=== Evaluating on 'clean' domain (150 held-out test images) ===
+  single generalist AUROC: 0.9837  (25.6s)
+  production (domain-routed) AUROC: 0.9982  (45.8s)
+
+=== Evaluating on 'noise' domain (150 held-out test images) ===
+  single generalist AUROC: 0.9769  (25.4s)
+  production (domain-routed) AUROC: 0.9942  (46.3s)
+
+=== Evaluating on 'jpeg' domain (150 held-out test images) ===
+  single generalist AUROC: 0.9588  (23.8s)
+  production (domain-routed) AUROC: 0.9949  (45.1s)
+
+======================================================================
+SUMMARY: single generalist (no routing) vs. production (domain-routed)
+======================================================================
+clean          generalist=0.9837  production=0.9982  advantage=+0.0146
+noise          generalist=0.9769  production=0.9942  advantage=+0.0173
+jpeg           generalist=0.9588  production=0.9949  advantage=+0.0362
+MEAN           generalist=0.9731  production=0.9958  advantage=+0.0227

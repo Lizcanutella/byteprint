@@ -1,0 +1,5 @@
+{
+  "domain_matched_jpeg_specialist_auroc": 0.9953128406365817,
+  "current_production_jpeg_q50_probe_auroc_on_same_data": 0.9937649880095923,
+  "improvement": 0.00154785262698931
+}

@@ -1,0 +1,17 @@
+{
+  "clean": {
+    "single_generalist_auroc": 0.9836607663878623,
+    "production_domain_routed_auroc": 0.9982493678272709,
+    "domain_routing_advantage": 0.014588601439408655
+  },
+  "noise": {
+    "single_generalist_auroc": 0.976852752382805,
+    "production_domain_routed_auroc": 0.9941645594242365,
+    "domain_routing_advantage": 0.017311807041431537
+  },
+  "jpeg": {
+    "single_generalist_auroc": 0.9587628865979381,
+    "production_domain_routed_auroc": 0.9949426181676717,
+    "domain_routing_advantage": 0.03617973156973364
+  }
+}

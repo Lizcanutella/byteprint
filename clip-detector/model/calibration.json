@@ -1,0 +1,14 @@
+{
+  "method": "threshold_at_fpr, same methodology as byteprint/metrics.py",
+  "calibration_data": "pooled predictions across all 16 robustness-grid cells (results_detector/robustness_per_image.json), 7088 images, 2640 real",
+  "thresholds": {
+    "0.01": 0.8749245232343675,
+    "0.001": 0.9905469938119255
+  },
+  "recommended_threshold": 0.8749245232343675,
+  "recommended_target_fpr": 0.01,
+  "mean_accuracy_at_recommended_threshold": 0.9540067720090293,
+  "mean_accuracy_at_fixed_0.5": 0.9757336343115124,
+  "mean_fpr_at_recommended_threshold": 0.00984848484848485,
+  "mean_fnr_at_recommended_threshold": 0.06744604316546762
+}

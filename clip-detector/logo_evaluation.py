@@ -8,7 +8,7 @@ Note on what this can and can't be: a fully faithful LOGO would retrain
 the entire multi-domain specialist architecture 5 times (once per
 held-out generator), which is too expensive to redo here. Instead, this
 trains a single classifier per fold using production's EXACT feature
-extraction (production_pipeline._extended_features: CLIP pre-projection
+extraction (production_pipeline's jpeg_q50-probe feature: CLIP pre-projection
 embedding + jpeg_q50 reactivity-delta, the same 1536-dim feature the
 real 'clean' domain specialist uses) on the held-out generator-
 diagnostic set (360 images, 60/generator + 60 real, all disjoint from
@@ -30,7 +30,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from clip_features import load_image_capped
-from production_pipeline import _extended_features
+from production_pipeline import _extended_features_by_group, _feature_for_group
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data_generator_diagnostic")
@@ -49,7 +49,8 @@ def main():
 
     imgs = [load_image_capped(r["path"]) for r in records]
     print("Extracting production's exact feature (CLIP preproj embedding + jpeg_q50 delta)...")
-    feats = _extended_features(imgs, batch_size=32)
+    embs, deltas = _extended_features_by_group(imgs, batch_size=32)
+    feats = _feature_for_group(embs, deltas, "clean")  # jpeg_q50 probe, matching the original run
     print(f"  feature shape: {feats.shape}")
 
     y = np.array([r["label"] for r in records])
@@ -84,7 +85,7 @@ def main():
     result = {
         "per_generator_auroc": per_fold_auc,
         "logo_mean_auroc": logo_mean,
-        "feature": "production_pipeline._extended_features (CLIP preproj + jpeg_q50 delta), 1536-dim",
+        "feature": "production_pipeline's jpeg_q50-probe feature (CLIP preproj + jpeg_q50 delta), 1536-dim",
         "note": "single LogisticRegression per fold, not the full routed multi-domain specialist "
                 "architecture - a full LOGO retrain of that architecture (5x) was too expensive to run "
                 "in the remaining time. This uses production's exact feature representation on a true "

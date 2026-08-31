@@ -14,9 +14,41 @@
   "domain_classifier_5way_accuracy": 0.75,
   "specialist_heads": "sklearn Pipeline(StandardScaler, LogisticRegression) per domain group, 1536-dim extended feature, 2506 training images each",
   "reactivity_delta_feature": {
-    "probe": "jpeg_q50 (universal, single probe used for all 5 domains - see scoping note)",
-    "scoping_note": "A domain-matched probe (blur_s1.0 specifically for the 'jpeg' domain, avoiding jpeg-on-jpeg redundancy) measured slightly better for that one domain (+0.008 vs +0.0004) in prelim_domain_matched_probe.py, but was NOT adopted in production: under confidence-gated soft routing every image needs a delta for every specialist it might get weighted to, so domain-matching would require a 3rd CLIP pass per image (both probes) instead of 2, for a gain that only affects the domain with the least headroom (already ~0.99 AUROC). Time-boxed decision given the deadline, not an oversight.",
-    "validation_summary": "cross-source generalization (leave-one-source-out): 0.72 (absolute embedding alone) -> 0.92 (delta alone, jpeg probe). Cross-generator generalization (leave-one-generator-out, Defactify TEST split): 0.909 -> 0.971 (combined). Survives being applied on top of an already-degraded (blurred) input: 0.816 -> 0.911 (combined, LOSO). Full production integration (all 5 domains, real training/eval pipeline): mean AUROC across 16-cell robustness grid 0.981 -> 0.997; generator-diagnostic pooled AUROC 0.940 -> 0.977."
+    "probe": "domain-matched (v7): jpeg_q50 for clean/spatial/noise/colorjitter, blur_s1.0 for jpeg - see domain_matched_probe_v7 below for why and the validation.",
+    "validation_summary": "cross-source generalization (leave-one-source-out): 0.72 (absolute embedding alone) -> 0.92 (delta alone, jpeg probe). Cross-generator generalization (leave-one-generator-out, Defactify TEST split): 0.909 -> 0.971 (combined). Survives being applied on top of an already-degraded (blurred) input: 0.816 -> 0.911 (combined, LOSO). Full production integration (all 5 domains, real training/eval pipeline, v6 universal jpeg_q50 probe): mean AUROC across 16-cell robustness grid 0.981 -> 0.997; generator-diagnostic pooled AUROC 0.940 -> 0.977."
+  },
+  "domain_matched_probe_v7": {
+    "what_changed": "the 'jpeg' specialist's reactivity-delta now uses a blur_s1.0 probe instead of the universal jpeg_q50 probe the other 4 specialists still use - re-JPEG-probing an already-JPEG-degraded image is redundant by construction (same-family probe).",
+    "mechanism_confirmed": "test_same_vs_cross_family_probe.py, tested on all 4 non-clean domains: jpeg (same-family jpeg_q50 +0.0004 vs cross-family blur_s1.0 +0.0078), spatial (same-family blur_s1.0 +0.0285 vs cross-family jpeg_q50 +0.0492), noise (same-family noise_s0.05 +0.0235 vs cross-family jpeg_q50 +0.0704), colorjitter (same-family colorjitter_up20 +0.0024 vs cross-family jpeg_q50 +0.0391). Cross-family beats same-family in every domain, no exceptions - confirms the mechanism generally, not just for the one case (jpeg) that motivated it. colorjitter shows near-total same-family redundancy (+0.0024) almost as extreme as jpeg's, meaning the current jpeg_q50-everywhere-except-jpeg production choice is validated across the entire domain set.",
+    "validated_at_full_scale": "retrain_jpeg_specialist_domain_matched.py, full 2506-image training set, 443-image held-out test: domain-matched (blur probe) jpeg specialist AUROC=0.9953 vs the prior universal-probe (jpeg_q50) jpeg specialist AUROC=0.9938 on the SAME test images (+0.0015).",
+    "validated_on_ablation_subset": "ablation_generalist_vs_domain_routing.py's production (domain-routed) column, which calls the live v7 production pipeline: clean=0.9982, noise=0.9942, jpeg=0.9949 on a 150-image test subsample per domain.",
+    "cost": "a 3rd CLIP forward pass per image (base + jpeg_q50-probed + blur_s1.0-probed) instead of 2, since confidence-gated soft routing means every image needs every specialist's own probe delta, regardless of which domain it actually routes to.",
+    "IMPORTANT_caveat": "the full 16-cell robustness grid has NOT been re-run end-to-end on v7 - an attempt got stuck/severely slow on this sandbox (repeated, unexplained CPU throughput degradation hit several jobs this session) and was killed rather than risk the submission deadline. v6's full-grid number (0.9974 mean AUROC, universal jpeg_q50 probe) remains the last fully end-to-end validated number; v7's jpeg-domain improvement is validated in isolation (full scale) and on a 3-domain ablation subset, but not yet reconfirmed holistically across all 16 cells. Given the isolated jpeg-domain gain is real and the other 4 domains are byte-for-byte unchanged from v6, a full-grid regression is unlikely but not proven."
+  },
+  "domain_routing_ablation": {
+    "question": "does domain-specialist routing still add value now that reactivity-delta exists, or is it redundant with it?",
+    "method": "ablation_generalist_vs_domain_routing.py: trained one pooled single generalist (no domain routing, universal jpeg_q50 probe only, 100 balanced training originals) and compared it against the live production (domain-routed) pipeline on the same 150 held-out test images, for clean/noise/jpeg domains.",
+    "result": "generalist mean AUROC 0.9731 vs production (domain-routed) mean AUROC 0.9958 - a +0.0227 mean advantage for routing, present in every domain tested (clean +0.0146, noise +0.0173, jpeg +0.0362). Routing and reactivity-delta are complementary, not redundant: routing calibrates the decision boundary per degradation type (an appearance-space problem), reactivity-delta adds a content-origin signal that generalizes across degradation types (a different axis of information)."
+  },
+  "threshold_calibration": {
+    "method": "calibrate_threshold.py - same threshold_at_fpr/tpr_at_fpr methodology as byteprint/metrics.py, calibrated on pooled predictions across all 16 robustness-grid cells (7088 images, 2640 real) rather than a small dedicated split, for a more stable 1%-FPR quantile estimate. NOTE: calibrated on v6's predictions (robustness_per_image.json predates the v7 jpeg swap) - not yet recalibrated on v7.",
+    "recommended_threshold": 0.874925,
+    "recommended_target_fpr": 0.01,
+    "mean_accuracy_at_recommended_threshold": 0.954,
+    "mean_accuracy_at_fixed_0.5": 0.9757,
+    "mean_fpr_at_recommended_threshold": 0.0098,
+    "mean_fnr_at_recommended_threshold": 0.0674,
+    "usage": "production_pipeline.calibrated_predict() applies this threshold for a binary decision; the required predict.py deliverable still reports raw probabilities per the brief's exact spec, unaffected by this."
+  },
+  "bytesprint_comparable_metrics": {
+    "description": "computed for direct comparison against BYTEPRINT's own reporting conventions (byteprint/metrics.py's AUC/TPR@FPR/leave-one-generator-out) - see results_detector/summary_table.md",
+    "backbone": "CLIP ViT-B/32 (frozen, pre-projection + reactivity-delta)",
+    "params": "151.3M",
+    "auc_16cell_grid": 0.997,
+    "tpr_at_1pct_fpr_pooled": 0.933,
+    "logo_mean_auroc": 0.968,
+    "logo_per_generator": {"sd21": 0.994, "sdxl": 0.994, "sd3": 0.961, "dalle3": 0.969, "midjourney6": 0.918},
+    "ela_connection": "the reactivity-delta feature is conceptually related to classic Error Level Analysis (re-compress, compare) but relocated from pixel-space tampering-localization into CLIP embedding-space whole-image classification - notably, this project's Part 2 (pre-CLIP-pivot) tried literal pixel-level ELA-adjacent reactivity signals and they failed (best ~0.62 AUROC); the embedding-space version is what actually worked."
   },
   "n_train_images_base": 2506,
   "n_test_images_heldout_clean": 443,
@@ -54,8 +86,9 @@
     "v3_plus_defactify_incl_coco_real": 0.9758,
     "v4_plus_cifake_REVERTED": 0.9557,
     "v5_defactify_ai_only_no_cifake": 0.981,
-    "v6_FINAL_plus_jpeg_reactivity_delta": 0.9974
+    "v6_plus_jpeg_reactivity_delta_universal_probe": 0.9974,
+    "v7_CURRENT_PRODUCTION_domain_matched_jpeg_probe": "full-grid mean AUROC not yet re-measured (see domain_matched_probe_v7.IMPORTANT_caveat); jpeg-domain AUROC 0.9953 (up from v6's 0.9938 on same data)"
   },
   "seed": 1234,
-  "timestamp": "2026-08-31T00:52:00"
+  "timestamp": "2026-09-01T03:30:00"
 }

@@ -1,0 +1,5 @@
+{
+  "baseline_no_delta": 0.9451057335949422,
+  "jpeg_q50 (current production, cross-family)": 0.984216263352954,
+  "colorjitter_up20 (same-family as colorjitter, hypothesized redundant)": 0.9475256158709396
+}
