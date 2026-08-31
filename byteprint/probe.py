@@ -27,6 +27,16 @@ from sklearn.preprocessing import Normalizer, StandardScaler
 
 from byteprint.heads import DEFAULT_HEAD, build_head
 from byteprint.metrics import threshold_at_fpr
+from byteprint.pooling import (
+    DEFAULT_POOLING,
+    DEFAULT_TRAIN_POOLING,
+    FEATURE_SPACE,
+    TRAIN_POOLINGS,
+    repeat_labels,
+    resolve_pooling,
+    segment_reduce,
+    truncate_bags,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,6 +47,15 @@ class ProbeConfig:
     l2_normalize: bool = True
     class_weight: str | None = "balanced"
     seed: int = 0
+    # How an image's bag of crops becomes one score. See byteprint/pooling.py:
+    # `pooling` reduces at evaluation, `train_pooling` decides whether the head
+    # is fitted on pooled rows or on individual crops carrying their image's
+    # label. They are separate because the interesting arms are off-diagonal.
+    pooling: str = DEFAULT_POOLING
+    train_pooling: str = DEFAULT_TRAIN_POOLING
+    # Keep only each bag's first N crops. `texture` ranks a fixed candidate set,
+    # so this reproduces a smaller-k extraction exactly rather than approximately.
+    crop_limit: int | None = None
 
 
 class LinearProbe:
@@ -44,8 +63,16 @@ class LinearProbe:
 
     def __init__(self, config: ProbeConfig | None = None) -> None:
         self.config = config or ProbeConfig()
+        if self.config.train_pooling not in TRAIN_POOLINGS:
+            raise ValueError(
+                f"unknown train_pooling {self.config.train_pooling!r}; "
+                f"expected one of {', '.join(TRAIN_POOLINGS)}"
+            )
         self.threshold: float = 0.5
         self.target_fpr: float | None = None
+        # How many rows the head was actually fitted on -- one per image under
+        # bag-level training, one per crop under crop-level.
+        self.n_training_rows: int = 0
         # The extraction settings the training features were built with. Carried
         # so a saved probe is self-contained: scoring a directory needs the same
         # backbone, crop size and crop mode, and asking the caller to remember
@@ -72,6 +99,69 @@ class LinearProbe:
             raise ValueError("training needs both classes present; got only one")
 
         self._pipeline = self._build().fit(X, y)
+        self.n_training_rows = len(X)
+        return self
+
+    # -- bags of crops -----------------------------------------------------
+    #
+    # An image is a bag of crop embeddings, and something has to reduce that bag
+    # to one number. Doing it here rather than in the cache is the point of the
+    # whole arrangement: the reduction is a flag over a cache that outlives it,
+    # instead of a decision welded into the most expensive artifact we own.
+
+    def _bag_view(
+        self, crop_features: np.ndarray, counts: np.ndarray
+    ) -> tuple[np.ndarray, np.ndarray]:
+        X = np.asarray(crop_features, dtype=np.float64)
+        return truncate_bags(X, counts, self.config.crop_limit)
+
+    def fit_bags(
+        self, crop_features: np.ndarray, counts: np.ndarray, labels: np.ndarray
+    ) -> "LinearProbe":
+        """Fit the head from per-crop features and the bag sizes they belong to.
+
+        ``train_pooling="mean"`` fits on one mean-pooled row per image, which is
+        exactly the fit this project shipped with. ``"crop"`` fits on one row
+        per crop, each carrying its image's label -- instance-level multiple-
+        instance learning, and with it the label noise of calling every crop of
+        a tampered photograph synthetic.
+        """
+        X, counts = self._bag_view(crop_features, counts)
+        y = np.asarray(labels, dtype=np.int64)
+        if len(y) != len(counts):
+            raise ValueError(
+                f"got {len(y)} labels for {len(counts)} bags of crops"
+            )
+
+        if self.config.train_pooling == "crop":
+            return self.fit(X, repeat_labels(y, counts))
+        return self.fit(segment_reduce(X, counts, lambda v: v.mean(axis=0)), y)
+
+    def score_bags(self, crop_features: np.ndarray, counts: np.ndarray) -> np.ndarray:
+        """One probability per image, pooled from that image's crops."""
+        pooling = resolve_pooling(self.config.pooling)
+        X, counts = self._bag_view(crop_features, counts)
+
+        if pooling.space == FEATURE_SPACE:
+            # Reduce the embeddings, then call the head once per image.
+            return self.score(segment_reduce(X, counts, pooling.reduce))
+        # Call the head per crop, then reduce the probabilities. A localised
+        # signal survives this and does not survive the other.
+        return segment_reduce(self.score(X), counts, pooling.reduce)
+
+    def calibrate_bags(
+        self,
+        crop_features: np.ndarray,
+        counts: np.ndarray,
+        labels: np.ndarray,
+        *,
+        target_fpr: float = 0.01,
+    ) -> "LinearProbe":
+        """Fit the threshold on pooled scores, which is what deployment sees."""
+        self.threshold = threshold_at_fpr(
+            labels, self.score_bags(crop_features, counts), target_fpr
+        )
+        self.target_fpr = target_fpr
         return self
 
     def score(self, features: np.ndarray) -> np.ndarray:

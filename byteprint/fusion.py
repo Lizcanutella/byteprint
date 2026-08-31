@@ -74,6 +74,17 @@ class FusedDetector:
     """A logistic regression over the two experts' scalar outputs."""
 
     def __init__(self, probe: LinearProbe, *, seed: int = 0) -> None:
+        # Fusion joins two caches on their mean-pooled rows. Handing those to a
+        # probe that was trained to reduce crop *scores* would score it on a
+        # distribution it never saw, and would do so silently -- so it is
+        # refused rather than approximated. Wiring fusion through bag-level
+        # scoring is follow-up work; see docs/design-crop-pooling.md.
+        if probe.config.pooling != "mean" or probe.config.crop_limit is not None:
+            raise ValueError(
+                f"fusion needs a mean-pooled probe, got pooling="
+                f"{probe.config.pooling!r} crop_limit={probe.config.crop_limit!r}; "
+                "fusion reads one pooled row per image and cannot reduce crop scores"
+            )
         self.probe = probe
         self.seed = seed
         self.threshold: float = 0.5

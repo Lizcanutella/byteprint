@@ -40,13 +40,21 @@ import numpy as np
 
 from byteprint import fixture
 from byteprint.backbone import BACKBONES, DEFAULT_BACKBONE, load_backbone, resolve_device
-from byteprint.cache import EmbeddingStore, ExtractConfig, StaleCacheError
+from byteprint.cache import EmbeddingStore, ExtractConfig, StaleCacheError, read_config
 from byteprint.crops import CROP_MODES, DEFAULT_CROP_MODE
 from byteprint.data import scan_split
 from byteprint.heads import DEFAULT_HEAD, HEADS
 from byteprint.launder import LADDERS, NO_OP, ladder
 from byteprint.metrics import evaluate
 from byteprint.pipeline import extract, load_image
+from byteprint.pooling import (
+    DEFAULT_POOLING,
+    DEFAULT_TRAIN_POOLING,
+    POOLINGS,
+    TRAIN_POOLINGS,
+    resolve_pooling,
+    take_bags,
+)
 from byteprint.fusion import FusedDetector, join_caches
 from byteprint.probe import LinearProbe, ProbeConfig
 from byteprint.recon import AUTOENCODERS, DEFAULT_AUTOENCODERS, aeroblade_score, load_recon_expert
@@ -66,13 +74,52 @@ def _split_indices(n: int, holdout: float, seed: int) -> tuple[np.ndarray, np.nd
 
 
 def _load_store(cache: Path, *, rebuild: bool = False) -> EmbeddingStore:
-    import json
-
     config_path = Path(cache) / "config.json"
     if not config_path.exists():
         raise FileNotFoundError(f"no cache at {cache}; run `byteprint extract` first")
-    config = ExtractConfig(**json.loads(config_path.read_text()))
-    return EmbeddingStore.open(cache, config, rebuild=rebuild)
+    return EmbeddingStore.open(cache, read_config(cache), rebuild=rebuild)
+
+
+def _bags(store: EmbeddingStore) -> tuple[np.ndarray, np.ndarray]:
+    """A cache's crop rows and the bag sizes that group them by image."""
+    return store.crop_matrix(), store.crop_counts()
+
+
+def _probe_config(args: argparse.Namespace) -> ProbeConfig:
+    """The probe settings every training entry point shares."""
+    # Resolve the pooling now rather than after an extraction: an unknown name
+    # should cost a second, not an hour.
+    resolve_pooling(args.pooling)
+    return ProbeConfig(
+        head=args.head,
+        C=args.C,
+        seed=args.seed,
+        pooling=args.pooling,
+        train_pooling=args.train_pooling,
+        crop_limit=args.crop_limit,
+    )
+
+
+def _add_pooling_arguments(parser: argparse.ArgumentParser) -> None:
+    """The knobs that decide how a bag of crops becomes one score.
+
+    Only on commands that *fit* a probe. `eval`, `score` and `predict` take
+    the pooling from the saved probe instead, so a detector cannot be scored
+    with a reduction it was not trained under.
+    """
+    parser.add_argument(
+        "--pooling", default=DEFAULT_POOLING,
+        help=f"how crop evidence is reduced at scoring; built in: "
+             f"{', '.join(POOLINGS[n].usage for n in POOLINGS.names())}",
+    )
+    parser.add_argument(
+        "--train-pooling", default=DEFAULT_TRAIN_POOLING, choices=list(TRAIN_POOLINGS),
+        help="fit on one pooled row per image (mean) or one row per crop (crop)",
+    )
+    parser.add_argument(
+        "--crop-limit", type=int, default=None,
+        help="use only each image's first N crops; reproduces a smaller --crops run",
+    )
 
 
 def _print_ablation(labels, parts, *, generators=None, specs=None, title: str) -> None:
@@ -137,6 +184,13 @@ def cmd_list(args: argparse.Namespace) -> int:
     for name in CROP_MODES.names():
         marker = "  <- default" if name == DEFAULT_CROP_MODE else ""
         print(f"  {name}{marker}")
+
+    print("\npoolings       (--pooling)")
+    for name in POOLINGS.names():
+        kind = POOLINGS[name]
+        marker = "  <- default" if name == DEFAULT_POOLING else ""
+        print(f"  {kind.usage:<24} reduces in {kind.space} space{marker}")
+    print(f"  (--train-pooling: {', '.join(TRAIN_POOLINGS)})")
 
     print("\nautoencoders   (--aes)")
     for name in sorted(AUTOENCODERS):
@@ -204,15 +258,23 @@ def cmd_extract(args: argparse.Namespace, backbone_factory, recon_factory) -> in
 
 def cmd_train(args: argparse.Namespace) -> int:
     store = _load_store(args.cache)
-    features, labels = store.matrix(), store.labels()
+    crops, counts = _bags(store)
+    labels = store.labels()
     if len(np.unique(labels)) < 2:
         print("training needs both classes present; got only one", file=sys.stderr)
         return 1
 
+    # Split by *image*: an image's crops must not straddle the fit and
+    # calibration halves, or the threshold is fitted on data the head has seen.
     fit_idx, calib_idx = _split_indices(len(labels), args.calib_fraction, args.seed)
-    probe = LinearProbe(ProbeConfig(head=args.head, C=args.C, seed=args.seed))
-    probe.fit(features[fit_idx], labels[fit_idx])
-    probe.calibrate(features[calib_idx], labels[calib_idx], target_fpr=args.target_fpr)
+    fit_crops, fit_counts = take_bags(crops, counts, fit_idx)
+    calib_crops, calib_counts = take_bags(crops, counts, calib_idx)
+
+    probe = LinearProbe(_probe_config(args))
+    probe.fit_bags(fit_crops, fit_counts, labels[fit_idx])
+    probe.calibrate_bags(
+        calib_crops, calib_counts, labels[calib_idx], target_fpr=args.target_fpr
+    )
     # Travel with the settings the features were built under, so `score` and
     # `predict` need nothing but the probe file itself.
     probe.extract_config = store.config
@@ -221,15 +283,17 @@ def cmd_train(args: argparse.Namespace) -> int:
     generators = np.asarray(store.generators())
     report = evaluate(
         labels[calib_idx],
-        probe.score(features[calib_idx]),
+        probe.score_bags(calib_crops, calib_counts),
         generators=generators[calib_idx].tolist(),
         fpr_targets=DEFAULT_FPR_TARGETS,
         label="calibration split",
     )
     print(report.render())
+    limit = "all" if args.crop_limit is None else args.crop_limit
     print(
-        f"\n{args.head} head, threshold {probe.threshold:.6f} "
-        f"at {args.target_fpr:.1%} FPR -> {args.out}"
+        f"\n{args.head} head, {args.pooling} pooling over {limit} crops "
+        f"({args.train_pooling}-level fit on {probe.n_training_rows} rows), "
+        f"threshold {probe.threshold:.6f} at {args.target_fpr:.1%} FPR -> {args.out}"
     )
     return 0
 
@@ -237,9 +301,13 @@ def cmd_train(args: argparse.Namespace) -> int:
 def cmd_eval(args: argparse.Namespace) -> int:
     store = _load_store(args.cache)
     probe = LinearProbe.load(args.probe)
-    features, labels = store.matrix(), store.labels()
+    crops, counts = _bags(store)
+    labels = store.labels()
     generators = store.generators()
-    scores = probe.score(features)
+    # The pooling is the probe's, carried from training. Nothing here may
+    # choose a different one: that is precisely the silent mismatch this
+    # project guards against for crop size and backbone.
+    scores = probe.score_bags(crops, counts)
 
     print(
         evaluate(
@@ -264,7 +332,8 @@ def cmd_eval(args: argparse.Namespace) -> int:
 def cmd_logo(args: argparse.Namespace) -> int:
     """Leave-one-generator-out: the only protocol that measures what matters."""
     store = _load_store(args.cache)
-    features, labels = store.matrix(), store.labels()
+    crops, counts = _bags(store)
+    labels = store.labels()
     generators = np.asarray(store.generators())
     held_out = sorted(set(generators[labels == 1].tolist()))
 
@@ -277,10 +346,15 @@ def cmd_logo(args: argparse.Namespace) -> int:
             print(f"  {name:<16} skipped (no fakes left to train on)")
             continue
 
-        probe = LinearProbe(ProbeConfig(head=args.head, C=args.C, seed=args.seed))
-        probe.fit(features[train_mask], labels[train_mask])
+        train_crops, train_counts = take_bags(crops, counts, train_mask)
+        test_crops, test_counts = take_bags(crops, counts, test_mask)
+
+        probe = LinearProbe(_probe_config(args))
+        probe.fit_bags(train_crops, train_counts, labels[train_mask])
         report = evaluate(
-            labels[test_mask], probe.score(features[test_mask]), fpr_targets=(0.01,)
+            labels[test_mask],
+            probe.score_bags(test_crops, test_counts),
+            fpr_targets=(0.01,),
         )
         aucs.append(report.auc)
         print(
@@ -421,8 +495,9 @@ def cmd_predict(args: argparse.Namespace, backbone_factory) -> int:
             mode=store_config.crop_mode,
             seed=store_config.seed,
         )
-        pooled = backbone.embed(crops).mean(axis=0, keepdims=True)
-        score = float(probe.score(pooled)[0])
+        embedded = backbone.embed(crops)
+        counts = np.asarray([len(embedded)], dtype=np.int64)
+        score = float(probe.score_bags(embedded, counts)[0])
         verdict = "synthetic" if score >= probe.threshold else "real"
         print(f"{score:.4f}  {verdict:<10} {path}")
     return 0
@@ -511,6 +586,7 @@ def build_parser() -> argparse.ArgumentParser:
     tr.add_argument("--calib-fraction", type=float, default=0.2)
     tr.add_argument("--target-fpr", type=float, default=0.01)
     tr.add_argument("--seed", type=int, default=0)
+    _add_pooling_arguments(tr)
 
     ev = sub.add_parser("eval", parents=[common], help="score a cache with a trained probe")
     ev.add_argument("--cache", required=True, type=Path)
@@ -524,6 +600,7 @@ def build_parser() -> argparse.ArgumentParser:
     lo.add_argument("--head", default=DEFAULT_HEAD)
     lo.add_argument("--C", type=float, default=1.0)
     lo.add_argument("--seed", type=int, default=0)
+    _add_pooling_arguments(lo)
 
     fu = sub.add_parser("fuse", parents=[common], help="fit a score-level fusion of the two experts")
     fu.add_argument("--dino-cache", required=True, type=Path)
