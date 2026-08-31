@@ -36,11 +36,29 @@ discovered image gets exactly one entry; unreadable files score 0.5 with an
 
 ## Where the numbers stand
 
-`siglip2_so400m_hf` is the default backbone and the best result: pooled **AUC
-0.9497**, **TPR@1%FPR 0.5854**, unseen-type transfer 0.7208, over the full §5.2
-ladder on SID_Set. It beat DINOv2-giant at 38% of its parameters — on this task
-the pretraining objective matters more than scale, which is the finding worth
-repeating. Full table in `docs/results-backbone-sweep.md`.
+`siglip2_so400m_hf` is the default backbone: pooled **AUC 0.9497**, **TPR@1%FPR
+0.5854**, unseen-type transfer 0.7208, over the full §5.2 ladder on SID_Set. It
+beat DINOv2-giant at 38% of its parameters — on this task the pretraining
+objective matters more than scale. Full table in `docs/results-backbone-sweep.md`.
+
+**But the final layer is the wrong layer to read.** Tapping every depth of that
+same backbone (`docs/results-depth-frontier.md`) shows AUC peaking at **layer 12
+of 27** and declining thereafter. Two better points now exist:
+
+- **Best accuracy: layer 12 + the attention-pooled output — AUC 0.9717,
+  TPR@1%FPR 0.6922, TPR@0.1%FPR 0.4409.** The operating point improves 18%
+  relative at 1% FPR and 73% at 0.1%. Needs the full tower.
+- **Best cost: layer 9 alone — AUC 0.9612, TPR@1%FPR 0.6101 at 34% of the
+  parameters and 2.9× the throughput.** Layer 5 matches the published 0.9497 at
+  19% of parameters and 5×.
+
+These are different detectors; do not quote 0.9717 and "0.34× parameters"
+together. Two caveats travel with the result: unseen-type transfer does **not**
+improve (the pooler's 0.7208 is still the best LOGO in the table), and the
+mid-depth advantage is largest under heavy noise, which refuted the registered
+prediction that it would be largest on clean images. Predictions were recorded
+before the run in `docs/depth-frontier-prediction.md`; leave that file as
+written.
 
 The second expert is currently **not** carrying weight: AEROBLADE reconstruction
 error scores 0.5822 alone and fusion moves the pooled AUC by +0.0001. It is
