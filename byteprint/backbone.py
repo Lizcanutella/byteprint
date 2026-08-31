@@ -51,7 +51,12 @@ class BackboneSpec:
 
 BACKBONES: Registry[BackboneSpec] = Registry("backbone")
 
-DEFAULT_BACKBONE = "dinov2_vits14"
+# The backbone sweep (docs/results-backbone-sweep.md) put SigLIP2-so400m ahead of
+# every alternative on pooled AUC, operating point and unseen-type transfer, at
+# 38% of DINOv2-giant's parameters. It reads from a staged HuggingFace cache and
+# will not download, so `dinov2_vits14` remains the zero-setup option for a
+# machine with no weights staged.
+DEFAULT_BACKBONE = "siglip2_so400m_hf"
 
 
 def register_backbone(

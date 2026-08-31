@@ -357,7 +357,9 @@ def test_list_marks_the_defaults(capsys) -> None:
 
     out = capsys.readouterr().out
 
-    assert "dinov2_vits14            dim 384  <- default" in out
+    assert "siglip2_so400m_hf        dim 1152  <- default" in out
+    # The small CPU-runnable model is still registered, just no longer default.
+    assert "dinov2_vits14            dim 384\n" in out
 
 
 def test_train_accepts_an_alternative_head(tmp_path: Path, stub_factory, capsys) -> None:

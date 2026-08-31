@@ -255,7 +255,7 @@ byteprint train --plugin myteam.heads --head gbt ...      # or BYTEPRINT_PLUGINS
 
 | Extension point | Decorator | Shipped |
 |---|---|---|
-| backbone — the model | `@register_backbone` | `dinov2_vits14/vitb14/vitl14/vitg14` |
+| backbone — the model | `@register_backbone` | `dinov2_vits14/vitb14/vitl14/vitg14`, `dinov2_{large,giant}_hf`, `eva02_large_timm`, `siglip2_so400m_hf` |
 | head — the training objective | `@register_head` | `logreg` (log loss), `linear-svm` (hinge), `mlp` |
 | crop strategy — where you look | `@register_crop_mode` | `texture`, `anomaly`, `ela`, `random`, `center`, `resize` |
 | autoencoder bank | `AUTOENCODERS` dict | `sd15`, `sd14`, `vae-mse`, `vae-ema`, `sdxl` |
@@ -491,18 +491,27 @@ rung individually.
 
 ## Backbones
 
-| name | dim | notes |
-|------|-----|-------|
-| `dinov2_vits14` | 384 | default; runs on CPU |
-| `dinov2_vitb14` | 768 | |
-| `dinov2_vitl14` | 1024 | the published strong baseline; wants a GPU |
-| `dinov2_vitg14` | 1536 | ~1.1B params — over half the <2B budget on its own |
+Two families. The `torch.hub` entries download on demand; the `_hf` and `_timm`
+entries read from a local HuggingFace cache and **will not download**, which is
+what an offline compute node needs — stage their weights first.
+
+| name | dim | params | notes |
+|------|-----|--------|-------|
+| `siglip2_so400m_hf` | 1152 | 0.43B | **default** — best on every axis, see [the sweep](docs/results-backbone-sweep.md) |
+| `dinov2_giant_hf` | 1536 | 1.14B | flattest robustness ladder, but 2.6× the parameters for less accuracy |
+| `eva02_large_timm` | 1024 | 0.30B | natively a 448 model; under-tested at our 224 crops |
+| `dinov2_large_hf` | 1024 | 0.30B | the original published baseline |
+| `dinov2_vits14` | 384 | 0.02B | no staging needed; runs on CPU |
+| `dinov2_vitb14` | 768 | 0.09B | |
+| `dinov2_vitl14` | 1024 | 0.30B | |
+| `dinov2_vitg14` | 1536 | 1.14B | over half the <2B budget on its own |
 
 That list is a registry, not a fixed menu: `@register_backbone` adds one from
 your own module. See [Swappable parts](#swappable-parts).
 
 Device is auto-detected (`cuda` → `mps` → `cpu`). `--crop-size` must be a
-multiple of 14.
+multiple of the backbone's patch size — 14 for the DINOv2 and EVA02 entries,
+16 for SigLIP2. 224 satisfies both.
 
 ## Tests
 

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import sys
 
+import pytest
 import torch
 
 from byteprint.backbone import BACKBONES
@@ -60,3 +61,124 @@ def test_the_wrapper_prefers_an_explicit_pooler_output_when_the_model_has_one() 
 
     wrapped = backbone_hf.PooledHFVision(FakeModel())
     assert torch.equal(wrapped(torch.zeros(1, 3, 28, 28)), torch.full((1, 4), 3.0))
+
+
+def test_the_sweep_checkpoints_are_registered_with_their_widths() -> None:
+    assert BACKBONES["eva02_large_timm"].dim == 1024
+    assert BACKBONES["siglip2_so400m_hf"].dim == 1152
+
+
+def test_eva02_normalises_with_clip_statistics_rather_than_imagenet() -> None:
+    # EVA02's ft_in22k_in1k checkpoint was trained through CLIP's preprocessing.
+    # Feeding it ImageNet statistics is a silent accuracy leak, not an error.
+    spec = BACKBONES["eva02_large_timm"]
+    assert spec.patch_size == 14
+    assert spec.mean == pytest.approx((0.48145466, 0.4578275, 0.40821073))
+    assert spec.std == pytest.approx((0.26862954, 0.26130258, 0.27577711))
+
+
+def test_siglip2_carries_its_own_patch_size_and_symmetric_normalisation() -> None:
+    spec = BACKBONES["siglip2_so400m_hf"]
+    assert spec.patch_size == 16
+    assert spec.mean == (0.5, 0.5, 0.5)
+    assert spec.std == (0.5, 0.5, 0.5)
+
+
+def test_registering_them_does_not_import_timm_or_transformers() -> None:
+    # Same contract as the DINOv2 entries: the heavy import lives inside the
+    # build closure, so `byteprint list` works on a machine without either.
+    assert "timm" not in sys.modules
+    assert "transformers" not in sys.modules
+
+
+class _RecordingTower(torch.nn.Module):
+    """Stands in for Siglip2VisionModel, capturing the naflex triple."""
+
+    def __init__(self, dim: int = 4) -> None:
+        super().__init__()
+        self.dim = dim
+        self.seen: dict[str, torch.Tensor] = {}
+
+    def forward(self, pixel_values, pixel_attention_mask, spatial_shapes):  # noqa: D102
+        self.seen = {
+            "pixel_values": pixel_values,
+            "pixel_attention_mask": pixel_attention_mask,
+            "spatial_shapes": spatial_shapes,
+        }
+        dim_ = self.dim
+
+        class Output:
+            pooler_output = torch.full((pixel_values.shape[0], dim_), 7.0)
+            last_hidden_state = torch.zeros(pixel_values.shape[0], pixel_values.shape[1], dim_)
+
+        return Output()
+
+
+def test_the_naflex_wrapper_sends_one_flattened_patch_per_grid_cell() -> None:
+    tower = _RecordingTower()
+    wrapped = backbone_hf.NaflexVision(tower, patch_size=16)
+
+    result = wrapped(torch.zeros(2, 3, 224, 224))
+
+    # 224/16 = a 14x14 grid, each patch flattened to 16*16*3.
+    assert tower.seen["pixel_values"].shape == (2, 196, 768)
+    assert torch.equal(tower.seen["pixel_attention_mask"], torch.ones(2, 196, dtype=torch.long))
+    assert torch.equal(tower.seen["spatial_shapes"], torch.tensor([[14, 14], [14, 14]]))
+    assert torch.equal(result, torch.full((2, 4), 7.0))
+
+
+def test_the_naflex_wrapper_flattens_each_patch_channels_last() -> None:
+    # transformers' own convert_image_to_patches permutes to (gh, gw, p, p, c),
+    # so a patch flattens as pixel-major and channel-minor. Getting this
+    # backwards still yields embeddings of the right shape -- they are simply
+    # meaningless, because the patch-embedding Linear was fitted to the other
+    # ordering. Pinned deliberately.
+    image = torch.zeros(1, 3, 2, 2)
+    image[0, :, 0, 0] = torch.tensor([1.0, 2.0, 3.0])  # one pixel, three channels
+    image[0, :, 1, 1] = torch.tensor([4.0, 5.0, 6.0])
+
+    tower = _RecordingTower()
+    backbone_hf.NaflexVision(tower, patch_size=2)(image)
+
+    patch = tower.seen["pixel_values"][0, 0]
+    assert torch.equal(patch, torch.tensor([1.0, 2.0, 3.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.0, 0.0, 4.0, 5.0, 6.0]))
+
+
+def test_the_naflex_wrapper_matches_the_reference_patchifier() -> None:
+    # Cross-check the whole permutation against a transcription of
+    # transformers.models.siglip2.image_processing_siglip2.convert_image_to_patches.
+    def reference(image: torch.Tensor, patch_size: int) -> torch.Tensor:
+        c, h, w = image.shape
+        gh, gw = h // patch_size, w // patch_size
+        patched = image.reshape(c, gh, patch_size, gw, patch_size)
+        return patched.permute(1, 3, 2, 4, 0).reshape(gh * gw, -1)
+
+    images = torch.randn(2, 3, 32, 32)
+    tower = _RecordingTower()
+    backbone_hf.NaflexVision(tower, patch_size=16)(images)
+
+    expected = torch.stack([reference(image, 16) for image in images])
+    assert torch.equal(tower.seen["pixel_values"], expected)
+
+
+def test_the_naflex_wrapper_rejects_a_crop_that_is_not_a_whole_number_of_patches() -> None:
+    wrapped = backbone_hf.NaflexVision(_RecordingTower(), patch_size=16)
+    with pytest.raises(ValueError, match="multiple of the patch size"):
+        wrapped(torch.zeros(1, 3, 220, 220))
+
+
+def test_the_naflex_wrapper_mean_pools_when_the_tower_has_no_pooler() -> None:
+    class Unpooled(torch.nn.Module):
+        def forward(self, pixel_values, pixel_attention_mask, spatial_shapes):  # noqa: D102
+            class Output:
+                last_hidden_state = torch.arange(
+                    pixel_values.shape[0] * 4 * 2, dtype=torch.float32
+                ).reshape(pixel_values.shape[0], 4, 2)
+
+            return Output()
+
+    wrapped = backbone_hf.NaflexVision(Unpooled(), patch_size=16)
+    result = wrapped(torch.zeros(1, 3, 32, 32))
+    assert result.shape == (1, 2)
+    assert torch.equal(result, torch.tensor([[3.0, 4.0]]))

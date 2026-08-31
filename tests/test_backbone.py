@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 import numpy as np
 import pytest
 import torch
@@ -47,7 +49,20 @@ def test_the_registry_exposes_the_three_dinov2_sizes_with_their_widths() -> None
 
 
 def test_every_registered_backbone_uses_the_patch_size_in_its_name() -> None:
-    assert all(spec.patch_size == 14 for spec in BACKBONES.values())
+    # dinov2_vitl14 -> 14. The HF and timm entries encode no patch size in their
+    # names and are exempt; SigLIP2 is genuinely a /16 model, so the old blanket
+    # "everything is 14" assertion was a property of the roster, not a rule.
+    for name, spec in BACKBONES.items():
+        encoded = re.search(r"(\d\d)$", name)
+        if encoded is not None:
+            assert spec.patch_size == int(encoded.group(1)), name
+
+
+def test_every_registered_backbone_tiles_the_crop_size_every_run_uses() -> None:
+    # A patch size that does not divide 224 fails at the first forward pass --
+    # an hour into a job, after the weights and the split are already staged.
+    for name, spec in BACKBONES.items():
+        assert 224 % spec.patch_size == 0, name
 
 
 def test_embedding_returns_one_row_per_crop() -> None:
