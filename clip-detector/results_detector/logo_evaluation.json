@@ -1,0 +1,12 @@
+{
+  "per_generator_auroc": {
+    "sd21": 0.9944444444444445,
+    "sdxl": 0.9944444444444445,
+    "sd3": 0.961111111111111,
+    "dalle3": 0.9694444444444444,
+    "midjourney6": 0.9180555555555556
+  },
+  "logo_mean_auroc": 0.9675,
+  "feature": "production_pipeline._extended_features (CLIP preproj + jpeg_q50 delta), 1536-dim",
+  "note": "single LogisticRegression per fold, not the full routed multi-domain specialist architecture - a full LOGO retrain of that architecture (5x) was too expensive to run in the remaining time. This uses production's exact feature representation on a true K-fold leave-one-generator-out split."
+}

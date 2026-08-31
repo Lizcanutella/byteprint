@@ -1,0 +1,14 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded 360 images across ['real', 'sd21', 'sdxl', 'sd3', 'dalle3', 'midjourney6'] (all disjoint from training)
+Extracting production's exact feature (CLIP preproj embedding + jpeg_q50 delta)...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4785.38it/s]
+Loaded openai/clip-vit-base-patch32 on cpu (151.3M params)
+  feature shape: (360, 1536)
+  held-out generator = sd21         AUROC = 0.9944  (n=72)
+  held-out generator = sdxl         AUROC = 0.9944  (n=72)
+  held-out generator = sd3          AUROC = 0.9611  (n=72)
+  held-out generator = dalle3       AUROC = 0.9694  (n=72)
+  held-out generator = midjourney6  AUROC = 0.9181  (n=72)
+
+LOGO mean AUROC (production feature, true leave-one-generator-out): 0.9675
+Saved to results_detector/logo_evaluation.json
