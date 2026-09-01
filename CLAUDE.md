@@ -36,17 +36,40 @@ discovered image gets exactly one entry; unreadable files score 0.5 with an
 
 ## Where the numbers stand
 
-`siglip2_so400m_hf` is the default backbone and the best result: at **8 crops**,
-pooled **AUC 0.9688**, **TPR@1%FPR 0.6995**, TPR@0.1%FPR 0.4626, tampered 0.9494,
-unseen-type transfer 0.7642, over the full §5.2 ladder on SID_Set. It beat
-DINOv2-giant at 38% of its parameters — on this task the pretraining objective
-matters more than scale, which is the finding worth repeating. Full table in
+`siglip2_so400m_hf` is the default backbone. The shipped baseline — final pooled
+output, 2 crops — is pooled **AUC 0.9497**, **TPR@1%FPR 0.5854**, unseen-type
+transfer 0.7208, over the full §5.2 ladder on SID_Set. It beat DINOv2-giant at
+38% of its parameters — on this task the pretraining objective matters more than
+scale, which is the finding worth repeating. Full table in
 `docs/results-backbone-sweep.md`.
 
-**Crop count is the largest lever found so far**, and it was found by accident:
-the same configuration at 2 crops scores 0.9497 / 0.5854. Going to 8 costs 4× the
-backbone forward at scoring time — a real cost that any deployment claim has to
-carry. `docs/results-crop-pooling.md` has the ablation.
+Two independent axes have since beaten that baseline, each on its own:
+
+- **Crop count.** Same features, 2 crops → 8: **AUC 0.9688**, **TPR@1%FPR
+  0.6995**, TPR@0.1%FPR 0.4626, tampered 0.9494, transfer 0.7642. Found by
+  accident, as the free control in a run whose actual hypothesis was refuted.
+  Costs 4× the backbone forward at scoring time — a real cost any deployment
+  claim has to carry. `docs/results-crop-pooling.md`.
+- **Read depth.** The final layer is the wrong layer to read. Tapping every
+  depth of the same backbone shows AUC peaking at **layer 12 of 27** and
+  declining thereafter. Layer 12 + the attention-pooled output is **AUC 0.9717**,
+  **TPR@1%FPR 0.6922**, TPR@0.1%FPR 0.4409 (needs the full tower). Layer 9 alone
+  is 0.9612 / 0.6101 at **34% of the parameters and 2.9× the throughput**; layer
+  5 matches the published 0.9497 at 19% and 5×. These are different detectors —
+  do not quote 0.9717 and "0.34× parameters" together.
+  `docs/results-depth-frontier.md`.
+
+**The two have not been measured together.** Both were run at the other's
+baseline setting — the crop sweep read the pooler, the depth sweep used 2 crops —
+so the combination is an open question, not a claimed result. Do not add their
+gains. See `docs/results-depth-crops.md` for the combined run.
+
+Caveats that travel with these results. Unseen-type transfer does **not** improve
+with depth (the pooler's 0.7208 was the best LOGO until crop count moved it to
+0.7642), and the mid-depth advantage is largest under heavy noise, which refuted
+the registered prediction that it would be largest on clean images. Predictions
+were recorded before the run in `docs/depth-frontier-prediction.md`; leave that
+file as written.
 
 Max and top-k pooling over crop **scores** were tested and **refuted**: at
 matched crop count they lose to mean pooling on both backbones and badly damage
@@ -61,9 +84,8 @@ AUC, operating point and transfer. The top two are both language-supervised
 contrastive models from different families, so this is a property of the
 pretraining objective rather than of one checkpoint. That run measured
 `jiahui/clip-detector`'s *backbone* only — not its reactivity-delta feature or
-its domain routing, which are that branch's actual contribution, and which
-remain untested on our split and ladder. Do not quote it as a verdict on that
-detector. See `docs/results-clip-backbone.md`.
+its domain routing, which are that branch's actual contribution. See
+`docs/results-clip-backbone.md`.
 
 The second expert is currently **not** carrying weight: AEROBLADE reconstruction
 error scores 0.5822 alone and fusion moves the pooled AUC by +0.0001. It is
