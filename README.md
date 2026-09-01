@@ -826,7 +826,7 @@ have not touched it.
 |---|---|
 | **Mateo** | Detection pipeline and CLI, extraction/caching layer, laundering ladder (`OFFICIAL_LADDER`), backbone sweep, crop-mode and crop-pooling studies, depth-frontier study, SLURM job scripts, test suite |
 | **jiahui** | CLIP + reactivity-delta detector and domain routing, three-expert fusion experiment and its ablations ([`experiments/fusion/`](experiments/fusion/README.md)) |
-
+| **Fan Kuan** | **Video Direction & Editing:** Translated complex ML concepts (like the depth-frontier crossover) into a polished, high-impact demo video. |
 ## Not included
 
 No DIRE (full diffusion inversion), no adversarial evaluation, no localization,
