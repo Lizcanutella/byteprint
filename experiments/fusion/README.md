@@ -107,7 +107,8 @@ this sample size on its own), while the TPR@1%FPR gain is real and larger
 (+1.44 points) — consistent with the pattern in the full ablation table, where
 AEROBLADE's contribution shows up more at the strict end of the ROC curve than
 in the overall ranking. Read together with AEROBLADE running on its weaker
-VGG16 fallback distance (see below), this is likely a *lower bound* on what a
+VGG16 fallback distance rather than proper LPIPS (the `lpips` package failed to
+import in the Kaggle environment), this is likely a *lower bound* on what a
 3rd expert can add, not the ceiling.
 
 The 2-expert result was independently reproduced end-to-end in a **separate,
@@ -131,6 +132,65 @@ AEROBLADE both leaned "real" on them. Net effect across all 443 images is
 positive (more errors fixed than introduced), but it's a real trade-off, not a
 pure win — worth stating exactly that way rather than overselling it.
 
+## Robustness ladder: does the clean-data fusion survive degradation?
+
+Answers the open question above. Design: fit the fusion model **once**, on
+clean-image scores only (the same 443-image `none` rung, same methodology as
+the headline table) — then apply that *fixed, unmodified* model to every rung
+of the official §5.2 ladder (`byteprint/launder.py`'s `OFFICIAL_LADDER`: JPEG
+90/70/50/30, blur σ0.5/1.0/2.0, scale 0.5/0.25, noise σ0.02/0.05/0.10, jitter
+±20%, crop 80%). CLIP has no native ladder concept (`production_pipeline.py`
+just scores whatever images it's given), so each rung's transform is applied to
+every test image first via `byteprint.launder.apply` — the same function
+DINOv2's `--ladder official` uses internally, so both experts see identically
+degraded pixels. AEROBLADE isn't in this run (see "2-expert vs 3-expert" above
+for why the 2-expert pair is the one worth running standalone); adding it back
+under the ladder is a next step, not done here.
+
+| Rung | CLIP AUC | DINOv2 AUC | **Fused AUC** | CLIP TPR@1% | DINOv2 TPR@1% | **Fused TPR@1%** |
+|---|---|---|---|---|---|---|
+| none (clean) | 0.9926 | 0.9546 | 0.9950 | 0.8597 | 0.4101 | 0.8957 |
+| jpeg:90 | 0.9926 | 0.9493 | 0.9944 | 0.9173 | 0.4101 | 0.8957 |
+| jpeg:70 | 0.9892 | 0.9458 | 0.9931 | 0.8705 | 0.4065 | 0.8453 |
+| jpeg:50 | 0.9919 | 0.9430 | 0.9948 | 0.8849 | 0.3381 | 0.8633 |
+| jpeg:30 | 0.9870 | 0.9396 | 0.9930 | 0.8022 | 0.2734 | 0.8129 |
+| blur:0.5 | 0.9928 | 0.9529 | 0.9941 | 0.9029 | 0.4388 | 0.8849 |
+| blur:1.0 | 0.9922 | 0.9504 | 0.9935 | 0.8885 | 0.3849 | 0.8597 |
+| blur:2.0 | 0.9885 | 0.9409 | 0.9906 | 0.7374 | 0.3489 | 0.7986 |
+| scale:0.5 | 0.9924 | 0.9487 | 0.9922 | 0.8633 | 0.4065 | 0.8921 |
+| scale:0.25 | 0.9910 | 0.9352 | 0.9916 | 0.8273 | 0.3525 | 0.7734 |
+| noise:0.02 | 0.9884 | 0.9401 | 0.9937 | 0.8381 | 0.3741 | 0.8525 |
+| noise:0.05 | 0.9875 | 0.9294 | 0.9934 | 0.7950 | 0.2698 | 0.8669 |
+| noise:0.10 | 0.9767 | 0.9064 | 0.9824 | 0.7626 | 0.3129 | 0.8525 |
+| jitter:0.2 | 0.9932 | 0.9540 | 0.9949 | 0.8237 | 0.4137 | 0.8094 |
+| **crop:0.8** | **0.9509** | **0.9414** | **0.9746** | **0.3345** | **0.4245** | **0.6475** |
+| **mean (15 rungs)** | **0.9871** | **0.9421** | **0.9914** | **0.8072** | **0.3710** | **0.8367** |
+
+**Yes, the clean-data fusion survives the ladder** — it beats CLIP alone on AUC
+in 14 of 15 rungs (essentially tied on the 15th, `scale:0.5`), and beats it on
+mean TPR@1%FPR too (0.8367 vs 0.8072), despite never having seen a single
+degraded image during fitting.
+
+**The standout finding is `crop:0.8`.** Every other rung, CLIP alone is already
+strong (TPR@1%FPR 0.74-0.92). Under crop, it collapses to **0.3345** — missing
+two-thirds of fakes at the strict 1%-FPR threshold. Fusion recovers it to
+**0.6475**, nearly double, because DINOv2's TPR barely moves on this rung
+(0.4245, close to its usual range) — exactly the complementary-failure-mode
+story the hypothesis predicted, now demonstrated under real degradation rather
+than only on clean data.
+
+**This also validates the transform-implementation concern flagged earlier.**
+`clip-detector`'s own `crop80` result (which resizes the crop back up to full
+size after cropping) is **0.9990 AUC** — near perfect. This run's `crop:0.8`
+(byteprint's version, which leaves the image at its smaller, native-cropped
+resolution) gives CLIP only **0.9509 AUC**. Same nominal "80% crop" spec, very
+different outcome — concrete evidence the two transform implementations are not
+interchangeable, and that byteprint's un-resized crop is the harder, more
+realistic test of what a genuinely cropped/reframed profile picture looks like.
+
+A parallel run swapping DINOv2 for SigLIP2-so400m (the backbone Mateo's own
+sweep found beats it) is in progress — see "Next steps."
+
 ## Next steps
 
 1. **LOGO for DINOv2, AEROBLADE, and the fused model** — `byteprint logo` already
@@ -138,10 +198,13 @@ pure win — worth stating exactly that way rather than overselling it.
    is the more important generalization test (unseen-generator performance) and
    the fairest test of AEROBLADE's actual value proposition, since it's designed
    to catch generators neither learned model has trained on.
-2. **Robustness-ladder version of this fusion experiment** — everything here is
-   clean-images-only. The real question (does fusion help *under* JPEG/blur/
-   noise/etc.) is still open.
-3. **Fix the LPIPS import** so AEROBLADE gets a fair shot at its real ceiling
+2. **AEROBLADE under the ladder** — the robustness-ladder run above is CLIP+DINOv2
+   only. Re-adding AEROBLADE (fixing the LPIPS import first — item 4 below) is
+   the natural extension, though its diffusion-VAE reconstruction cost makes a
+   full 15-rung run considerably more expensive than the clean-only run was.
+3. **CLIP+SigLIP2 under the ladder** — swaps DINOv2 for the backbone Mateo's sweep
+   found beats every alternative (`docs/results-backbone-sweep.md`). In progress.
+4. **Fix the LPIPS import** so AEROBLADE gets a fair shot at its real ceiling
    instead of running on the weaker VGG16 fallback.
 
 ## Files here
@@ -161,6 +224,15 @@ pure win — worth stating exactly that way rather than overselling it.
 - `results/fusion_2expert_summary.json` — the clip+dino (2-expert) numbers
   isolated, including TPR@1%FPR and the independent-reproduction confirmation,
   for the side-by-side comparison above.
+- `byteprint_fusion_ladder_lite.ipynb` — the CLIP+DINOv2 robustness-ladder
+  notebook: fits fusion on the clean rung, applies it unmodified to all 15
+  official-ladder rungs. Same three Kaggle Datasets, GPU (T4). Runtime ≈ 2 hours
+  (CLIP's per-rung transform loop is the majority of it).
+- `results/clip_ladder_scores.json`, `results/dino_ladder_scores.json` — raw
+  per-image, per-rung scores (`path`, `label`/`labels`, spec, score) underlying
+  the robustness-ladder table.
+- `results/ladder_results_by_rung_2expert.json` — the per-rung and mean-across-
+  rungs AUC/TPR@1%FPR for CLIP, DINOv2, and fused, as printed in the table above.
 
 Model weights (`runs/probe.joblib`) and embedding caches are intentionally not
 committed, per this repo's convention (`CONTRIBUTING.md`) — they're a pure
