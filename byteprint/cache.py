@@ -3,16 +3,26 @@
 Because the backbone is frozen, features are a pure function of (image,
 laundering spec, extraction config). Computing them is the only expensive part
 of this pipeline; training the probe on top is seconds. So features are
-extracted once, pooled per image, and written here -- after which sweeping the
-probe, recalibrating a threshold or running leave-one-generator-out costs
-nothing.
+extracted once and written here -- after which sweeping the probe, recalibrating
+a threshold or running leave-one-generator-out costs nothing.
+
+**Schema 2 stores an image's crops individually.** The previous format averaged
+them on the way in, which made pooling the only swappable part of this pipeline
+that was not a hyperparameter -- the crop embeddings were gone by the time
+anything could ask a question about them. Storing the bag and reducing it on
+read costs ``crops_per_image`` times the disk and buys a pooling sweep over one
+extraction. See ``byteprint/pooling.py`` and ``docs/design-crop-pooling.md``.
 
 Layout on disk::
 
     cache/
-      config.json     extraction settings; a mismatch invalidates the cache
-      records.jsonl   one line per stored image, in row order
-      features.npy    (n_records, dim) float32, row i belongs to line i
+      config.json     extraction settings + schema; a mismatch invalidates it
+      records.jsonl   one line per stored image, in row order, with n_crops
+      features.npy    (total_crops, dim) float32
+
+An image's rows are ``features[offset : offset + n_crops]``, where the offsets
+are a cumulative sum over the records. There is deliberately no second index
+file: row order keeps one source of truth.
 """
 
 from __future__ import annotations
@@ -22,6 +32,9 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import numpy as np
+
+# 1: one mean-pooled row per image. 2: one row per crop, plus n_crops per record.
+SCHEMA_VERSION = 2
 
 
 class StaleCacheError(RuntimeError):
@@ -40,6 +53,13 @@ class ExtractConfig:
     seed: int
 
 
+def read_config(root: Path | str) -> ExtractConfig:
+    """The extraction settings a cache was built with, schema key stripped."""
+    stored = json.loads((Path(root) / "config.json").read_text())
+    stored.pop("schema", None)
+    return ExtractConfig(**stored)
+
+
 def key_for(path: Path | str, spec: str) -> str:
     """Cache key for one image under one laundering spec.
 
@@ -52,12 +72,13 @@ def key_for(path: Path | str, spec: str) -> str:
 
 
 class EmbeddingStore:
-    """Append-only store of pooled embeddings, resumable across runs."""
+    """Append-only store of per-crop embeddings, resumable across runs."""
 
     def __init__(self, root: Path, config: ExtractConfig) -> None:
         self.root = Path(root)
         self.config = config
-        self._features: list[np.ndarray] = []
+        # One entry per image: the (n_crops, dim) block that image contributed.
+        self._bags: list[np.ndarray] = []
         self._records: list[dict] = []
         self._keys: set[str] = set()
 
@@ -76,6 +97,18 @@ class EmbeddingStore:
             return store
 
         stored = json.loads(config_path.read_text())
+        schema = stored.pop("schema", 1)
+
+        if schema != SCHEMA_VERSION:
+            if not rebuild:
+                raise StaleCacheError(
+                    f"cache at {root} stores one pooled row per image "
+                    f"(schema {schema}); pooling needs per-crop rows "
+                    f"(schema {SCHEMA_VERSION}). Re-run `byteprint extract`, "
+                    f"or pass rebuild=True to discard it"
+                )
+            return store
+
         if stored != asdict(config):
             if not rebuild:
                 differing = sorted(
@@ -90,11 +123,17 @@ class EmbeddingStore:
         features_path = root / "features.npy"
         records_path = root / "records.jsonl"
         if features_path.exists() and records_path.exists():
-            matrix = np.load(features_path)
-            store._features = [row for row in matrix.astype(np.float32)]
+            matrix = np.load(features_path).astype(np.float32)
             store._records = [
                 json.loads(line) for line in records_path.read_text().splitlines() if line
             ]
+            counts = [int(record["n_crops"]) for record in store._records]
+            if sum(counts) != len(matrix):
+                raise StaleCacheError(
+                    f"cache at {root} is corrupt: its records account for "
+                    f"{sum(counts)} crop rows but features.npy holds {len(matrix)}"
+                )
+            store._bags = list(np.split(matrix, np.cumsum(counts)[:-1]))
             store._keys = {record["key"] for record in store._records}
 
         return store
@@ -102,8 +141,10 @@ class EmbeddingStore:
     def flush(self) -> None:
         """Persist everything added so far."""
         self.root.mkdir(parents=True, exist_ok=True)
-        (self.root / "config.json").write_text(json.dumps(asdict(self.config), indent=2))
-        np.save(self.root / "features.npy", self.matrix())
+        (self.root / "config.json").write_text(
+            json.dumps({**asdict(self.config), "schema": SCHEMA_VERSION}, indent=2)
+        )
+        np.save(self.root / "features.npy", self.crop_matrix())
         with (self.root / "records.jsonl").open("w") as handle:
             for record in self._records:
                 handle.write(json.dumps(record) + "\n")
@@ -123,7 +164,7 @@ class EmbeddingStore:
         generator: str,
         spec: str,
     ) -> None:
-        """Mean-pool one image's crop embeddings into a single cached row."""
+        """Store one image's crop embeddings, keeping each crop as its own row."""
         if key in self._keys:
             raise ValueError(f"key {key!r} is already in the cache")
 
@@ -132,8 +173,10 @@ class EmbeddingStore:
             raise ValueError(
                 f"expected embeddings of width {self.config.dim}, got {crop_features.shape[1]}"
             )
+        if crop_features.shape[0] < 1:
+            raise ValueError(f"{key!r} has no crops; an image contributes at least one row")
 
-        self._features.append(crop_features.mean(axis=0))
+        self._bags.append(crop_features)
         self._records.append(
             {
                 "key": key,
@@ -141,6 +184,7 @@ class EmbeddingStore:
                 "label": int(label),
                 "generator": generator,
                 "spec": spec,
+                "n_crops": int(crop_features.shape[0]),
             }
         )
         self._keys.add(key)
@@ -150,10 +194,26 @@ class EmbeddingStore:
     def __len__(self) -> int:
         return len(self._records)
 
-    def matrix(self) -> np.ndarray:
-        if not self._features:
+    def crop_matrix(self) -> np.ndarray:
+        """Every crop of every image, ``(total_crops, dim)``, in record order."""
+        if not self._bags:
             return np.zeros((0, self.config.dim), dtype=np.float32)
-        return np.stack(self._features).astype(np.float32)
+        return np.concatenate(self._bags).astype(np.float32)
+
+    def crop_counts(self) -> np.ndarray:
+        """How many rows of :meth:`crop_matrix` belong to each record."""
+        return np.asarray([r["n_crops"] for r in self._records], dtype=np.int64)
+
+    def matrix(self) -> np.ndarray:
+        """One mean-pooled row per image.
+
+        Kept, with its meaning unchanged, because it is what `fusion`, `logo`
+        and the pooling-free paths ask for. The averaging simply happens on
+        read now instead of on write, where it could not be undone.
+        """
+        if not self._bags:
+            return np.zeros((0, self.config.dim), dtype=np.float32)
+        return np.stack([bag.mean(axis=0) for bag in self._bags]).astype(np.float32)
 
     def labels(self) -> np.ndarray:
         return np.asarray([r["label"] for r in self._records], dtype=np.int64)

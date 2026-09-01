@@ -72,7 +72,10 @@ class ProbeScorer:
 
     Crops are taken with exactly the settings the probe was trained under --
     the config travels inside the saved probe, because scoring at a different
-    crop size than you trained at degrades quietly rather than loudly.
+    crop size than you trained at degrades quietly rather than loudly. The same
+    holds for *how* an image's crops are reduced to one score: the pooling is
+    the probe's, so the deliverable cannot disagree with the run that produced
+    the probe.
     """
 
     def __init__(
@@ -127,12 +130,11 @@ class ProbeScorer:
         flat = [crop for crops in crops_per_image for crop in crops]
         embedded = self.backbone.embed(flat)
 
-        pooled, start = [], 0
-        for crops in crops_per_image:
-            pooled.append(embedded[start : start + len(crops)].mean(axis=0))
-            start += len(crops)
-
-        return np.asarray(self.probe.score(np.stack(pooled)), dtype=np.float64)
+        # Pooling is the probe's business, not the scorer's: it travels inside
+        # the saved probe alongside the extraction config, so a probe trained
+        # with max pooling scores with max pooling here without being told.
+        counts = np.asarray([len(crops) for crops in crops_per_image], dtype=np.int64)
+        return np.asarray(self.probe.score_bags(embedded, counts), dtype=np.float64)
 
 
 def score_directory(

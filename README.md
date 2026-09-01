@@ -371,13 +371,25 @@ crop placement is not the constraint. `anomaly` does lift the operating point
 is not shared by `ela` — so it is a lead, not a finding.
 
 Both modes stay registered as measured negative results. The default is still
-`texture`. What the run actually indicts is **mean-pooling**: crop embeddings are
-averaged into one row per image, so aiming crops at a region whose evidence is
-then averaged away costs more than it gains.
+`texture`. What the run appeared to indict was **mean-pooling**: crop embeddings
+were averaged into one row per image, so aiming crops at a region whose evidence
+is then averaged away costs more than it gains.
 
 Full tables, the cost breakdown, why the fixture was confidently wrong, and an
 exact reproduction of the published baseline that fell out of the control arm:
 **[`docs/results-crop-localisation.md`](docs/results-crop-localisation.md)**.
+
+**That follow-up has since run, and pooling was refuted too.** The cache now
+stores one row per crop and pooling is a train-time flag, so mean, max and top-k
+are a sweep over one extraction. At matched crop count, max and top-k lose to
+mean on both backbones and badly damage the low-FPR operating point — a maximum
+selects each image's *noisiest* crop, which is how an authentic photograph
+becomes a confident false positive. What the run did find, through a control that
+cost nothing, is that **crop count** is the largest lever measured so far:
+2 → 8 crops takes SigLIP2 from 0.9497 to **0.9688** pooled and from 0.5854 to
+**0.6995** TPR@1%FPR. Two rounds of "look at the right part of the image" have
+now come back negative, while "look at more of it" worked twice.
+**[`docs/results-crop-pooling.md`](docs/results-crop-pooling.md)**.
 
 **2. Train on the damage.** `--augment N` draws N distinct random laundering
 chains per image (JPEG, downscale, blur, noise, and combinations). Because the
@@ -425,6 +437,13 @@ over generators hides the one you cannot detect at all.
 configuration is the default one: SigLIP2-so400m, 2×224px texture crops, 16,000
 SID_Set training images with `--augment 3`, scored on 1,600 held-out images
 across all fifteen rungs — 24,000 views.
+
+> **The best configuration is now 8 crops, not 2.** Everything in this section
+> describes the 2-crop configuration and remains accurate for it. The same
+> pipeline at `--crops 8` scores **0.9688** pooled, **0.6995** TPR@1%FPR,
+> **0.4626** TPR@0.1%FPR, 0.9494 tampered and 0.7642 LOGO mean, at 4× the
+> backbone forward when scoring. See
+> [`docs/results-crop-pooling.md`](docs/results-crop-pooling.md).
 
 | | AUC |
 |---|---|

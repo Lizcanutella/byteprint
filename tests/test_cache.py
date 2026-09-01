@@ -1,11 +1,19 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
 import pytest
 
-from byteprint.cache import ExtractConfig, EmbeddingStore, StaleCacheError, key_for
+from byteprint.cache import (
+    SCHEMA_VERSION,
+    EmbeddingStore,
+    ExtractConfig,
+    StaleCacheError,
+    key_for,
+    read_config,
+)
 from tests.conftest import write_image
 
 
@@ -142,3 +150,126 @@ def test_an_empty_store_reports_an_empty_matrix_of_the_right_width(tmp_path: Pat
 
     assert store.matrix().shape == (0, 4)
     assert store.labels().shape == (0,)
+
+
+# -- schema 2: the crop rows survive into the cache ------------------------
+
+
+def write_schema_one_cache(root: Path) -> Path:
+    """A cache as the previous format wrote it: one pooled row, no schema key."""
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "config.json").write_text(
+        json.dumps(
+            {
+                "backbone": "stub", "dim": 4, "crop_size": 28,
+                "crops_per_image": 2, "crop_mode": "texture", "seed": 0,
+            }
+        )
+    )
+    np.save(root / "features.npy", np.full((1, 4), 1.0, dtype=np.float32))
+    (root / "records.jsonl").write_text(
+        json.dumps(
+            {"key": "a", "path": "/data/a.png", "label": 1,
+             "generator": "sdxl", "spec": "none"}
+        )
+        + "\n"
+    )
+    return root
+
+
+def test_the_individual_crop_rows_survive_rather_than_only_their_mean(tmp_path: Path) -> None:
+    # The whole point of schema 2: pooling is decided by whoever reads the
+    # cache, so the reader has to be left something to decide between.
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+    store.add(
+        "a",
+        np.array([[0.0, 0.0, 0.0, 0.0], [2.0, 2.0, 2.0, 2.0]], dtype=np.float32),
+        path=Path("/data/a.png"),
+        label=1,
+        generator="sdxl",
+        spec="none",
+    )
+
+    assert store.crop_matrix().tolist() == [[0.0] * 4, [2.0] * 4]
+    assert store.crop_counts().tolist() == [2]
+
+
+def test_crop_rows_round_trip_through_disk(tmp_path: Path) -> None:
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+    store.add(
+        "a",
+        np.array([[1.0, 1.0, 1.0, 1.0], [5.0, 5.0, 5.0, 5.0]], dtype=np.float32),
+        path=Path("/data/a.png"),
+        label=1,
+        generator="sdxl",
+        spec="none",
+    )
+    store.flush()
+
+    reopened = EmbeddingStore.open(tmp_path / "cache", config())
+
+    assert np.allclose(reopened.crop_matrix(), store.crop_matrix())
+    assert reopened.crop_counts().tolist() == [2]
+    assert np.allclose(reopened.matrix(), np.full((1, 4), 3.0))
+
+
+def test_bags_of_different_sizes_stay_separable(tmp_path: Path) -> None:
+    # `center` and `resize` return one crop whatever --crops says, so a cache
+    # holding bags of one size is an assumption, not a guarantee.
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+    store.add(
+        "one",
+        np.array([[4.0, 4.0, 4.0, 4.0]], dtype=np.float32),
+        path=Path("/data/one.png"), label=1, generator="sdxl", spec="none",
+    )
+    add_row(store, "two", 1.0)
+    store.flush()
+
+    reopened = EmbeddingStore.open(tmp_path / "cache", config())
+
+    assert reopened.crop_counts().tolist() == [1, 2]
+    assert reopened.crop_matrix().shape == (3, 4)
+    assert np.allclose(reopened.matrix(), np.array([[4.0] * 4, [1.0] * 4]))
+
+
+def test_a_schema_one_cache_is_refused_with_the_fix_in_the_message(tmp_path: Path) -> None:
+    root = write_schema_one_cache(tmp_path / "cache")
+
+    with pytest.raises(StaleCacheError, match="schema 1"):
+        EmbeddingStore.open(root, config())
+
+
+def test_a_schema_one_cache_can_be_discarded_on_request(tmp_path: Path) -> None:
+    root = write_schema_one_cache(tmp_path / "cache")
+
+    rebuilt = EmbeddingStore.open(root, config(), rebuild=True)
+
+    assert len(rebuilt) == 0
+    assert rebuilt.crop_matrix().shape == (0, 4)
+
+
+def test_the_written_config_records_its_schema(tmp_path: Path) -> None:
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+    add_row(store, "a", 1.0)
+    store.flush()
+
+    written = json.loads((tmp_path / "cache" / "config.json").read_text())
+
+    assert written["schema"] == SCHEMA_VERSION
+
+
+def test_reading_a_config_recovers_the_extraction_settings_without_the_schema(
+    tmp_path: Path,
+) -> None:
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+    add_row(store, "a", 1.0)
+    store.flush()
+
+    assert read_config(tmp_path / "cache") == config()
+
+
+def test_an_empty_store_reports_empty_crop_rows(tmp_path: Path) -> None:
+    store = EmbeddingStore.open(tmp_path / "cache", config())
+
+    assert store.crop_matrix().shape == (0, 4)
+    assert store.crop_counts().tolist() == []

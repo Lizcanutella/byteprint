@@ -92,3 +92,43 @@ def test_grayscale_images_are_promoted_to_three_channels() -> None:
     crops = select_crops(gray, crop_size=32, top_k=2, mode="texture")
 
     assert all(c.shape == (32, 32, 3) for c in crops)
+
+
+# -- prefix stability ------------------------------------------------------
+#
+# `--crop-limit` reproduces a small-k run from a large-k cache, and that only
+# works for modes that *rank a fixed candidate set*: they draw
+# max(candidates, top_k) windows from a seeded generator and return the head of
+# one ordering, so top_k changes what is returned and not what was considered.
+# Pinned here because it is load-bearing for the pooling comparison and it is
+# exactly the kind of property that rots silently.
+
+
+def structured(size: int = 512, seed: int = 0) -> np.ndarray:
+    """Noise with a smoother patch, so ranking has something to order."""
+    rng = np.random.default_rng(seed)
+    image = rng.integers(0, 256, size=(size, size, 3), dtype=np.uint8)
+    image[100:250, 150:300] = (image[100:250, 150:300] * 0.2).astype(np.uint8)
+    return image
+
+
+@pytest.mark.parametrize("mode", ["texture", "anomaly", "ela"])
+def test_a_larger_top_k_extends_the_selection_rather_than_redrawing_it(mode: str) -> None:
+    image = structured()
+
+    few = select_crops(image, crop_size=64, top_k=2, mode=mode, seed=7)
+    many = select_crops(image, crop_size=64, top_k=8, mode=mode, seed=7)
+
+    assert len(few) == 2 and len(many) == 8
+    assert all(np.array_equal(a, b) for a, b in zip(few, many[:2], strict=True))
+
+
+def test_random_mode_does_not_have_that_property() -> None:
+    # It draws exactly top_k origins, so a different top_k is a different draw.
+    # Stated as a test so nobody assumes --crop-limit is mode-independent.
+    image = structured()
+
+    few = select_crops(image, crop_size=64, top_k=2, mode="random", seed=7)
+    many = select_crops(image, crop_size=64, top_k=8, mode="random", seed=7)
+
+    assert not all(np.array_equal(a, b) for a, b in zip(few, many[:2], strict=True))

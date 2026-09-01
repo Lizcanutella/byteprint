@@ -11,6 +11,7 @@ import pytest
 from PIL import Image
 
 from byteprint.cache import ExtractConfig
+from byteprint.crops import select_crops
 from byteprint.data import scan_images
 from byteprint.probe import LinearProbe, ProbeConfig
 from byteprint.score import (
@@ -363,3 +364,75 @@ def test_the_scorer_gives_identical_scores_whatever_its_worker_count(
 def test_the_scorer_refuses_a_worker_count_below_one(probe: LinearProbe) -> None:
     with pytest.raises(ValueError, match="workers"):
         ProbeScorer(backbone=StubBackbone(), probe=probe, config=config(), workers=0)
+
+
+# -- the deliverable honours the probe's pooling ---------------------------
+
+
+class VaryingBackbone:
+    """Crops differ in *direction*, not only magnitude.
+
+    :class:`StubBackbone` returns a constant vector per crop, which the probe's
+    row-wise L2 normalisation collapses to one identical unit vector -- so
+    every pooling gives the same answer and nothing about pooling can be
+    measured through it. Spreading the crop statistic across two axes is enough
+    to make the crops distinguishable.
+    """
+
+    name = "stub"
+    dim = DIM
+
+    def embed(self, crops):
+        rows = []
+        for crop in crops:
+            level = float(np.asarray(crop, dtype=np.float64).mean()) / 255.0
+            row = np.zeros(DIM)
+            row[0] = level
+            row[1] = 1.0 - level
+            rows.append(row)
+        return np.stack(rows).astype(np.float32)
+
+
+def bag_probe(pooling: str) -> LinearProbe:
+    """A probe fitted on bags, carrying `pooling` as its own setting."""
+    rng = np.random.default_rng(0)
+    labels = np.repeat([0, 1], 30)
+    crops = np.full(60, 2, dtype=np.int64)
+    features = np.zeros((120, DIM))
+    features[:, 0] = rng.uniform(0.0, 1.0, size=120)
+    features[:, 1] = 1.0 - features[:, 0]
+    # Fakes carry the signal in their first crop only, as a tampered image does.
+    features[np.arange(60, 120, 2), 0] += 1.5
+    fitted = LinearProbe(ProbeConfig(pooling=pooling)).fit_bags(features, crops, labels)
+    fitted.extract_config = config()
+    return fitted
+
+
+def test_the_required_json_interface_reflects_the_probes_pooling(images: Path) -> None:
+    # The deliverable must not quietly mean-pool a probe that was trained and
+    # published as a max-pooled detector.
+    batch = [
+        np.asarray(Image.open(images / name).convert("RGB")) for name in ("a.png", "b.jpg")
+    ]
+
+    pooled = ProbeScorer(
+        backbone=VaryingBackbone(), probe=bag_probe("mean"), config=config()
+    ).score_images(batch)
+    peaked = ProbeScorer(
+        backbone=VaryingBackbone(), probe=bag_probe("max"), config=config()
+    ).score_images(batch)
+
+    assert pooled.shape == peaked.shape == (2,)
+    assert not np.allclose(pooled, peaked)
+
+
+def test_a_max_pooled_scorer_returns_each_images_most_confident_crop(images: Path) -> None:
+    probe = bag_probe("max")
+    backbone = VaryingBackbone()
+    scorer_ = ProbeScorer(backbone=backbone, probe=probe, config=config())
+    image = np.asarray(Image.open(images / "a.png").convert("RGB"))
+
+    crops = select_crops(image, crop_size=28, top_k=2, mode="texture", seed=0)
+    embedded = backbone.embed(crops)
+
+    assert scorer_.score_images([image])[0] == pytest.approx(probe.score(embedded).max())

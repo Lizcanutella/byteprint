@@ -36,11 +36,24 @@ discovered image gets exactly one entry; unreadable files score 0.5 with an
 
 ## Where the numbers stand
 
-`siglip2_so400m_hf` is the default backbone and the best result: pooled **AUC
-0.9497**, **TPR@1%FPR 0.5854**, unseen-type transfer 0.7208, over the full §5.2
-ladder on SID_Set. It beat DINOv2-giant at 38% of its parameters — on this task
-the pretraining objective matters more than scale, which is the finding worth
-repeating. Full table in `docs/results-backbone-sweep.md`.
+`siglip2_so400m_hf` is the default backbone and the best result: at **8 crops**,
+pooled **AUC 0.9688**, **TPR@1%FPR 0.6995**, TPR@0.1%FPR 0.4626, tampered 0.9494,
+unseen-type transfer 0.7642, over the full §5.2 ladder on SID_Set. It beat
+DINOv2-giant at 38% of its parameters — on this task the pretraining objective
+matters more than scale, which is the finding worth repeating. Full table in
+`docs/results-backbone-sweep.md`.
+
+**Crop count is the largest lever found so far**, and it was found by accident:
+the same configuration at 2 crops scores 0.9497 / 0.5854. Going to 8 costs 4× the
+backbone forward at scoring time — a real cost that any deployment claim has to
+carry. `docs/results-crop-pooling.md` has the ablation.
+
+Max and top-k pooling over crop **scores** were tested and **refuted**: at
+matched crop count they lose to mean pooling on both backbones and badly damage
+the low-FPR operating point, because a max selects each image's noisiest crop.
+Do not re-propose them without reading that document — placement (`anomaly`,
+`ela`) and pooling have now both come back negative, and what has actually moved
+tampered detection twice is seeing *more* of the image, not a cleverer part of it.
 
 The sweep is now six backbones, and the finding held up when it was tested
 again: CLIP ViT-B/32 (0.09B) places **second**, beating DINOv2-giant (1.14B) on
@@ -91,11 +104,16 @@ rewarded by the Feasibility criterion; naming the machine is not.
 - Two experts behind one interface — `embed(crops) -> (n_crops, dim)` — so
   extraction, caching, resume and the laundering ladder work on any of them.
 - Embeddings are cached and joined **on key**, never zipped by row order.
+- The cache stores **one row per crop** (schema 2), not one pooled row per
+  image. Pooling is a train/eval-time knob (`--pooling`, `--train-pooling`,
+  `--crop-limit`) so it can be swept over one extraction; reducing at write time
+  is what made it un-sweepable before. Schema-1 caches are refused, not migrated.
 - Report TPR at a fixed low FPR alongside AUC; accuracy at threshold 0.5 is
   meaningless when score distributions shift between generators.
 - The package is `byteprint` (project **BYTEPRINT**, team ByteSized). Swappable parts
   — backbone, head/loss, crop strategy — are **registries**: add one with
-  `@register_backbone` / `@register_head` / `@register_crop_mode` in your own
+  `@register_backbone` / `@register_head` / `@register_crop_mode` /
+  `@register_pooling` in your own
   module and load it with `--plugin`, never by editing a shared file. See
   `docs/extending.md`; `byteprint list` shows what is registered.
 - `OFFICIAL_LADDER` in `byteprint/launder.py` is §5.2 transcribed and pinned by a
