@@ -59,10 +59,31 @@ Two independent axes have since beaten that baseline, each on its own:
   do not quote 0.9717 and "0.34× parameters" together.
   `docs/results-depth-frontier.md`.
 
-**The two have not been measured together.** Both were run at the other's
-baseline setting — the crop sweep read the pooler, the depth sweep used 2 crops —
-so the combination is an open question, not a claimed result. Do not add their
-gains. See `docs/results-depth-crops.md` for the combined run.
+**They have now been crossed, and they do not add.** A 2×2 on one extraction
+(`docs/results-depth-crops.md`) shows each gain is worth about **+0.019 AUC
+alone and about +0.010 once the other is present** — the interaction is
+**−0.0088**, and the pair delivers 76% of the additive prediction. At 1% FPR it
+is worse: depth is worth +0.0700 at 2 crops and **+0.0154** at 8, so quoting
+the depth study's "+18% relative at 1% FPR" for an 8-crop detector overstates it
+about fourfold. Never add these two gains.
+
+Three consequences worth carrying:
+
+- **At 8 crops, `layer 12` alone ties `layer 12 + pooler`** (0.9712 vs 0.9708) —
+  the depth-fusion gain that was real at 2 crops is gone, so the simpler and
+  cheaper read wins. Prefer it.
+- **At TPR@0.1%FPR the shipped pooler is still the best read at 8 crops**
+  (0.4258; adding layer 12 *drops* it to 0.4024). The strictest operating point
+  disagrees with the headline AUC.
+- **The pooler's transfer advantage grows with crops** — LOGO 0.7767 at 8 crops,
+  the highest transfer number the project has recorded, from the read with the
+  *worst* in-distribution AUC of the four. Unexplained, and the most interesting
+  open question here.
+
+That run's train split was half scale (a symlink subset — the materialised
+splits are mtime-guarded and must not be rewritten), which costs a flat ~0.0077
+AUC. All its comparisons are within-run, where that cancels; **do not quote its
+numbers against published ones.**
 
 Caveats that travel with these results. Unseen-type transfer does **not** improve
 with depth (the pooler's 0.7208 was the best LOGO until crop count moved it to

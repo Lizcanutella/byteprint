@@ -489,9 +489,12 @@ across all fifteen rungs — 24,000 views.
 >   parameters and 2.9× the throughput**.
 >   [`docs/results-depth-frontier.md`](docs/results-depth-frontier.md)
 >
-> These two gains are **not additive** — see [The depth frontier](#the-depth-frontier)
-> and [`docs/results-depth-crops.md`](docs/results-depth-crops.md), which crosses
-> them in one run rather than assuming they compose.
+> **These two gains are not additive, and we measured that rather than assuming
+> it.** Crossing them in one run gives an interaction of **−0.0088 AUC**: each is
+> worth ~+0.019 alone and ~+0.010 once the other is present, and at 1% FPR depth
+> keeps only 22% of its value once you have 8 crops. The arithmetic that gets you
+> to 0.99 is wrong.
+> [`docs/results-depth-crops.md`](docs/results-depth-crops.md)
 
 | | AUC |
 |---|---|
@@ -588,6 +591,47 @@ Predictions were registered before the run in
 [`docs/depth-frontier-prediction.md`](docs/depth-frontier-prediction.md); one of
 the three was refuted, and it is the most interesting thing in
 **[`docs/results-depth-frontier.md`](docs/results-depth-frontier.md)**.
+
+### Robustness summary — clean versus transformed
+
+The graded axis, on one page. Every rung of the §5.2 ladder, SigLIP2 at 8 crops,
+1,600 held-out images per rung. `none` is the clean control; everything else is
+the same images after one transform.
+
+| rung | pooler (shipped read) | layer 12 (best read) | Δ |
+|---|---|---|---|
+| `none` *(clean)* | 0.9816 | **0.9869** | +0.0053 |
+| `jpeg:90` | 0.9781 | 0.9852 | +0.0071 |
+| `jpeg:70` | 0.9721 | 0.9844 | +0.0123 |
+| `jpeg:50` | 0.9676 | 0.9809 | +0.0133 |
+| `jpeg:30` | 0.9539 | 0.9703 | +0.0164 |
+| `blur:0.5` | 0.9850 | 0.9862 | +0.0012 |
+| `blur:1.0` | 0.9715 | 0.9773 | +0.0058 |
+| `blur:2.0` | 0.9321 | 0.9307 | −0.0014 |
+| `scale:0.5` | 0.9694 | 0.9795 | +0.0101 |
+| `scale:0.25` | 0.9249 | 0.9405 | +0.0156 |
+| `noise:0.02` | 0.9565 | 0.9778 | +0.0213 |
+| `noise:0.05` | 0.9286 | 0.9613 | +0.0327 |
+| `noise:0.10` | 0.8897 | 0.9215 | +0.0318 |
+| `jitter:0.2` | 0.9749 | 0.9856 | +0.0107 |
+| `crop:0.8` | 0.9807 | 0.9860 | +0.0053 |
+| **pooled** | **0.9608** | **0.9712** | **+0.0104** |
+| **spread, clean → worst** | 0.0919 | **0.0654** | |
+
+Three things to read off it. **Degradation is graceful** — the worst rung of the
+best read is 0.9215, so nothing collapses. **Heavy noise is the binding
+constraint** — `noise:0.10` is the worst rung for both reads, with `blur:2.0`
+and `scale:0.25` next; JPEG at any quality in the list is close to free. And
+**the mid-depth read's advantage is largest exactly
+where the ladder bites hardest** — +0.0318 on `noise:0.10` against +0.0053 on
+clean — which is the opposite of what we predicted before the run, and the
+reason the depth result matters for a robustness-graded task rather than being a
+clean-accuracy curiosity.
+
+These numbers come from the half-scale-train run in
+[`docs/results-depth-crops.md`](docs/results-depth-crops.md), so read them
+against each other and not against the tables above; the ladder itself is full
+scale.
 
 ### How the baseline got here, and the control that cleared it
 
