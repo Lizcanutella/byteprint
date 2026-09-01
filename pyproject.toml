@@ -4,6 +4,10 @@ version = "0.1.0"
 description = "BYTEPRINT — robust detection of AI-generated images under real-world transformations"
 requires-python = ">=3.10,<3.13"
 dependencies = [
+    # `probe` and `fusion` import joblib at module level to persist a detector.
+    # scikit-learn happens to pull it in, but depending on another package's
+    # dependency is how a working install breaks on somebody else's machine.
+    "joblib>=1.3",
     "numpy>=1.26",
     "pillow>=10.0",
     "scikit-learn>=1.4",
