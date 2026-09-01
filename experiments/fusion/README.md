@@ -1,5 +1,15 @@
 # Three-expert fusion: CLIP+reactivity-delta, DINOv2, AEROBLADE
 
+> **Where this sits.** These numbers are on a **different corpus and a different
+> protocol** from the ones in the top-level [`README.md`](../../README.md):
+> a 2,506/443 split of `byteprint-realdata` scored on **clean images only**,
+> against that README's SID_Set scored over all fifteen §5.2 laundering rungs
+> (24,000 views). The AUCs are therefore not comparable in either direction, and
+> the ladder version of this experiment — the one that speaks to the graded axis
+> — is still open work, named in "Next steps" below. Read this as evidence that
+> score-level fusion of complementary experts *can* pay, not as this project's
+> headline robustness number.
+
 **Bottom line: fusing all three beats every single expert and every pair, at real
 statistical power (N=443, proper 5-fold cross-validation).**
 

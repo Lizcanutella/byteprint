@@ -67,9 +67,24 @@ One decision is still open:
   of *where* to look. Two were built — `anomaly` and `ela` — and **the answer is
   no**: on SID_Set they move tampered AUC from 0.8513 to 0.8317 and 0.8318, the
   wrong way, from two independent cues that agree to four decimals. Crop
-  placement is not what limits tampered detection. The evidence now points at
-  mean-pooling over crops instead; see below and
-  [`docs/results-crop-localisation.md`](docs/results-crop-localisation.md).
+  placement is not what limits tampered detection
+  ([`docs/results-crop-localisation.md`](docs/results-crop-localisation.md)).
+
+  That pointed at mean-pooling over crops as the real constraint — a localised
+  edit averaged against authentic content before the head ever sees it — so
+  pooling was moved out of the cache and max, top-k and mean-score reductions
+  were tested. **That answer is also no.** At matched crop count every
+  score-space arm loses to plain mean pooling on both backbones, and they
+  measurably damage the low-FPR operating point, because a max selects each
+  image's *noisiest* crop
+  ([`docs/results-crop-pooling.md`](docs/results-crop-pooling.md)).
+
+  Two rounds of "look at the right part of the image, or combine the parts more
+  cleverly" have now come back negative. What has actually moved tampered
+  detection twice is seeing **more** of the image — 2 → 8 crops takes tampered
+  AUC 0.9176 → 0.9494 — which is a coverage story, not a localisation one, and
+  the opposite of the intuition both rounds were built on. The gap itself is
+  still open: tampered images remain the harder class.
 
 Closed since the first draft:
 
@@ -157,6 +172,28 @@ fusion should do with a weak input. On this corpus the two-expert architecture
 is a one-expert architecture with overhead, and that is reported rather than
 quietly dropped:
 [`docs/results-recon-fusion.md`](docs/results-recon-fusion.md).
+
+### A second fusion result, on a different corpus and protocol
+
+[`experiments/fusion/`](experiments/fusion/README.md) reports a *three*-expert
+fusion — CLIP + reactivity-delta, DINOv2, AEROBLADE — reaching **AUC 0.9953 and
+TPR@1%FPR 0.9173**, with 5-fold cross-validation and a full 7-way ablation.
+That is a real result and it is not in conflict with the +0.0001 above, because
+the two were not measured on the same thing. **Do not read the two side by
+side without this table:**
+
+| | this README | `experiments/fusion/` |
+|---|---|---|
+| corpus | SID_Set, 16,000 train / 1,600 test | a 2,506 / 443 split of `byteprint-realdata` |
+| evaluation | all 15 §5.2 rungs — **24,000 laundered views** | **clean images only**, 443 |
+| what fusion is measured against | a 0.9497 SigLIP2 probe | a 0.9926 CLIP + reactivity-delta model |
+
+The decisive difference is the second row. Robustness under the §5.2 ladder is
+the graded axis of this competition, and the three-expert numbers are clean-only
+— their own README names this as open work. A weak expert also has much more
+room to help a fusion when the ladder is not there to separate the experts'
+failure modes for it. Treat 0.9953 as a clean-image result on a different
+corpus, not as this project's headline, until the ladder version of it runs.
 
 ## The deliverable interface
 
@@ -438,12 +475,23 @@ configuration is the default one: SigLIP2-so400m, 2×224px texture crops, 16,000
 SID_Set training images with `--augment 3`, scored on 1,600 held-out images
 across all fifteen rungs — 24,000 views.
 
-> **The best configuration is now 8 crops, not 2.** Everything in this section
-> describes the 2-crop configuration and remains accurate for it. The same
-> pipeline at `--crops 8` scores **0.9688** pooled, **0.6995** TPR@1%FPR,
-> **0.4626** TPR@0.1%FPR, 0.9494 tampered and 0.7642 LOGO mean, at 4× the
-> backbone forward when scoring. See
-> [`docs/results-crop-pooling.md`](docs/results-crop-pooling.md).
+> **This configuration has since been beaten on two independent axes.**
+> Everything in this section describes it and remains accurate for it; it is
+> kept as the reference point every later result is measured against.
+>
+> - **More crops.** The same pipeline at `--crops 8` scores **0.9688** pooled,
+>   **0.6995** TPR@1%FPR, **0.4626** TPR@0.1%FPR, 0.9494 tampered and 0.7642
+>   LOGO mean, at 4× the backbone forward when scoring.
+>   [`docs/results-crop-pooling.md`](docs/results-crop-pooling.md)
+> - **A shallower read.** Reading layer 12 of 27 alongside the pooled output,
+>   at 2 crops, scores **0.9717** pooled, **0.6922** TPR@1%FPR and **0.4409**
+>   TPR@0.1%FPR. Reading layer 9 *alone* beats the baseline at **34% of the
+>   parameters and 2.9× the throughput**.
+>   [`docs/results-depth-frontier.md`](docs/results-depth-frontier.md)
+>
+> These two gains are **not additive** — see [The depth frontier](#the-depth-frontier)
+> and [`docs/results-depth-crops.md`](docs/results-depth-crops.md), which crosses
+> them in one run rather than assuming they compose.
 
 | | AUC |
 |---|---|
@@ -491,6 +539,55 @@ Every backbone's worst rung is `noise:0.10`, without exception. EVA02 ran at
 
 Full table, per-rung numbers and cost:
 **[`docs/results-backbone-sweep.md`](docs/results-backbone-sweep.md)**.
+
+### The depth frontier
+
+Every number above reads one thing: the tower's final pooled output. Not
+because it was chosen, but because it is all the shipped adapters return.
+Tapping eleven depths of SigLIP2 plus that pooled output — all from the *same*
+forward pass, so the whole curve costs one extraction — says the final layer is
+the wrong layer to read, and not by a little.
+
+| read | AUC | TPR@1%FPR | TPR@0.1%FPR | carried params | throughput |
+|---|---|---|---|---|---|
+| layer 5 (19% of depth) | 0.9513 | 0.5635 | 0.3334 | 77M (0.19×) | **4.98×** |
+| layer 9 (33%) | 0.9612 | 0.6101 | 0.2308 | 138M (0.34×) | **2.90×** |
+| layer 12 (44%) | **0.9617** | 0.6072 | 0.3815 | 184M (0.45×) | 2.20× |
+| layer 27, mean-pooled | 0.9429 | 0.5490 | 0.1969 | 413M | 1.00× |
+| pooler *(what we shipped)* | 0.9497 | 0.5854 | 0.2554 | 413M | 1.00× |
+| **layer 12 + pooler** | **0.9717** | **0.6922** | **0.4409** | 413M | 1.00× |
+
+Read it as two different detectors, not one:
+
+- **Cheaper *and* better.** Layer 9 beats the shipped baseline on AUC and on the
+  operating point while carrying a third of the weights and running three times
+  faster. Layer 5 matches the shipped AUC at 19% of the parameters. This
+  continues the arc the backbone sweep started — 1.14B, then 0.43B, now an
+  effective 0.14B — three steps down the parameter axis, none costing accuracy.
+- **Best accuracy.** Layer 12 concatenated with the pooled output. It needs the
+  full tower, so it buys accuracy and no speed. **Do not quote 0.9717 and "0.34×
+  parameters" in the same sentence** — they are different rows.
+
+The mechanism is the part worth keeping. **The worst rung changes with depth:**
+every tap up to layer 9 fails worst on `blur:2.0`, every tap from layer 12 on
+fails worst on `noise:0.10`, and the crossover sits exactly where the curve
+peaks. Shallow features are high-frequency, so blur destroys them; deep features
+are semantic and blur-tolerant, but noise perturbs them. Layer 12 is where
+neither failure has taken hold — an optimum made of two competing failure modes,
+which aggregate AUC hides completely.
+
+Two honest weaknesses. A control holding depth fixed (`layer 27 + pooler`, the
+same 2,304 columns) gains only +0.0056 AUC against the two-depth version's
++0.0220, so about a third of the fusion gain is capacity and two thirds is
+genuine depth diversity — both real, only the second a finding. And **transfer
+does not improve**: the pooler's LOGO mean of 0.7208 is still the best in that
+column, with layer 12 at 0.6398. Unseen-type transfer remains this project's
+weakest axis, and depth does not move it.
+
+Predictions were registered before the run in
+[`docs/depth-frontier-prediction.md`](docs/depth-frontier-prediction.md); one of
+the three was refuted, and it is the most interesting thing in
+**[`docs/results-depth-frontier.md`](docs/results-depth-frontier.md)**.
 
 ### How the baseline got here, and the control that cleared it
 
