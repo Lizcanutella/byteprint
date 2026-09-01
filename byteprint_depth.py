@@ -84,9 +84,12 @@ def block_slice(position: int, *, width: int = SIGLIP2_SO400M_WIDTH) -> slice:
 
     Blocks are laid out in ascending tap order with the pooled output last, so
     ``position`` indexes ``tap_layers(...)`` directly and ``N_BLOCKS - 1`` is the
-    pooler. Because ``EmbeddingStore`` averages an image's crops *before* writing
-    the row, and a mean over rows commutes with a slice over columns, the block
-    read back here is exactly what a single-tap extraction would have cached.
+    pooler. A mean over an image's crops commutes with a slice over columns, so
+    the block read back here is exactly what a single-tap extraction would have
+    cached -- whichever side of the cache that mean happens on. It used to
+    happen on write, when ``EmbeddingStore`` stored one pooled row per image;
+    since the crop-pooling work it happens on read, and the identity is what
+    lets the depth curve be swept at any crop count from one extraction.
     """
     if not 0 <= position < N_BLOCKS:
         raise ValueError(f"block {position} is outside the {N_BLOCKS} stored blocks")

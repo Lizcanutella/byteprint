@@ -122,13 +122,25 @@ case "$STAGE" in
     ;;
 
   analyze)
-    # CPU only. One pass per crop count, reading the same two caches; the
-    # per-tap loop inside gives the depth axis, so the two passes together are
-    # the 2x2 plus every other tap for free.
-    for limit in ${BYTEPRINT_CROP_LIMITS:-2 4 8}; do
-      echo "--- fitting every tap at --crop-limit $limit"
+    # CPU only. One pass per crop count over the same two caches; the per-tap
+    # loop inside gives the depth axis, so the passes together are the 2x2.
+    #
+    # Three taps, not all eleven. Reading a block means pulling ~900 MB off the
+    # 8-crop cache and pooling it, so the tap loop is I/O and not the arithmetic
+    # it was at 2 crops -- and the frontier's *shape* is already measured in
+    # docs/results-depth-frontier.md. What is unmeasured is whether its two
+    # interesting points survive at 8 crops, so this run pays for those and the
+    # pooler that both are judged against. `analyze_depth.py` adds
+    # `best + pooler` on its own, which is the fourth cell of the 2x2.
+    #
+    #   block 5 = layer 9   the cheap detector
+    #   block 6 = layer 12  the accuracy peak
+    #   block 11 = pooler   what we shipped, and the crop-pooling control
+    for limit in ${BYTEPRINT_CROP_LIMITS:-2 8}; do
+      echo "--- fitting taps ${BYTEPRINT_BLOCKS:-5,6,11} at --crop-limit $limit"
       "$PY" "$SRC/scripts/analyze_depth.py" \
           --train-cache "$TRAIN_CACHE" --ladder-cache "$LADDER_CACHE" \
+          --blocks "${BYTEPRINT_BLOCKS:-5,6,11}" \
           --crop-limit "$limit" --logo \
           --out "$RUNS/depth_crops_${limit}.md"
       date
