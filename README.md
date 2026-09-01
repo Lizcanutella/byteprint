@@ -727,6 +727,62 @@ is a property of this corpus and these crops rather than a verdict on AEROBLADE;
 [`docs/results-recon-fusion.md`](docs/results-recon-fusion.md) sets out the
 three ways the test was hostile to the method.
 
+## Limitations, and what we would do with more time
+
+The honest list, in the order we would attack it.
+
+**One corpus.** Every headline number is SID_Set. The two classes it offers are
+*fully synthetic* and *tampered*, which are two kinds of editing, not two
+generators — so what we report as transfer (LOGO) is transfer to an unseen
+*manipulation type*, and it should never be quoted as generator
+generalisation. Nothing here has been tested against a diffusion model the
+probe has not seen. That is the single largest gap between this and a
+deployable detector.
+
+**Transfer is the weakest axis and nothing has moved it.** In-distribution
+pooled AUC is ~0.97; unseen-manipulation-type transfer is 0.72–0.76. The
+backbone sweep moved it, crop count moved it a little, and depth did not move
+it at all — the shipped attention pooler still has the best LOGO of any read we
+have tried, which is unexplained and worth understanding rather than
+papering over.
+
+**Tampered images remain the harder class**, and two rounds of the obvious fix
+came back negative. Crop *placement* (`anomaly`, `ela`) made it worse; crop
+*pooling* (max, top-k, mean-score) made it worse. What helped twice was seeing
+more of the image. We would take that seriously next and test crop counts
+beyond 8 — the curve between 2 and 8 is unmeasured, and one metric already
+falls at 8 on DINOv2, so it is not monotone.
+
+**One seed, one split, no error bars.** The large effects here (+0.02 AUC,
++0.11 TPR@1%FPR) are far outside plausible seed variance, but adjacent taps —
+layer 9 at 0.9612 against layer 12 at 0.9617 — are not, and we treat them as
+tied. Repeat seeds are the cheapest missing experiment in the project.
+
+**The second expert does not earn its place on this corpus.** AEROBLADE scores
+0.5822 alone and fusion moves the pooled AUC by +0.0001. We kept it as a
+measured negative rather than deleting the evidence, but BYTEPRINT should be
+described as a strong single-expert detector, not a working ensemble. The
+three-expert result in [`experiments/fusion/`](experiments/fusion/README.md)
+suggests fusion *can* pay with a stronger second expert — on clean images, on
+another corpus. Running that over the §5.2 ladder is the experiment we would
+run next with a spare GPU.
+
+**Error analysis is thin.** We report distributional metrics (AUC, TPR at fixed
+FPR, per-rung, per-class) but have not yet characterised *which images* fail.
+`experiments/fusion/` contains a per-image disagreement analysis for its own
+corpus; the equivalent for the SigLIP2 probe on SID_Set is not done.
+
+**No adversarial evaluation.** The §5.2 ladder is non-adversarial degradation.
+An attacker optimising against the detector is a different threat model and we
+have not touched it.
+
+## Team
+
+| | |
+|---|---|
+| **Mateo** | Detection pipeline and CLI, extraction/caching layer, laundering ladder (`OFFICIAL_LADDER`), backbone sweep, crop-mode and crop-pooling studies, depth-frontier study, SLURM job scripts, test suite |
+| **jiahui** | CLIP + reactivity-delta detector and domain routing, three-expert fusion experiment and its ablations ([`experiments/fusion/`](experiments/fusion/README.md)) |
+
 ## Not included
 
 No DIRE (full diffusion inversion), no adversarial evaluation, no localization,
