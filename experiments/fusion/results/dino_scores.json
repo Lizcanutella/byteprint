@@ -1,0 +1,2217 @@
+[
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0028.png",
+    "label": 1,
+    "dino_score": 0.9997101790210945
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0043.png",
+    "label": 1,
+    "dino_score": 0.9994515944544149
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0073.png",
+    "label": 1,
+    "dino_score": 0.9999641040211878
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0123.png",
+    "label": 1,
+    "dino_score": 0.9998850066493911
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0128.png",
+    "label": 1,
+    "dino_score": 0.9946385216174557
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0218.png",
+    "label": 1,
+    "dino_score": 0.9999974666779079
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0268.png",
+    "label": 1,
+    "dino_score": 0.9998164178221685
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0273.png",
+    "label": 1,
+    "dino_score": 0.9999729331089959
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0358.png",
+    "label": 1,
+    "dino_score": 0.9999549541393014
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0378.png",
+    "label": 1,
+    "dino_score": 0.9999219832199817
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0458.png",
+    "label": 1,
+    "dino_score": 0.6136581732052051
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0468.png",
+    "label": 1,
+    "dino_score": 0.9965136893443933
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0473.png",
+    "label": 1,
+    "dino_score": 0.9986792235414629
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0483.png",
+    "label": 1,
+    "dino_score": 0.9912731021703203
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0508.png",
+    "label": 1,
+    "dino_score": 0.5498471755821955
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0623.png",
+    "label": 1,
+    "dino_score": 0.9978651797108691
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0648.png",
+    "label": 1,
+    "dino_score": 0.9994859082193771
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0678.png",
+    "label": 1,
+    "dino_score": 0.9533509236252647
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0693.png",
+    "label": 1,
+    "dino_score": 0.999972492554147
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_dalle3_0733.png",
+    "label": 1,
+    "dino_score": 0.9979199619497049
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0014.png",
+    "label": 1,
+    "dino_score": 0.9951888874336671
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0019.png",
+    "label": 1,
+    "dino_score": 0.9975218132951148
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0024.png",
+    "label": 1,
+    "dino_score": 0.9714147329320921
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0119.png",
+    "label": 1,
+    "dino_score": 0.9473930543938793
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0129.png",
+    "label": 1,
+    "dino_score": 0.9245059080410232
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0134.png",
+    "label": 1,
+    "dino_score": 0.9996400648448039
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0219.png",
+    "label": 1,
+    "dino_score": 0.9762252655266784
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0234.png",
+    "label": 1,
+    "dino_score": 0.8480122402201602
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0239.png",
+    "label": 1,
+    "dino_score": 0.9997925950195696
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0244.png",
+    "label": 1,
+    "dino_score": 0.999998310238652
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0279.png",
+    "label": 1,
+    "dino_score": 0.9999593073954202
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0289.png",
+    "label": 1,
+    "dino_score": 0.9957943311694953
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0329.png",
+    "label": 1,
+    "dino_score": 0.9107728501190098
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0339.png",
+    "label": 1,
+    "dino_score": 0.9997870423407428
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0344.png",
+    "label": 1,
+    "dino_score": 0.3136381273733731
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0364.png",
+    "label": 1,
+    "dino_score": 0.966102294724104
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0369.png",
+    "label": 1,
+    "dino_score": 0.807073037620276
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0389.png",
+    "label": 1,
+    "dino_score": 0.9968951630719837
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0404.png",
+    "label": 1,
+    "dino_score": 0.9796590511240116
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0484.png",
+    "label": 1,
+    "dino_score": 0.9933371187878203
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0494.png",
+    "label": 1,
+    "dino_score": 0.9999117468245172
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0504.png",
+    "label": 1,
+    "dino_score": 0.9809856869205509
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0604.png",
+    "label": 1,
+    "dino_score": 0.999987843412492
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0624.png",
+    "label": 1,
+    "dino_score": 0.6341002693440204
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0659.png",
+    "label": 1,
+    "dino_score": 0.9975713860749962
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_midjourney6_0719.png",
+    "label": 1,
+    "dino_score": 0.9983918622124931
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0060.png",
+    "label": 1,
+    "dino_score": 0.6671690712882535
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0065.png",
+    "label": 1,
+    "dino_score": 0.5199520432276765
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0075.png",
+    "label": 1,
+    "dino_score": 0.9735282443174703
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0130.png",
+    "label": 1,
+    "dino_score": 0.9999510902671284
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0185.png",
+    "label": 1,
+    "dino_score": 0.9778270940967105
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0190.png",
+    "label": 1,
+    "dino_score": 0.9999991399574495
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0215.png",
+    "label": 1,
+    "dino_score": 0.4068934920050006
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0220.png",
+    "label": 1,
+    "dino_score": 0.7314515286980193
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0245.png",
+    "label": 1,
+    "dino_score": 0.948946407156413
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0255.png",
+    "label": 1,
+    "dino_score": 0.9627432377527877
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0265.png",
+    "label": 1,
+    "dino_score": 0.6924095350119923
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0355.png",
+    "label": 1,
+    "dino_score": 0.9921471631197286
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0375.png",
+    "label": 1,
+    "dino_score": 0.9997990222297268
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0385.png",
+    "label": 1,
+    "dino_score": 0.9957227997081349
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0400.png",
+    "label": 1,
+    "dino_score": 0.4047803935897016
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0430.png",
+    "label": 1,
+    "dino_score": 0.9828779686437771
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0460.png",
+    "label": 1,
+    "dino_score": 0.22822326656862743
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0475.png",
+    "label": 1,
+    "dino_score": 0.9874378795913454
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0620.png",
+    "label": 1,
+    "dino_score": 0.9975430850786163
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0650.png",
+    "label": 1,
+    "dino_score": 0.36144245543855485
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0670.png",
+    "label": 1,
+    "dino_score": 0.99909454634493
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0680.png",
+    "label": 1,
+    "dino_score": 0.9931560016985678
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0710.png",
+    "label": 1,
+    "dino_score": 0.9773441421536794
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd21_0720.png",
+    "label": 1,
+    "dino_score": 0.663334846037718
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0012.png",
+    "label": 1,
+    "dino_score": 0.9995436884237446
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0022.png",
+    "label": 1,
+    "dino_score": 0.9991319079659909
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0057.png",
+    "label": 1,
+    "dino_score": 0.9989630957384382
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0072.png",
+    "label": 1,
+    "dino_score": 0.9893863561688132
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0097.png",
+    "label": 1,
+    "dino_score": 0.9900433653024012
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0137.png",
+    "label": 1,
+    "dino_score": 0.9808660229308636
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0147.png",
+    "label": 1,
+    "dino_score": 0.9994829283085253
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0372.png",
+    "label": 1,
+    "dino_score": 0.9397062955368782
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0407.png",
+    "label": 1,
+    "dino_score": 0.9825080425613246
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0422.png",
+    "label": 1,
+    "dino_score": 0.9920007471544819
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0427.png",
+    "label": 1,
+    "dino_score": 0.9915499477840128
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0462.png",
+    "label": 1,
+    "dino_score": 0.9941323241482937
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0507.png",
+    "label": 1,
+    "dino_score": 0.9879268443152093
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0512.png",
+    "label": 1,
+    "dino_score": 0.9735146244424698
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0517.png",
+    "label": 1,
+    "dino_score": 0.9999886807230498
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0522.png",
+    "label": 1,
+    "dino_score": 0.9181859530198705
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0527.png",
+    "label": 1,
+    "dino_score": 0.8223278075122283
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0542.png",
+    "label": 1,
+    "dino_score": 0.5075023565102986
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0552.png",
+    "label": 1,
+    "dino_score": 0.8350796605150502
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0562.png",
+    "label": 1,
+    "dino_score": 0.22924834413693793
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0567.png",
+    "label": 1,
+    "dino_score": 0.8648705546770482
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0582.png",
+    "label": 1,
+    "dino_score": 0.9977959033132234
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0737.png",
+    "label": 1,
+    "dino_score": 0.921767219188186
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sd3_0747.png",
+    "label": 1,
+    "dino_score": 0.9697039630738369
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0036.png",
+    "label": 1,
+    "dino_score": 0.9999923101630217
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0106.png",
+    "label": 1,
+    "dino_score": 0.9783764113265296
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0126.png",
+    "label": 1,
+    "dino_score": 0.9904694123811961
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0141.png",
+    "label": 1,
+    "dino_score": 0.149947033359028
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0151.png",
+    "label": 1,
+    "dino_score": 0.007485594922027673
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0186.png",
+    "label": 1,
+    "dino_score": 0.9998927628418333
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0206.png",
+    "label": 1,
+    "dino_score": 0.4408547338312319
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0286.png",
+    "label": 1,
+    "dino_score": 0.9999743298641016
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0306.png",
+    "label": 1,
+    "dino_score": 0.9975906288490267
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0311.png",
+    "label": 1,
+    "dino_score": 0.9999972558337296
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0431.png",
+    "label": 1,
+    "dino_score": 0.9941368820913709
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0446.png",
+    "label": 1,
+    "dino_score": 0.9950236559385238
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0476.png",
+    "label": 1,
+    "dino_score": 0.9977419503739982
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0506.png",
+    "label": 1,
+    "dino_score": 0.022199428008670176
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0511.png",
+    "label": 1,
+    "dino_score": 0.9999072823106956
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0536.png",
+    "label": 1,
+    "dino_score": 0.9380538308459837
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0596.png",
+    "label": 1,
+    "dino_score": 0.9999814571234186
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0646.png",
+    "label": 1,
+    "dino_score": 0.9990813591867667
+  },
+  {
+    "path": "test/fake/defactify/defactify_ai_sdxl_0706.png",
+    "label": 1,
+    "dino_score": 0.9897100223408588
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0003.png",
+    "label": 1,
+    "dino_score": 0.9517814711045138
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0005.png",
+    "label": 1,
+    "dino_score": 0.5897247713534648
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0006.png",
+    "label": 1,
+    "dino_score": 0.9095509996208371
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0019.png",
+    "label": 1,
+    "dino_score": 0.985403643192587
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0029.png",
+    "label": 1,
+    "dino_score": 0.9994843937378796
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0040.png",
+    "label": 1,
+    "dino_score": 0.9991370150112753
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0043.png",
+    "label": 1,
+    "dino_score": 0.856813783783738
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0050.png",
+    "label": 1,
+    "dino_score": 0.999766831030862
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0070.png",
+    "label": 1,
+    "dino_score": 0.9997632532992491
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0074.png",
+    "label": 1,
+    "dino_score": 0.998103674950851
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0096.png",
+    "label": 1,
+    "dino_score": 0.7472445673516099
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0098.png",
+    "label": 1,
+    "dino_score": 0.999991193112401
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0103.png",
+    "label": 1,
+    "dino_score": 0.7747100901776512
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0104.png",
+    "label": 1,
+    "dino_score": 0.9774350116841615
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0122.png",
+    "label": 1,
+    "dino_score": 0.931581260164098
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0125.png",
+    "label": 1,
+    "dino_score": 0.6791800037802318
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0127.png",
+    "label": 1,
+    "dino_score": 0.9999268681625431
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0128.png",
+    "label": 1,
+    "dino_score": 0.8817955853969375
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0133.png",
+    "label": 1,
+    "dino_score": 0.9920727487159063
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0143.png",
+    "label": 1,
+    "dino_score": 0.949178060201539
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0144.png",
+    "label": 1,
+    "dino_score": 0.9950562061781277
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0146.png",
+    "label": 1,
+    "dino_score": 0.9955326182229249
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0147.png",
+    "label": 1,
+    "dino_score": 0.0061602972267580216
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0160.png",
+    "label": 1,
+    "dino_score": 0.9288569288158417
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0161.png",
+    "label": 1,
+    "dino_score": 0.9998270396301414
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0164.png",
+    "label": 1,
+    "dino_score": 0.9889407769486446
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0170.png",
+    "label": 1,
+    "dino_score": 0.9943236155352646
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0171.png",
+    "label": 1,
+    "dino_score": 0.9994398794133447
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0174.png",
+    "label": 1,
+    "dino_score": 0.9934359694030634
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0189.png",
+    "label": 1,
+    "dino_score": 0.997821466657121
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0196.png",
+    "label": 1,
+    "dino_score": 0.9990901939770207
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0201.png",
+    "label": 1,
+    "dino_score": 0.9861803612914032
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0205.png",
+    "label": 1,
+    "dino_score": 0.4767113136541892
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0211.png",
+    "label": 1,
+    "dino_score": 0.9996555602905904
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0215.png",
+    "label": 1,
+    "dino_score": 0.7643527140672272
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0231.png",
+    "label": 1,
+    "dino_score": 0.9673524095933194
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0238.png",
+    "label": 1,
+    "dino_score": 0.9840624857185899
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0249.png",
+    "label": 1,
+    "dino_score": 0.7192673288873455
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0250.png",
+    "label": 1,
+    "dino_score": 0.786850293720414
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0278.png",
+    "label": 1,
+    "dino_score": 0.999953573215988
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0286.png",
+    "label": 1,
+    "dino_score": 0.015844276913755936
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0287.png",
+    "label": 1,
+    "dino_score": 0.9281204750303794
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0288.png",
+    "label": 1,
+    "dino_score": 0.034206854538673566
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0291.png",
+    "label": 1,
+    "dino_score": 0.9611777182606677
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0295.png",
+    "label": 1,
+    "dino_score": 0.9115983068831661
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0298.png",
+    "label": 1,
+    "dino_score": 0.9153922613275687
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0305.png",
+    "label": 1,
+    "dino_score": 0.19289748637823897
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0331.png",
+    "label": 1,
+    "dino_score": 0.9291681904027359
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0349.png",
+    "label": 1,
+    "dino_score": 0.46071987480419235
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0354.png",
+    "label": 1,
+    "dino_score": 0.6976120610487924
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0372.png",
+    "label": 1,
+    "dino_score": 0.9978081894573241
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0377.png",
+    "label": 1,
+    "dino_score": 0.4356811944602259
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0381.png",
+    "label": 1,
+    "dino_score": 0.9870506666640523
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0389.png",
+    "label": 1,
+    "dino_score": 0.9994090527681758
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0395.png",
+    "label": 1,
+    "dino_score": 0.9968196228285803
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0399.png",
+    "label": 1,
+    "dino_score": 0.9586019250184481
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0405.png",
+    "label": 1,
+    "dino_score": 0.9950041638625882
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0427.png",
+    "label": 1,
+    "dino_score": 0.9978669068974226
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0428.png",
+    "label": 1,
+    "dino_score": 0.9985864159291206
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0430.png",
+    "label": 1,
+    "dino_score": 0.9088576467965443
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0431.png",
+    "label": 1,
+    "dino_score": 0.9737022381259192
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0436.png",
+    "label": 1,
+    "dino_score": 0.37806137910550497
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0440.png",
+    "label": 1,
+    "dino_score": 0.06209526278738718
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0443.png",
+    "label": 1,
+    "dino_score": 0.9814809220920065
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0444.png",
+    "label": 1,
+    "dino_score": 0.4253914724805415
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0458.png",
+    "label": 1,
+    "dino_score": 0.9776896319542697
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0459.png",
+    "label": 1,
+    "dino_score": 0.2536703900864069
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0470.png",
+    "label": 1,
+    "dino_score": 0.8653431478325754
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0473.png",
+    "label": 1,
+    "dino_score": 0.9997849685383491
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0479.png",
+    "label": 1,
+    "dino_score": 0.9999432346976682
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0486.png",
+    "label": 1,
+    "dino_score": 0.993281727191275
+  },
+  {
+    "path": "test/fake/fullres/fullres_ai_0488.png",
+    "label": 1,
+    "dino_score": 0.7844499527742556
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0005.png",
+    "label": 1,
+    "dino_score": 0.9999072484022642
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0010.png",
+    "label": 1,
+    "dino_score": 0.9997903094922076
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0021.png",
+    "label": 1,
+    "dino_score": 0.9938654098605972
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0026.png",
+    "label": 1,
+    "dino_score": 0.9999995058890278
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0041.png",
+    "label": 1,
+    "dino_score": 0.9991994339752326
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0043.png",
+    "label": 1,
+    "dino_score": 0.9957647315268723
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0064.png",
+    "label": 1,
+    "dino_score": 0.994816517666132
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0072.png",
+    "label": 1,
+    "dino_score": 0.998989019397034
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0086.png",
+    "label": 1,
+    "dino_score": 0.988313615142174
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0089.png",
+    "label": 1,
+    "dino_score": 0.987593765511846
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0090.png",
+    "label": 1,
+    "dino_score": 0.975129189443632
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0102.png",
+    "label": 1,
+    "dino_score": 0.9996104134405239
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0104.png",
+    "label": 1,
+    "dino_score": 0.8276283196068424
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0105.png",
+    "label": 1,
+    "dino_score": 0.09418607978039434
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0110.png",
+    "label": 1,
+    "dino_score": 0.9942302533543856
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0113.png",
+    "label": 1,
+    "dino_score": 0.8779612299828659
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0118.png",
+    "label": 1,
+    "dino_score": 0.003208616584475255
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0121.png",
+    "label": 1,
+    "dino_score": 0.9999551142269455
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0132.png",
+    "label": 1,
+    "dino_score": 0.9999271163659825
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0141.png",
+    "label": 1,
+    "dino_score": 0.9966377178642354
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0149.png",
+    "label": 1,
+    "dino_score": 0.9369574314605248
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0151.png",
+    "label": 1,
+    "dino_score": 0.9999462715736944
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0164.png",
+    "label": 1,
+    "dino_score": 0.999614128217373
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0167.png",
+    "label": 1,
+    "dino_score": 0.9653628572283939
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0176.png",
+    "label": 1,
+    "dino_score": 0.9996020782768773
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0195.png",
+    "label": 1,
+    "dino_score": 0.8370202440210054
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0200.png",
+    "label": 1,
+    "dino_score": 0.9920356419034534
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0205.png",
+    "label": 1,
+    "dino_score": 0.8849412256043647
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0208.png",
+    "label": 1,
+    "dino_score": 0.9885352790109895
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0213.png",
+    "label": 1,
+    "dino_score": 0.9991295882647668
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0215.png",
+    "label": 1,
+    "dino_score": 0.9999927246737368
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0216.png",
+    "label": 1,
+    "dino_score": 0.999691898251602
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0242.png",
+    "label": 1,
+    "dino_score": 0.9974596709978709
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0251.png",
+    "label": 1,
+    "dino_score": 0.9942360066591152
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0252.png",
+    "label": 1,
+    "dino_score": 0.999211773328516
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0260.png",
+    "label": 1,
+    "dino_score": 0.9991225083722448
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0267.png",
+    "label": 1,
+    "dino_score": 0.9954926910637305
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0273.png",
+    "label": 1,
+    "dino_score": 0.9999058428248893
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0278.png",
+    "label": 1,
+    "dino_score": 0.9998950485582379
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0285.png",
+    "label": 1,
+    "dino_score": 0.8330228538691635
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0286.png",
+    "label": 1,
+    "dino_score": 0.9783245004573159
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0289.png",
+    "label": 1,
+    "dino_score": 0.9743487397219684
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0295.png",
+    "label": 1,
+    "dino_score": 0.9999045621265598
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0308.png",
+    "label": 1,
+    "dino_score": 0.9801676975548114
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0315.png",
+    "label": 1,
+    "dino_score": 0.6603347514773042
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0317.png",
+    "label": 1,
+    "dino_score": 0.9999799223395084
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0321.png",
+    "label": 1,
+    "dino_score": 0.8972625181284931
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0350.png",
+    "label": 1,
+    "dino_score": 0.9948847181979454
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0356.png",
+    "label": 1,
+    "dino_score": 0.999812829690059
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0367.png",
+    "label": 1,
+    "dino_score": 0.9999986444502508
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0370.png",
+    "label": 1,
+    "dino_score": 0.9999408268274314
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0378.png",
+    "label": 1,
+    "dino_score": 0.6947653170868476
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0381.png",
+    "label": 1,
+    "dino_score": 0.9716220298944985
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0386.png",
+    "label": 1,
+    "dino_score": 0.9993114090451619
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0392.png",
+    "label": 1,
+    "dino_score": 0.9997833413299139
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0397.png",
+    "label": 1,
+    "dino_score": 0.9714334027036378
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0403.png",
+    "label": 1,
+    "dino_score": 0.9971646084937688
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0405.png",
+    "label": 1,
+    "dino_score": 0.9999426022422498
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0414.png",
+    "label": 1,
+    "dino_score": 0.9953729244730741
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0422.png",
+    "label": 1,
+    "dino_score": 0.8571949029800077
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0430.png",
+    "label": 1,
+    "dino_score": 0.9998062414901762
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0431.png",
+    "label": 1,
+    "dino_score": 0.9998785832618567
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0435.png",
+    "label": 1,
+    "dino_score": 0.9999273303254859
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0440.png",
+    "label": 1,
+    "dino_score": 0.10245232528986414
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0441.png",
+    "label": 1,
+    "dino_score": 0.9990407947308356
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0448.png",
+    "label": 1,
+    "dino_score": 0.9957656727280181
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0449.png",
+    "label": 1,
+    "dino_score": 0.9998649727990576
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0452.png",
+    "label": 1,
+    "dino_score": 0.9997656525514804
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0455.png",
+    "label": 1,
+    "dino_score": 0.9999990091717997
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0461.png",
+    "label": 1,
+    "dino_score": 0.9954708542980762
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0463.png",
+    "label": 1,
+    "dino_score": 0.9999760854870006
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0467.png",
+    "label": 1,
+    "dino_score": 0.9995816992378481
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0471.png",
+    "label": 1,
+    "dino_score": 0.9999862419728756
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0474.png",
+    "label": 1,
+    "dino_score": 0.9933528802686845
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0496.png",
+    "label": 1,
+    "dino_score": 0.9999976482680288
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0497.png",
+    "label": 1,
+    "dino_score": 0.99934808719533
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0504.png",
+    "label": 1,
+    "dino_score": 0.999506391663896
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0513.png",
+    "label": 1,
+    "dino_score": 0.9996111092689518
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0521.png",
+    "label": 1,
+    "dino_score": 0.9995263348279809
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0531.png",
+    "label": 1,
+    "dino_score": 0.999258958968886
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0534.png",
+    "label": 1,
+    "dino_score": 0.9999675827837025
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0538.png",
+    "label": 1,
+    "dino_score": 0.9999256519244217
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0542.png",
+    "label": 1,
+    "dino_score": 0.863125461500908
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0552.png",
+    "label": 1,
+    "dino_score": 0.9999869993508315
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0558.png",
+    "label": 1,
+    "dino_score": 0.9961194232089842
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0561.png",
+    "label": 1,
+    "dino_score": 0.9998605085320551
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0562.png",
+    "label": 1,
+    "dino_score": 0.999674463190697
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0564.png",
+    "label": 1,
+    "dino_score": 0.9956040551523998
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0571.png",
+    "label": 1,
+    "dino_score": 0.9999985176328382
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0585.png",
+    "label": 1,
+    "dino_score": 0.9827034752229088
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0588.png",
+    "label": 1,
+    "dino_score": 0.9877998711541016
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0596.png",
+    "label": 1,
+    "dino_score": 0.9904913347751095
+  },
+  {
+    "path": "test/fake/sid_set/sid_set_ai_0597.png",
+    "label": 1,
+    "dino_score": 0.9993694043849896
+  },
+  {
+    "path": "test/real/fullres_real_0001.png",
+    "label": 0,
+    "dino_score": 0.31671751387751057
+  },
+  {
+    "path": "test/real/fullres_real_0003.png",
+    "label": 0,
+    "dino_score": 0.1911069834976944
+  },
+  {
+    "path": "test/real/fullres_real_0010.png",
+    "label": 0,
+    "dino_score": 0.025025166049707007
+  },
+  {
+    "path": "test/real/fullres_real_0015.png",
+    "label": 0,
+    "dino_score": 0.033964454775518835
+  },
+  {
+    "path": "test/real/fullres_real_0026.png",
+    "label": 0,
+    "dino_score": 0.0002024991793572145
+  },
+  {
+    "path": "test/real/fullres_real_0030.png",
+    "label": 0,
+    "dino_score": 0.18745179652066726
+  },
+  {
+    "path": "test/real/fullres_real_0041.png",
+    "label": 0,
+    "dino_score": 0.0004050419570369902
+  },
+  {
+    "path": "test/real/fullres_real_0045.png",
+    "label": 0,
+    "dino_score": 0.007513496169258276
+  },
+  {
+    "path": "test/real/fullres_real_0046.png",
+    "label": 0,
+    "dino_score": 0.12769603061355403
+  },
+  {
+    "path": "test/real/fullres_real_0068.png",
+    "label": 0,
+    "dino_score": 0.1593953446023055
+  },
+  {
+    "path": "test/real/fullres_real_0075.png",
+    "label": 0,
+    "dino_score": 0.09924127227167512
+  },
+  {
+    "path": "test/real/fullres_real_0082.png",
+    "label": 0,
+    "dino_score": 0.03930718258537622
+  },
+  {
+    "path": "test/real/fullres_real_0103.png",
+    "label": 0,
+    "dino_score": 0.018148532271876502
+  },
+  {
+    "path": "test/real/fullres_real_0116.png",
+    "label": 0,
+    "dino_score": 0.020843859928673245
+  },
+  {
+    "path": "test/real/fullres_real_0117.png",
+    "label": 0,
+    "dino_score": 0.05104117592728625
+  },
+  {
+    "path": "test/real/fullres_real_0119.png",
+    "label": 0,
+    "dino_score": 0.4221979162266955
+  },
+  {
+    "path": "test/real/fullres_real_0120.png",
+    "label": 0,
+    "dino_score": 0.008851665542853958
+  },
+  {
+    "path": "test/real/fullres_real_0130.png",
+    "label": 0,
+    "dino_score": 0.074048884832868
+  },
+  {
+    "path": "test/real/fullres_real_0135.png",
+    "label": 0,
+    "dino_score": 0.10449506033465418
+  },
+  {
+    "path": "test/real/fullres_real_0136.png",
+    "label": 0,
+    "dino_score": 0.2080918599198159
+  },
+  {
+    "path": "test/real/fullres_real_0142.png",
+    "label": 0,
+    "dino_score": 0.0010951518061167404
+  },
+  {
+    "path": "test/real/fullres_real_0150.png",
+    "label": 0,
+    "dino_score": 0.9729509929423573
+  },
+  {
+    "path": "test/real/fullres_real_0164.png",
+    "label": 0,
+    "dino_score": 0.22765354621126646
+  },
+  {
+    "path": "test/real/fullres_real_0195.png",
+    "label": 0,
+    "dino_score": 0.018435808380195165
+  },
+  {
+    "path": "test/real/fullres_real_0196.png",
+    "label": 0,
+    "dino_score": 0.25481352171693744
+  },
+  {
+    "path": "test/real/fullres_real_0197.png",
+    "label": 0,
+    "dino_score": 0.08162238511876052
+  },
+  {
+    "path": "test/real/fullres_real_0208.png",
+    "label": 0,
+    "dino_score": 0.013464645152496015
+  },
+  {
+    "path": "test/real/fullres_real_0211.png",
+    "label": 0,
+    "dino_score": 0.00022168766240071965
+  },
+  {
+    "path": "test/real/fullres_real_0212.png",
+    "label": 0,
+    "dino_score": 0.0276478720987346
+  },
+  {
+    "path": "test/real/fullres_real_0233.png",
+    "label": 0,
+    "dino_score": 0.0013087132137566087
+  },
+  {
+    "path": "test/real/fullres_real_0236.png",
+    "label": 0,
+    "dino_score": 0.006604722462452167
+  },
+  {
+    "path": "test/real/fullres_real_0244.png",
+    "label": 0,
+    "dino_score": 0.0007095671532763292
+  },
+  {
+    "path": "test/real/fullres_real_0246.png",
+    "label": 0,
+    "dino_score": 0.08589274031144317
+  },
+  {
+    "path": "test/real/fullres_real_0250.png",
+    "label": 0,
+    "dino_score": 0.6050756130273349
+  },
+  {
+    "path": "test/real/fullres_real_0257.png",
+    "label": 0,
+    "dino_score": 0.06465054861216757
+  },
+  {
+    "path": "test/real/fullres_real_0279.png",
+    "label": 0,
+    "dino_score": 0.0007398732177180303
+  },
+  {
+    "path": "test/real/fullres_real_0291.png",
+    "label": 0,
+    "dino_score": 0.22286384074583737
+  },
+  {
+    "path": "test/real/fullres_real_0292.png",
+    "label": 0,
+    "dino_score": 0.6475145366574299
+  },
+  {
+    "path": "test/real/fullres_real_0293.png",
+    "label": 0,
+    "dino_score": 0.00047427947452655583
+  },
+  {
+    "path": "test/real/fullres_real_0303.png",
+    "label": 0,
+    "dino_score": 0.23667523471996585
+  },
+  {
+    "path": "test/real/fullres_real_0311.png",
+    "label": 0,
+    "dino_score": 0.44677100455448093
+  },
+  {
+    "path": "test/real/fullres_real_0313.png",
+    "label": 0,
+    "dino_score": 0.0003947796598605636
+  },
+  {
+    "path": "test/real/fullres_real_0317.png",
+    "label": 0,
+    "dino_score": 0.0010703041406195323
+  },
+  {
+    "path": "test/real/fullres_real_0318.png",
+    "label": 0,
+    "dino_score": 0.14942511132625141
+  },
+  {
+    "path": "test/real/fullres_real_0332.png",
+    "label": 0,
+    "dino_score": 0.0016362266478719713
+  },
+  {
+    "path": "test/real/fullres_real_0334.png",
+    "label": 0,
+    "dino_score": 4.2631576554870774e-08
+  },
+  {
+    "path": "test/real/fullres_real_0336.png",
+    "label": 0,
+    "dino_score": 0.07214708304445604
+  },
+  {
+    "path": "test/real/fullres_real_0340.png",
+    "label": 0,
+    "dino_score": 0.0016864788676781701
+  },
+  {
+    "path": "test/real/fullres_real_0343.png",
+    "label": 0,
+    "dino_score": 0.1781970598854451
+  },
+  {
+    "path": "test/real/fullres_real_0345.png",
+    "label": 0,
+    "dino_score": 0.0004967769011982722
+  },
+  {
+    "path": "test/real/fullres_real_0346.png",
+    "label": 0,
+    "dino_score": 0.7315940362709895
+  },
+  {
+    "path": "test/real/fullres_real_0354.png",
+    "label": 0,
+    "dino_score": 0.0007161291898006664
+  },
+  {
+    "path": "test/real/fullres_real_0365.png",
+    "label": 0,
+    "dino_score": 0.00754530823066194
+  },
+  {
+    "path": "test/real/fullres_real_0371.png",
+    "label": 0,
+    "dino_score": 0.8529731227209141
+  },
+  {
+    "path": "test/real/fullres_real_0372.png",
+    "label": 0,
+    "dino_score": 5.534590417220445e-05
+  },
+  {
+    "path": "test/real/fullres_real_0374.png",
+    "label": 0,
+    "dino_score": 1.4683796805960746e-05
+  },
+  {
+    "path": "test/real/fullres_real_0377.png",
+    "label": 0,
+    "dino_score": 0.00036292052117458366
+  },
+  {
+    "path": "test/real/fullres_real_0383.png",
+    "label": 0,
+    "dino_score": 0.20119184446191576
+  },
+  {
+    "path": "test/real/fullres_real_0396.png",
+    "label": 0,
+    "dino_score": 0.0014313563465333768
+  },
+  {
+    "path": "test/real/fullres_real_0400.png",
+    "label": 0,
+    "dino_score": 0.000453466124822224
+  },
+  {
+    "path": "test/real/fullres_real_0417.png",
+    "label": 0,
+    "dino_score": 0.14881411175077716
+  },
+  {
+    "path": "test/real/fullres_real_0425.png",
+    "label": 0,
+    "dino_score": 0.043895447607780455
+  },
+  {
+    "path": "test/real/fullres_real_0434.png",
+    "label": 0,
+    "dino_score": 0.004556249610903806
+  },
+  {
+    "path": "test/real/fullres_real_0436.png",
+    "label": 0,
+    "dino_score": 0.012281901460551057
+  },
+  {
+    "path": "test/real/fullres_real_0439.png",
+    "label": 0,
+    "dino_score": 0.000416684233823384
+  },
+  {
+    "path": "test/real/fullres_real_0440.png",
+    "label": 0,
+    "dino_score": 0.0388786575791213
+  },
+  {
+    "path": "test/real/fullres_real_0442.png",
+    "label": 0,
+    "dino_score": 0.009386680149750257
+  },
+  {
+    "path": "test/real/fullres_real_0448.png",
+    "label": 0,
+    "dino_score": 0.023037337563897548
+  },
+  {
+    "path": "test/real/fullres_real_0455.png",
+    "label": 0,
+    "dino_score": 0.023006708660834492
+  },
+  {
+    "path": "test/real/fullres_real_0459.png",
+    "label": 0,
+    "dino_score": 0.08683268855578141
+  },
+  {
+    "path": "test/real/fullres_real_0465.png",
+    "label": 0,
+    "dino_score": 0.0004562364953043463
+  },
+  {
+    "path": "test/real/fullres_real_0469.png",
+    "label": 0,
+    "dino_score": 0.00047562656453469264
+  },
+  {
+    "path": "test/real/fullres_real_0471.png",
+    "label": 0,
+    "dino_score": 0.1705640584147882
+  },
+  {
+    "path": "test/real/fullres_real_0482.png",
+    "label": 0,
+    "dino_score": 0.00017667891139133097
+  },
+  {
+    "path": "test/real/fullres_real_0490.png",
+    "label": 0,
+    "dino_score": 8.783267250709576e-07
+  },
+  {
+    "path": "test/real/fullres_real_0493.png",
+    "label": 0,
+    "dino_score": 0.00023363674851783927
+  },
+  {
+    "path": "test/real/sid_set_real_0010.png",
+    "label": 0,
+    "dino_score": 0.29485410674342427
+  },
+  {
+    "path": "test/real/sid_set_real_0014.png",
+    "label": 0,
+    "dino_score": 0.0030942707731104495
+  },
+  {
+    "path": "test/real/sid_set_real_0020.png",
+    "label": 0,
+    "dino_score": 0.3862125480305644
+  },
+  {
+    "path": "test/real/sid_set_real_0027.png",
+    "label": 0,
+    "dino_score": 0.16186664051112243
+  },
+  {
+    "path": "test/real/sid_set_real_0028.png",
+    "label": 0,
+    "dino_score": 0.17948214786879851
+  },
+  {
+    "path": "test/real/sid_set_real_0040.png",
+    "label": 0,
+    "dino_score": 0.052955660711795624
+  },
+  {
+    "path": "test/real/sid_set_real_0046.png",
+    "label": 0,
+    "dino_score": 0.0007889280130324253
+  },
+  {
+    "path": "test/real/sid_set_real_0059.png",
+    "label": 0,
+    "dino_score": 0.0006303703453342901
+  },
+  {
+    "path": "test/real/sid_set_real_0061.png",
+    "label": 0,
+    "dino_score": 0.00021376989018990187
+  },
+  {
+    "path": "test/real/sid_set_real_0073.png",
+    "label": 0,
+    "dino_score": 0.004019895843008235
+  },
+  {
+    "path": "test/real/sid_set_real_0074.png",
+    "label": 0,
+    "dino_score": 0.2604294590441542
+  },
+  {
+    "path": "test/real/sid_set_real_0091.png",
+    "label": 0,
+    "dino_score": 0.03831630598676226
+  },
+  {
+    "path": "test/real/sid_set_real_0093.png",
+    "label": 0,
+    "dino_score": 0.09888823496166127
+  },
+  {
+    "path": "test/real/sid_set_real_0096.png",
+    "label": 0,
+    "dino_score": 0.9353889001731258
+  },
+  {
+    "path": "test/real/sid_set_real_0100.png",
+    "label": 0,
+    "dino_score": 4.9382973831266646e-05
+  },
+  {
+    "path": "test/real/sid_set_real_0108.png",
+    "label": 0,
+    "dino_score": 0.017076025687910865
+  },
+  {
+    "path": "test/real/sid_set_real_0119.png",
+    "label": 0,
+    "dino_score": 0.013443564641773889
+  },
+  {
+    "path": "test/real/sid_set_real_0125.png",
+    "label": 0,
+    "dino_score": 0.8324736451867406
+  },
+  {
+    "path": "test/real/sid_set_real_0126.png",
+    "label": 0,
+    "dino_score": 0.00010517762689165726
+  },
+  {
+    "path": "test/real/sid_set_real_0133.png",
+    "label": 0,
+    "dino_score": 0.0027719258447550066
+  },
+  {
+    "path": "test/real/sid_set_real_0138.png",
+    "label": 0,
+    "dino_score": 0.994614890066528
+  },
+  {
+    "path": "test/real/sid_set_real_0140.png",
+    "label": 0,
+    "dino_score": 0.0020564955501892333
+  },
+  {
+    "path": "test/real/sid_set_real_0163.png",
+    "label": 0,
+    "dino_score": 0.5941556596953732
+  },
+  {
+    "path": "test/real/sid_set_real_0164.png",
+    "label": 0,
+    "dino_score": 3.2967017783786384e-05
+  },
+  {
+    "path": "test/real/sid_set_real_0167.png",
+    "label": 0,
+    "dino_score": 0.035738481252040794
+  },
+  {
+    "path": "test/real/sid_set_real_0173.png",
+    "label": 0,
+    "dino_score": 0.0004940081082018139
+  },
+  {
+    "path": "test/real/sid_set_real_0182.png",
+    "label": 0,
+    "dino_score": 0.0049839983780983225
+  },
+  {
+    "path": "test/real/sid_set_real_0184.png",
+    "label": 0,
+    "dino_score": 0.6380272681454837
+  },
+  {
+    "path": "test/real/sid_set_real_0187.png",
+    "label": 0,
+    "dino_score": 0.9970750537511364
+  },
+  {
+    "path": "test/real/sid_set_real_0189.png",
+    "label": 0,
+    "dino_score": 0.747656652310853
+  },
+  {
+    "path": "test/real/sid_set_real_0202.png",
+    "label": 0,
+    "dino_score": 0.014125940595952749
+  },
+  {
+    "path": "test/real/sid_set_real_0213.png",
+    "label": 0,
+    "dino_score": 0.5276901760599532
+  },
+  {
+    "path": "test/real/sid_set_real_0223.png",
+    "label": 0,
+    "dino_score": 0.7535455139451358
+  },
+  {
+    "path": "test/real/sid_set_real_0243.png",
+    "label": 0,
+    "dino_score": 0.02268564774945924
+  },
+  {
+    "path": "test/real/sid_set_real_0245.png",
+    "label": 0,
+    "dino_score": 0.10744001097454105
+  },
+  {
+    "path": "test/real/sid_set_real_0253.png",
+    "label": 0,
+    "dino_score": 0.0022778498115037064
+  },
+  {
+    "path": "test/real/sid_set_real_0254.png",
+    "label": 0,
+    "dino_score": 0.05101848278396996
+  },
+  {
+    "path": "test/real/sid_set_real_0261.png",
+    "label": 0,
+    "dino_score": 0.01304710368307631
+  },
+  {
+    "path": "test/real/sid_set_real_0271.png",
+    "label": 0,
+    "dino_score": 0.0008280675959445581
+  },
+  {
+    "path": "test/real/sid_set_real_0279.png",
+    "label": 0,
+    "dino_score": 0.9719304454161544
+  },
+  {
+    "path": "test/real/sid_set_real_0284.png",
+    "label": 0,
+    "dino_score": 0.00300662875257747
+  },
+  {
+    "path": "test/real/sid_set_real_0286.png",
+    "label": 0,
+    "dino_score": 0.002683694279291176
+  },
+  {
+    "path": "test/real/sid_set_real_0287.png",
+    "label": 0,
+    "dino_score": 0.0015809764547358989
+  },
+  {
+    "path": "test/real/sid_set_real_0288.png",
+    "label": 0,
+    "dino_score": 0.9507193882235315
+  },
+  {
+    "path": "test/real/sid_set_real_0298.png",
+    "label": 0,
+    "dino_score": 0.6869882887117756
+  },
+  {
+    "path": "test/real/sid_set_real_0306.png",
+    "label": 0,
+    "dino_score": 2.155310848226175e-05
+  },
+  {
+    "path": "test/real/sid_set_real_0315.png",
+    "label": 0,
+    "dino_score": 0.16872485161752301
+  },
+  {
+    "path": "test/real/sid_set_real_0325.png",
+    "label": 0,
+    "dino_score": 0.45137345038628207
+  },
+  {
+    "path": "test/real/sid_set_real_0332.png",
+    "label": 0,
+    "dino_score": 0.06745132766025318
+  },
+  {
+    "path": "test/real/sid_set_real_0340.png",
+    "label": 0,
+    "dino_score": 0.7179826798974556
+  },
+  {
+    "path": "test/real/sid_set_real_0355.png",
+    "label": 0,
+    "dino_score": 0.02658508264022971
+  },
+  {
+    "path": "test/real/sid_set_real_0364.png",
+    "label": 0,
+    "dino_score": 0.003458880824197935
+  },
+  {
+    "path": "test/real/sid_set_real_0373.png",
+    "label": 0,
+    "dino_score": 0.07446785738744384
+  },
+  {
+    "path": "test/real/sid_set_real_0377.png",
+    "label": 0,
+    "dino_score": 1.0739526446316637e-08
+  },
+  {
+    "path": "test/real/sid_set_real_0381.png",
+    "label": 0,
+    "dino_score": 0.3128727917229313
+  },
+  {
+    "path": "test/real/sid_set_real_0391.png",
+    "label": 0,
+    "dino_score": 0.00010091315485619131
+  },
+  {
+    "path": "test/real/sid_set_real_0398.png",
+    "label": 0,
+    "dino_score": 0.0014801259254533033
+  },
+  {
+    "path": "test/real/sid_set_real_0408.png",
+    "label": 0,
+    "dino_score": 0.0029761455609604017
+  },
+  {
+    "path": "test/real/sid_set_real_0411.png",
+    "label": 0,
+    "dino_score": 6.169607086770927e-07
+  },
+  {
+    "path": "test/real/sid_set_real_0420.png",
+    "label": 0,
+    "dino_score": 0.0005094983444046286
+  },
+  {
+    "path": "test/real/sid_set_real_0424.png",
+    "label": 0,
+    "dino_score": 0.326638848504854
+  },
+  {
+    "path": "test/real/sid_set_real_0431.png",
+    "label": 0,
+    "dino_score": 0.3708080347301692
+  },
+  {
+    "path": "test/real/sid_set_real_0450.png",
+    "label": 0,
+    "dino_score": 0.7866129821553195
+  },
+  {
+    "path": "test/real/sid_set_real_0465.png",
+    "label": 0,
+    "dino_score": 0.008690725060442177
+  },
+  {
+    "path": "test/real/sid_set_real_0469.png",
+    "label": 0,
+    "dino_score": 0.0022800383221358764
+  },
+  {
+    "path": "test/real/sid_set_real_0479.png",
+    "label": 0,
+    "dino_score": 0.01169103765902985
+  },
+  {
+    "path": "test/real/sid_set_real_0480.png",
+    "label": 0,
+    "dino_score": 0.9973958878328782
+  },
+  {
+    "path": "test/real/sid_set_real_0486.png",
+    "label": 0,
+    "dino_score": 4.764764462505857e-07
+  },
+  {
+    "path": "test/real/sid_set_real_0490.png",
+    "label": 0,
+    "dino_score": 0.000247465442570387
+  },
+  {
+    "path": "test/real/sid_set_real_0491.png",
+    "label": 0,
+    "dino_score": 0.051707854981240746
+  },
+  {
+    "path": "test/real/sid_set_real_0492.png",
+    "label": 0,
+    "dino_score": 0.00010284386288134502
+  },
+  {
+    "path": "test/real/sid_set_real_0496.png",
+    "label": 0,
+    "dino_score": 0.22665963549377813
+  },
+  {
+    "path": "test/real/sid_set_real_0499.png",
+    "label": 0,
+    "dino_score": 0.03399756531436528
+  },
+  {
+    "path": "test/real/sid_set_real_0514.png",
+    "label": 0,
+    "dino_score": 0.00041557373967457536
+  },
+  {
+    "path": "test/real/sid_set_real_0519.png",
+    "label": 0,
+    "dino_score": 0.00014081864795880049
+  },
+  {
+    "path": "test/real/sid_set_real_0520.png",
+    "label": 0,
+    "dino_score": 0.0025113434094303972
+  },
+  {
+    "path": "test/real/sid_set_real_0521.png",
+    "label": 0,
+    "dino_score": 0.02131576830948717
+  },
+  {
+    "path": "test/real/sid_set_real_0528.png",
+    "label": 0,
+    "dino_score": 0.07671540071070278
+  },
+  {
+    "path": "test/real/sid_set_real_0533.png",
+    "label": 0,
+    "dino_score": 0.12048587246302657
+  },
+  {
+    "path": "test/real/sid_set_real_0538.png",
+    "label": 0,
+    "dino_score": 0.004322936780410748
+  },
+  {
+    "path": "test/real/sid_set_real_0542.png",
+    "label": 0,
+    "dino_score": 9.507055775228319e-06
+  },
+  {
+    "path": "test/real/sid_set_real_0550.png",
+    "label": 0,
+    "dino_score": 2.805469793899186e-06
+  },
+  {
+    "path": "test/real/sid_set_real_0553.png",
+    "label": 0,
+    "dino_score": 0.9879846360469798
+  },
+  {
+    "path": "test/real/sid_set_real_0559.png",
+    "label": 0,
+    "dino_score": 0.9100927189329583
+  },
+  {
+    "path": "test/real/sid_set_real_0564.png",
+    "label": 0,
+    "dino_score": 0.025532917482267443
+  },
+  {
+    "path": "test/real/sid_set_real_0574.png",
+    "label": 0,
+    "dino_score": 0.0315201925839949
+  },
+  {
+    "path": "test/real/sid_set_real_0577.png",
+    "label": 0,
+    "dino_score": 0.00016276856494940687
+  },
+  {
+    "path": "test/real/sid_set_real_0580.png",
+    "label": 0,
+    "dino_score": 5.551826188371967e-07
+  },
+  {
+    "path": "test/real/sid_set_real_0583.png",
+    "label": 0,
+    "dino_score": 2.0137129692468455e-05
+  }
+]
