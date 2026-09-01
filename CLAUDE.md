@@ -4,6 +4,24 @@ Entry for the competition described in `docs/competition-brief.md` (transcribed
 from `competition_info.md`). Read the brief before design work; the constraints
 below are the ones that silently invalidate a submission if forgotten.
 
+## This branch is the results/integration story, not engine development
+
+`main` holds the CLIP+DINOv2 fusion writeup, notebooks, and results (see
+`README.md`). The engines it fuses live on their own branches:
+
+- **CLIP + reactivity-delta** (domain-specialist detector, trained model, its
+  own robustness/LOGO evaluation) — `jiahui/clip-detector`
+- **DINOv2, AEROBLADE, the SigLIP2/EVA02 backbone sweep, the byteprint engine**
+  (extraction, caching, `byteprint/launder.py`, `byteprint logo`) —
+  `mateo/main-work`
+
+If the task is engine work — a new backbone, a new head, extending the
+laundering ladder, fixing something in `byteprint/` — switch to
+`mateo/main-work` first; this branch doesn't have that code checked out
+locally, only notebooks that pull it from packaged Kaggle Datasets at run
+time. If the task is the CLIP detector specifically, switch to
+`jiahui/clip-detector`.
+
 ## Hard constraints
 
 - **Models must be <2B parameters.** This rules out the NTIRE-2026-winning
@@ -26,13 +44,8 @@ below are the ones that silently invalidate a submission if forgotten.
 
 A script taking an **image directory** and writing a **JSON file** with
 `image_path` and `pred` per image, `pred` = likelihood the image is AIGC.
-This is a hard interface requirement, not a suggestion.
-
-Built: `byteprint score IMAGE_DIR --probe P --out predictions.json`, also as
-`scripts/score_directory.py`. The extraction config travels inside the saved
-probe, so scoring needs nothing but the probe and the directory. Every
-discovered image gets exactly one entry; unreadable files score 0.5 with an
-`error` field rather than aborting the run.
+This is a hard interface requirement, not a suggestion. The actual scorer
+(`byteprint score` / `scripts/score_directory.py`) lives on `mateo/main-work`.
 
 ## Judging weights
 
@@ -43,35 +56,3 @@ Note the tension: Feasibility rewards **proportionate resource usage** and a
 "hackathon-scale prototype". A multi-day multi-GPU campaign can read as
 disproportionate. Prefer a defensible, reproducible result over a maximal one,
 and state the compute budget explicitly.
-
-## Compute
-
-Cluster specifics — host, node inventory, paths, logins — live in
-`CLUSTER.local.md`, which is **gitignored and must stay that way**. It is not in
-a fresh clone; ask the team for it. `tests/test_public_repo_hygiene.py` fails the
-build if any identifying detail leaks into a tracked file.
-
-What may be said in public documentation: that we used a SLURM cluster, the
-number and class of GPUs, and wall-clock cost. Stating the compute budget is
-rewarded by the Feasibility criterion; naming the machine is not.
-
-- Compute nodes have **no internet** — stage datasets and weights first.
-- Datasets already staged: SID_Set (131 GB), CIFAKE (49 MB), and cached
-  backbones (eva02-large, siglip2-so400m, dinov2-giant, dinov2-large).
-
-## Repo conventions
-
-- TDD throughout; `pytest` must stay green (`.venv/bin/python -m pytest`).
-- Two experts behind one interface — `embed(crops) -> (n_crops, dim)` — so
-  extraction, caching, resume and the laundering ladder work on any of them.
-- Embeddings are cached and joined **on key**, never zipped by row order.
-- Report TPR at a fixed low FPR alongside AUC; accuracy at threshold 0.5 is
-  meaningless when score distributions shift between generators.
-- The package is `byteprint` (project **BYTEPRINT**, team ByteSized). Swappable parts
-  — backbone, head/loss, crop strategy — are **registries**: add one with
-  `@register_backbone` / `@register_head` / `@register_crop_mode` in your own
-  module and load it with `--plugin`, never by editing a shared file. See
-  `docs/extending.md`; `byteprint list` shows what is registered.
-- `OFFICIAL_LADDER` in `byteprint/launder.py` is §5.2 transcribed and pinned by a
-  test. Do not add rungs to it — exploratory chains go in `STRESS_LADDER`. Noise
-  σ is normalised (0–1), not 0–255.
