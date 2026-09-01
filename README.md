@@ -145,8 +145,8 @@ realistic test of what a genuinely cropped/reframed profile picture looks
 like.
 
 A parallel run swapping DINOv2 for SigLIP2-so400m (the backbone Mateo's own
-sweep found beats it — see `mateo/main-work`) is in progress; results will
-land here once it finishes.
+sweep found beats it — see `mateo/main-work`) is documented below, under
+"Extension: swapping DINOv2 for SigLIP2-so400m".
 
 The 2-expert result was independently reproduced end-to-end across two
 separate standalone Kaggle runs and matched to 4 decimal places both times —
@@ -216,6 +216,95 @@ than overselling it.
 
 Everything in this AEROBLADE section is clean-images-only — see "Next steps."
 
+---
+
+## Extension: swapping DINOv2 for SigLIP2-so400m
+
+The backbone sweep (`mateo/main-work`, `docs/results-backbone-sweep.md`)
+found SigLIP2-so400m beats every backbone tried, CLIP included. The obvious
+follow-up: does swapping it in for DINOv2 in the fusion pair beat the
+CLIP+DINOv2 result above? Same protocol as the ladder run above — fusion fit
+once on clean scores only, applied unmodified to all 15 rungs.
+
+| Rung | CLIP AUC | SigLIP2 AUC | **Fused AUC** | CLIP TPR@1% | SigLIP2 TPR@1% | **Fused TPR@1%** |
+|---|---|---|---|---|---|---|
+| none (clean) | 0.9926 | 0.9743 | 0.9961 | 0.8597 | 0.7086 | 0.8813 |
+| jpeg:90 | 0.9926 | 0.9658 | 0.9953 | 0.9173 | 0.6942 | 0.8669 |
+| jpeg:70 | 0.9892 | 0.9640 | 0.9933 | 0.8705 | 0.5252 | 0.8741 |
+| jpeg:50 | 0.9919 | 0.9619 | 0.9937 | 0.8849 | 0.6439 | 0.8777 |
+| jpeg:30 | 0.9870 | 0.9580 | 0.9902 | 0.8022 | 0.5647 | 0.7806 |
+| blur:0.5 | 0.9928 | 0.9797 | 0.9967 | 0.9029 | 0.7374 | 0.9065 |
+| blur:1.0 | 0.9922 | 0.9611 | 0.9955 | 0.8885 | 0.6367 | 0.9532 |
+| blur:2.0 | 0.9885 | 0.9306 | 0.9919 | 0.7374 | 0.3705 | 0.8489 |
+| scale:0.5 | 0.9924 | 0.9737 | 0.9957 | 0.8633 | 0.7122 | 0.9245 |
+| scale:0.25 | 0.9910 | 0.9502 | 0.9963 | 0.8273 | 0.4676 | 0.9532 |
+| noise:0.02 | 0.9884 | 0.9526 | 0.9934 | 0.8381 | 0.6511 | 0.8849 |
+| noise:0.05 | 0.9875 | 0.9371 | 0.9906 | 0.7950 | 0.5576 | 0.8094 |
+| noise:0.10 | 0.9767 | 0.9099 | 0.9807 | 0.7626 | 0.4209 | 0.7734 |
+| jitter:0.2 | 0.9932 | 0.9663 | 0.9956 | 0.8237 | 0.6439 | 0.8561 |
+| **crop:0.8** | **0.9509** | **0.9804** | **0.9797** | **0.3345** | **0.8129** | **0.6511** |
+| **mean (15 rungs)** | **0.9871** | **0.9577** | **0.9923** | **0.8072** | **0.6098** | **0.8561** |
+
+**Yes — on the mean, CLIP+SigLIP2 beats CLIP+DINOv2**: 0.9923 vs 0.9914 AUC,
+0.8561 vs 0.8367 TPR@1%FPR. SigLIP2 is simply a stronger standalone expert
+across the whole ladder (mean TPR 0.6098 vs DINOv2's 0.3710).
+
+**`crop:0.8` tells a sharper version of the same story, with a twist.**
+SigLIP2 alone hits **0.8129** TPR@1%FPR on this rung — far beyond what DINOv2
+managed there (0.4245), and nearly matching CLIP's own clean-image
+performance. This is consistent with the transform-implementation finding
+above: SigLIP2's NaflexVision head patches an image at its *actual*
+resolution instead of resizing to a canonical square, so it never has to
+interpolate an already-cropped image back up to a fixed input size —
+plausibly the exact step that costs CLIP its signal on this rung. (Stated as
+a strong hypothesis consistent with the data, not a controlled ablation —
+nobody has yet isolated "native-resolution vs. resize" as the single
+variable.)
+
+But the fused score does not inherit that advantage: **0.6511** TPR@1%FPR,
+barely different from CLIP+DINOv2's 0.6475 on the same rung, and well below
+SigLIP2's own 0.8129. Fused AUC on this rung (0.9797) is nearly identical to
+SigLIP2 alone (0.9804), so the fusion's overall *ranking* of images stays
+intact — what breaks is specifically the strict 1%-FPR operating point. The
+logistic regression is fit once on clean scores, where CLIP is the stronger
+expert (0.8597 vs SigLIP2's 0.7086), so it leans on CLIP more heavily; that
+fixed weighting has no way to know a crop should flip that preference, and
+blending in CLIP's collapsed score is enough to knock some borderline fakes
+below a threshold this tight — even though SigLIP2 alone would have caught
+them. This is the opposite of the DINOv2 finding above: there, fusion beat
+*both* individual experts because the two failure modes were genuinely
+uncorrelated; here, fusion dilutes one much-better signal instead of
+combining two complementary ones.
+
+### Which fusion pair is the primary model?
+
+**CLIP+DINOv2 stays the headline result, not CLIP+SigLIP2**, despite the
+latter's better mean. Three reasons:
+
+1. **Parameter budget.** SigLIP2-so400m's vision tower is ~400M parameters
+   against DINOv2 ViT-S/14's ~22M — swapping it in pushes the fusion
+   pipeline from 173.4M parameters (8.7% of the <2B budget) to roughly 551M
+   (27.6%). Still comfortably inside budget, but it meaningfully weakens the
+   "proportionate, hackathon-scale" story that the Feasibility & Practicality
+   criterion rewards.
+2. **The performance margin is small, and the fusion isn't where it comes
+   from.** +0.0009 mean AUC and +0.0194 mean TPR are earned mostly by SigLIP2
+   being a better *standalone* expert, not a better fusion partner — and on
+   the single hardest rung, the fused result is essentially tied with
+   CLIP+DINOv2 (0.6511 vs 0.6475), not meaningfully better.
+3. **The fusion-calibration gap above is an honest, unresolved limitation**,
+   not a free upgrade. Presenting CLIP+SigLIP2 as the primary result would
+   mean either omitting that finding or leading with a model whose own best
+   rung has a known, unaddressed weakness baked in.
+
+CLIP+SigLIP2 is documented here as a validated, ladder-tested alternative,
+the same way AEROBLADE is treated above — a real result, explored and
+quantified, kept in the repo rather than discarded for not becoming the
+headline. The concrete next step it points to is a rung-aware or
+confidence-weighted fusion in place of one fixed logistic regression, which
+could plausibly beat *both* current pairs on the hardest rung specifically —
+see "Next steps" below.
+
 ## Next steps
 
 1. **LOGO for DINOv2, AEROBLADE, and both fused models** — `byteprint logo`
@@ -229,9 +318,14 @@ Everything in this AEROBLADE section is clean-images-only — see "Next steps."
    4 below) is the natural extension, though its diffusion-VAE reconstruction
    cost makes a full 15-rung run considerably more expensive than the
    clean-only run was.
-3. **CLIP+SigLIP2 under the ladder** — swaps DINOv2 for the backbone Mateo's
-   sweep found beats every alternative (`docs/results-backbone-sweep.md` on
-   `mateo/main-work`). In progress.
+3. **A fusion that isn't one fixed logistic regression.** The CLIP+SigLIP2
+   ladder run (see "Extension: swapping DINOv2 for SigLIP2-so400m" above) is
+   done, and it exposed a real gap: SigLIP2 alone is dramatically more
+   `crop:0.8`-robust than the fused score becomes, because a single
+   clean-data-fit combiner can't shift its trust per-rung. A rung-aware or
+   confidence-weighted fusion (e.g. gated on how much the two experts
+   disagree) is the concrete next step, and could plausibly beat both current
+   pairs on the hardest rung specifically.
 4. **Fix the LPIPS import** so AEROBLADE gets a fair shot at its real ceiling
    instead of running on the weaker VGG16 fallback.
 
