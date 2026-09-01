@@ -28,8 +28,13 @@ from pathlib import Path
 import numpy as np
 
 from byteprint.metrics import evaluate
+from byteprint.pooling import resolve_pooling, segment_reduce, truncate_bags
 from byteprint.probe import LinearProbe, ProbeConfig
 from byteprint_depth import N_BLOCKS, SIGLIP2_SO400M_WIDTH, block_slice, tap_layers
+
+# The reduction the published runs used, taken from the registry rather than
+# spelled `values.mean(axis=0)` again, so "mean" means one thing in this project.
+MEAN = resolve_pooling("mean").reduce
 
 # so400m's depth. Only used to name the rows; the blocks themselves are whatever
 # the extraction wrote, and --num-layers overrides it.
@@ -43,9 +48,16 @@ class Cache:
     rows, once re-stacked -- which for a twelve-block cache is several gigabytes
     of nothing useful. Every access here is one column block at a time, off a
     memory map.
+
+    Both cache schemas are read. Schema 1 stored one mean-pooled row per image;
+    schema 2 stores one row per *crop* plus ``n_crops`` per record, because the
+    crop-pooling work moved that reduction out of the cache. Pooling on read is
+    not merely compatibility: with ``crop_limit`` it makes crop count a knob
+    this analysis can sweep, so one 8-crop extraction answers the depth
+    question at every crop count instead of one.
     """
 
-    def __init__(self, root: Path) -> None:
+    def __init__(self, root: Path, crop_limit: int | None = None) -> None:
         self.root = Path(root)
         self.config = json.loads((self.root / "config.json").read_text())
         self.records = [
@@ -54,18 +66,38 @@ class Cache:
             if line
         ]
         self.features = np.load(self.root / "features.npy", mmap_mode="r")
-        if len(self.records) != len(self.features):
+        self.crop_limit = crop_limit
+
+        # Schema 1 rows are already per image, which is `n_crops` of 1 as far as
+        # the pooling below is concerned -- so there is one code path, not two.
+        self.counts = np.asarray(
+            [r.get("n_crops", 1) for r in self.records], dtype=np.int64
+        )
+        if int(self.counts.sum()) != len(self.features):
             raise ValueError(
-                f"{self.root} holds {len(self.features)} rows but {len(self.records)} "
-                "records; the cache is truncated"
+                f"{self.root} holds {len(self.features)} rows but its records' "
+                f"n_crops sum to {int(self.counts.sum())} over {len(self.records)} "
+                "images; the cache is truncated"
             )
+
         self.labels = np.asarray([r["label"] for r in self.records], dtype=np.int64)
         self.generators = np.asarray([r["generator"] for r in self.records])
         self.specs = np.asarray([r["spec"] for r in self.records])
 
     def block(self, position: int, width: int) -> np.ndarray:
-        """One block's columns, as a real array rather than a view."""
-        return np.ascontiguousarray(self.features[:, block_slice(position, width=width)])
+        """One block's columns, mean-pooled over each image's crops.
+
+        Slicing the columns first and pooling after is the cheap order -- it
+        touches one twelfth of the bytes -- and it is only legitimate because a
+        mean over rows commutes with a slice over columns. That identity is what
+        makes the block read back here exactly what a single-tap extraction
+        would have cached, and `test_analyze_depth.py` pins it.
+        """
+        columns = np.ascontiguousarray(self.features[:, block_slice(position, width=width)])
+        if self.crop_limit is None and bool((self.counts == 1).all()):
+            return columns
+        values, counts = truncate_bags(columns, self.counts, self.crop_limit)
+        return segment_reduce(values, counts, MEAN).astype(np.float32)
 
     def blocks(self, positions: list[int], width: int) -> np.ndarray:
         return np.concatenate([self.block(p, width) for p in positions], axis=1)
@@ -193,13 +225,20 @@ def main() -> None:
         "--blocks", default="", help="comma-separated block positions; default all"
     )
     parser.add_argument(
+        "--crop-limit", type=int, default=None,
+        help="pool only each image's first N crops. `texture` is prefix-stable, "
+             "so N of an 8-crop cache is what a `--crops N` extraction would "
+             "have cached -- this is the crop-count axis, for free (default: all)",
+    )
+    parser.add_argument(
         "--logo",
         action="store_true",
         help="also run leave-one-generator-out per tap (two extra fits each)",
     )
     args = parser.parse_args()
 
-    train, ladder = Cache(args.train_cache), Cache(args.ladder_cache)
+    train = Cache(args.train_cache, crop_limit=args.crop_limit)
+    ladder = Cache(args.ladder_cache, crop_limit=args.crop_limit)
     expected = N_BLOCKS * args.width
     if train.features.shape[1] != expected:
         raise SystemExit(
@@ -213,7 +252,9 @@ def main() -> None:
     )
     generators = sorted({r["generator"] for r in ladder.records if r["label"] != 0})
 
-    print(f"train {len(train.labels)} rows, ladder {len(ladder.labels)} rows")
+    limit = "all" if args.crop_limit is None else args.crop_limit
+    print(f"train {len(train.labels)} images, ladder {len(ladder.labels)} images")
+    print(f"crops pooled per image: {limit} (cache holds up to {int(train.counts.max())})")
     print(f"{len(positions)} taps: {', '.join(names[p] for p in positions)}\n")
 
     rows: dict[str, dict] = {}
